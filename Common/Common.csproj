@@ -4,6 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Constants\**" />
+    <EmbeddedResource Remove="Constants\**" />
+    <None Remove="Constants\**" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="DocumentFormat.OpenXml" Version="2.7.2" />
 		<PackageReference Include="FluentValidation" Version="9.3.0" />
@@ -16,10 +22,6 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Select.HtmlToPdf.NetCore" Version="22.1.0" />
 		<PackageReference Include="SqlWebToDev" Version="1.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Constants\" />
 	</ItemGroup>
 
 	<ItemGroup>

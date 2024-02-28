@@ -769,7 +769,7 @@ namespace Common.Helper
             //HttpResponseMessage response = await client.GetAsync($"{baseUrl}?access_key={key}&base={(Currency)currencyType}&symbols={symbolCurrency}");
             HttpResponseMessage response = await client.GetAsync($"{baseUrl}?access_key={key}&from={symbolCurrency}&to=USD&amount=1");
             string json = await response.Content.ReadAsStringAsync();
-            var exchangedRates = JsonConvert.DeserializeObject<ExchangedRates>(json);
+            var exchangedRates = JsonConvert.DeserializeObject<ExchangedRatesHelper>(json);
             exchangedRate = (decimal)exchangedRates.result;
         }
             return exchangedRate;

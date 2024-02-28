@@ -5,15 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Request\PaymentConfigration\**" />
+    <EmbeddedResource Remove="Request\PaymentConfigration\**" />
+    <None Remove="Request\PaymentConfigration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Request\PaymentConfigration\" />
   </ItemGroup>
 
 </Project>

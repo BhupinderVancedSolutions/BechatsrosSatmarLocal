@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Mapster;
 using Common.Helper;
 using System;
-using Common;
 using Microsoft.Extensions.Options;
 using Application.Common.Models.Request;
 using Domain.Entities;
 using System.Collections.Generic;
 using MapsterMapper;
+using Common.Settings;
 
 namespace Infrastructure.Implementation.Services
 {

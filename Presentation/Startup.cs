@@ -10,7 +10,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Middlewares;
-using Common;
 using Presentation.Adapter;
 using Application.Adapter;
 using Infrastructure.Adapter;
@@ -32,6 +31,7 @@ using Stripe;
 using Application.Common.Interfaces.Services.HelperService;
 using Infrastructure.Implementation.Services.HelperService;
 using Common.Helper;
+using Common.Settings;
 
 namespace Presentation
 {

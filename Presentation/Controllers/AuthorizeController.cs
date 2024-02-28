@@ -11,9 +11,8 @@ using Application.Authentication.Queries;
 using Application.Authentication.Commands;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
-using Application.Common.Interfaces.Services;
-using Common;
 using System;
+using Common.Settings;
 
 namespace Presentation.Controllers
 {
@@ -79,7 +78,7 @@ namespace Presentation.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(ForgetPasswordRequest forgetPasswordRequest)
         {
-            var passwordToken = EncryptionManager.CreateHash(forgetPasswordRequest.Email);
+            var passwordToken = EncryptionManagerHelper.CreateHash(forgetPasswordRequest.Email);
             var passwordResetLink = Url.Action("ResetPassword", "Authorize", new { token = passwordToken }, Request.Scheme);
             forgetPasswordRequest.PasswordToken = passwordToken;
             forgetPasswordRequest.PasswordResetLink = passwordResetLink;

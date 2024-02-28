@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Common.Helper
 {
-    public static class EncryptionManager
+    public static class EncryptionManagerHelper
     {
 
         #region create hash

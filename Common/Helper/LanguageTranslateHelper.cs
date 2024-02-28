@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Helper
 {
-    public static class LanguageTranslate
+    public static class LanguageTranslateHelper
     {
     }
 }

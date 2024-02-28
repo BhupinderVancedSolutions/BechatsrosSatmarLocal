@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Common.Helper
 {
-    public static class Session
+    public static class SessionHelper
     {
         public static void SetObjectAsJson(this ISession session, string key, object value, string secret)
         {

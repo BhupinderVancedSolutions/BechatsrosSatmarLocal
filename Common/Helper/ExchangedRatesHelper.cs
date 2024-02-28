@@ -10,7 +10,7 @@ namespace Common.Helper
     {
         public double USD { get; set; }
     }
-    public class ExchangedRates
+    public class ExchangedRatesHelper
     {
         public bool Success { get; set; }
         public int Timestamp { get; set; }

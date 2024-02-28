@@ -1,6 +1,5 @@
 ﻿using Application.Common.Interfaces.Services;
 using Application.Common.Models.Response;
-using Common;
 using DTO.Request;
 using Infrastructure.Attributes;
 using Microsoft.Extensions.Options;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using Application.Common.Models.Request;
 using System.Globalization;
 using Application.Common.Interfaces.ExternalAPI;
+using Common.Settings;
 
 namespace Infrastructure.Implementation.Services
 {
