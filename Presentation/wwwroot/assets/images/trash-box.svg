@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="15.75" viewBox="0 0 13.5 15.75">
+  <g id="trash-box" transform="translate(-4.5 -2.25)">
+    <path id="Path_180" data-name="Path 180" d="M13.5,13.5h1.125v6.75H13.5Z" transform="translate(-4.5 -5.625)" fill="red"/>
+    <path id="Path_181" data-name="Path 181" d="M20.25,13.5h1.125v6.75H20.25Z" transform="translate(-7.875 -5.625)" fill="red"/>
+    <path id="Path_182" data-name="Path 182" d="M4.5,6.75V7.875H5.625v11.25A1.125,1.125,0,0,0,6.75,20.25h9a1.125,1.125,0,0,0,1.125-1.125V7.875H18V6.75ZM6.75,19.125V7.875h9v11.25Z" transform="translate(0 -2.25)" fill="red"/>
+    <path id="Path_183" data-name="Path 183" d="M13.5,2.25H18V3.375H13.5Z" transform="translate(-4.5)" fill="red"/>
+  </g>
+</svg>

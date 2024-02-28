@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\Security\**" />
+    <Compile Remove="SendAccountStatements\**" />
+    <Compile Remove="SendStudentPreFillFormToParents\**" />
+    <EmbeddedResource Remove="Common\Security\**" />
+    <EmbeddedResource Remove="SendAccountStatements\**" />
+    <EmbeddedResource Remove="SendStudentPreFillFormToParents\**" />
+    <None Remove="Common\Security\**" />
+    <None Remove="SendAccountStatements\**" />
+    <None Remove="SendStudentPreFillFormToParents\**" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Cardknox.API.Wrapper" Version="4.6.2" />
+		<PackageReference Include="Dapper" Version="2.0.123" />
+		<PackageReference Include="FluentValidation" Version="9.3.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.3.0" />
+		<PackageReference Include="Mapster" Version="7.2.0" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Domain\Domain.csproj" />
+	  <ProjectReference Include="..\DTO\DTO.csproj" />
+	</ItemGroup>
+
+</Project>

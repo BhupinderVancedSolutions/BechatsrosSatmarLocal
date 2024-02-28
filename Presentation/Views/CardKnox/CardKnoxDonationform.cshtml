@@ -1,0 +1,72 @@
+﻿@model DTO.Request.TransactionDonationRequestDto
+
+
+<form class="new-org-donation" id="donation-method">
+    <div class="row">
+        <div class="col-md-4 pr-4 pl-4">
+            <label class="form-label">PERSONAL DETAILS</label>
+            <div class="form-group">
+                <input type="text" tabindex="1" class="form-control" asp-for="Name" placeholder="Donor Name" maxlength="50" name="Name" value="">
+                <span asp-validation-for="Name" class="text-danger errormsg" maxlength="50"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" asp-for="HomePhone" tabindex="1" class="form-control phone-number mask-number" placeholder="Phone Number" name="HomePhone" data-val="true" value="">
+                <span asp-validation-for="HomePhone" class="text-danger errormsg"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" asp-for="Cell" tabindex="1" class="form-control  mask-number" placeholder="Cell" data-val="true" name="Cell" value="">
+                <span asp-validation-for="Cell" class="text-danger errormsg"></span>
+            </div>
+            <div class="col-md-4 pr-4 pl-4">
+                <label class="form-label">PAYMENT DETAILS</label>
+
+                <div class="form-group">
+                    <input type="text" asp-for="Email" class="form-control email" placeholder="Email" name="Email" value="">
+                    <span asp-validation-for="Email" class="text-danger errormsg"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control credit-card" asp-for="CreditCardNumber" placeholder="Card Number" name="CreditCardNumber" maxlength="16" minlength="12" onkeypress="return isNumber(event)" autocomplete="off">
+                    <span asp-validation-for="CreditCardNumber" class="text-danger errormsg"></span>
+                </div>
+                <div class="form-group">
+                    <input type="text" tabindex="1" class="form-control" asp-for="DonationAmount" placeholder="Donation Amount" maxlength="50" name="DonationAmount" value="">
+                    <span asp-validation-for="DonationAmount" class="text-danger errormsg" maxlength="50"></span>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex">
+                        <div class="mr-2">
+                            <input type="text" class="form-control exp-date" asp-for="ExpDate" maxlength="4" minlength="3" placeholder="MMYY" name="ExpDate" onkeypress="return isNumber(event)" onchange="showHideExpDateErrorMsg()" onkeyup="expDate()" autocomplete="off">
+                            <span asp-validation-for="ExpDate" class="text-danger errormsg"></span>
+                        </div>
+                        <div>
+                            <input type="text" class="form-control cvv" asp-for="Cvv" placeholder="CVV" maxlength="4" name="Cvv" placeholder="XXXX" onkeypress="return isNumber(event)">
+                            <span asp-validation-for="Cvv" class="text-danger errormsg"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 pl-4">
+                <label class="form-label">BILLING ADDRESS</label>
+
+                <div class="form-group">
+                    <input type="text" asp-for="Address" class="form-control street" name="Address" placeholder="Address" maxlength="30">
+                    <span asp-validation-for="Address" class="text-danger errormsg"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="new-donation-footer d-flex justify-content-end">
+        <a  class="btn btn-secondary">Cancel</a>
+        <button type="button" class="btn btn-primary ml-4" onclick="pay()">Make Payment</button>
+    </div>
+
+</form>
+
+<script src="~/assets/js/CardKnox.js" asp-append-version="true"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.0/jquery.serializejson.min.js"></script>
+
+

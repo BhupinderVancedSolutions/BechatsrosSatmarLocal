@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="444" height="131" viewBox="0 0 444 131">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Card" width="444" height="131" rx="4" transform="translate(860 -1557)" fill="#4b43d0" opacity="0.2"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(-860 1557)" clip-path="url(#clip-path)">
+    <g id="Group_93" data-name="Group 93" transform="translate(6)">
+      <path id="Path_174" data-name="Path 174" d="M4,0H440a4,4,0,0,1,4,4V127a4,4,0,0,1-4,4H4a4,4,0,0,1-4-4V4A4,4,0,0,1,4,0Z" transform="translate(854 -1557)" fill="#4b43d0" opacity="0.1"/>
+      <ellipse id="Ellipse_8" data-name="Ellipse 8" cx="86.971" cy="87.405" rx="86.971" ry="87.405" transform="translate(1154.057 -1634.311)" fill="#d8d8ff"/>
+      <ellipse id="Ellipse_9" data-name="Ellipse 9" cx="58.21" cy="58.5" rx="58.21" ry="58.5" transform="translate(838.06 -1491.5)" fill="#d8d8ff"/>
+    </g>
+  </g>
+</svg>
