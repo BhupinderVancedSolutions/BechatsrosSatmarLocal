@@ -4886,3 +4886,96 @@ form .record-info .row-grid {
     .action-list:hover {
         background-color: #F4F4FF;
     }
+
+ /*   LOGIN FORM*/
+.form-wapper {
+    width: 800px;
+    margin: auto;
+}
+/* login button */
+.signin-link a {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    margin-left: auto;
+}
+/* form-wapper logo */
+.form-wapper_logo {
+    text-align: center;
+}
+/* form-wapper logo */
+.form-wapper .form-wapper_header {
+    text-align: center;
+    padding: 36px 48px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.form-wapper_form {
+    padding: 56px;
+    background: #fff;
+    box-shadow: 0px 6px 60px rgb(0,0,0,7%);
+    border-radius: 20px;
+}
+
+    .form-wapper_form .form-header h2 {
+        color: #7B3373;
+        font-size: 24px;
+        font-weight: 600;
+        padding-left: 24px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+        .form-wapper_form .form-header h2:before {
+            content: "";
+            width: 6px;
+            height: 22px;
+            background: #7B3373;
+            left: 0;
+            position: absolute;
+        }
+
+    .form-wapper_form .form-group {
+        margin-bottom: 16px;
+    }
+
+        .form-wapper_form .form-group label {
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #767676;
+        }
+
+.form-wapper .form-wapper_form .check {
+    padding: 24px 0px;
+}
+
+/* middle banner */
+.form-middle-banner {
+    width: 460px;
+    margin: auto;
+    text-align: center;
+    background: rgb(195, 145, 48, 10%);
+    margin-top: 46px;
+    margin-bottom: 36px;
+    padding: 22px 62px;
+    border-radius: 8px;
+}
+
+    .form-middle-banner p {
+        color: #504D4D;
+    }
+
+/* Button css */
+.btn-primary {
+    background-color: #C39130;
+    border-color: #C39130;
+}
+
+    .btn-primary:hover {
+        background-color: #d79f34;
+        border-color: #d79f34;
+    }

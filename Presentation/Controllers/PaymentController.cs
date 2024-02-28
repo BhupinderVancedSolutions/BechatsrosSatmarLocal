@@ -39,6 +39,16 @@ namespace Presentation.Controllers
 
             return Json(res);
         }
+        [HttpPost]
+        public async Task<IActionResult> ChargeCard(ChargeCardRequestDto chargeCardRequestDto)
+        {
+            chargeCardRequestDto.ExpMonth = 12;
+            chargeCardRequestDto.ExpYear = 25;
+           //var res = await _cardKnoxService.Payments(chargeCardRequestDto);
+
+            return null;
+        }
+
 
     }
 }
