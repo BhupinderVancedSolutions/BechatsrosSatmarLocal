@@ -22,11 +22,14 @@ namespace Presentation.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ChargeCard()
+        {
+            return View("~/Views/Payment/ChargeCard.cshtml");
+        }
         public async Task<IActionResult> ChargeCardform()
         {
             return View("~/Views/Payment/ChargeCard.cshtml");
         }
-
         [HttpPost]
         public async Task<IActionResult> ChargeCardDonation(TransactionDonationRequestDto cardKnoxDonationRequest)
         {

@@ -50,7 +50,7 @@ namespace Presentation.Controllers
                 var userDetail = result.Result.Adapt<UserRequest>();
                 HttpContext.Session.SetObjectAsJson("LoggedInUserDetails", userDetail, _appSettings.Secret);               
                 ViewBag.SecretKey = _appSettings.Secret;
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("ChargeCard", "Payment");
             }
             return View(authenticateUserRequest);
         }
