@@ -49,6 +49,7 @@ namespace Presentation.Controllers
                 var userDetail = result.Result.Adapt<UserRequest>();
                 HttpContext.Session.SetObjectAsJson("LoggedInUserDetails", userDetail, _appSettings.Secret);               
                 ViewBag.SecretKey = _appSettings.Secret;
+                ViewBag.userId = userDetail.UserId.ToString();
                 return RedirectToAction("ChargeCard", "Payment");
             }
             return View(authenticateUserRequest);

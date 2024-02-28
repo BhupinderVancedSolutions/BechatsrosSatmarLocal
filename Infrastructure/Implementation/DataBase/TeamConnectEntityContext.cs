@@ -10,7 +10,6 @@ namespace Infrastructure.Implementation.DataBase
 
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<PaymentProvider> PaymentProviders { get; set; }
 
     }
 }

@@ -65,7 +65,9 @@ namespace DTO.Request
         [Range(1, 999999, ErrorMessage = "Donation Amount should be between 1 and 999999.")]
         public decimal Amount { get; set; }
         public decimal AmountPerMonth { get; set; }
-
+        public int TransactionId { get; set; }
+        public string TransactionGuid { get; set; }
+        public string TransactionResult { get; set; }
 
     }
 }

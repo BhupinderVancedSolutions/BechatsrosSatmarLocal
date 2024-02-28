@@ -13,12 +13,4 @@ namespace Application.Adapter
             
         }
     }
-    public class MappingConfig
-    {
-        public static void Configure()
-        {
-            TypeAdapterConfig<PaymentProvider, PaymentProviderRequest>.NewConfig();
-        }
-    }
-
 }

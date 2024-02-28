@@ -30,34 +30,66 @@ namespace ExternalAPI.Email
             bool status = false;
             if (_mailSetting.IsUsingSendGridKey == true)
             {
-                try
-                {
+                //try
+                //{
                     var client = new SendGridClient(_mailSetting.SendGridKey);
 
-                    var msg = MailHelper.CreateSingleEmail(new EmailAddress(_mailSetting.FromEmail), new EmailAddress(to), subject, "", body);
-                    if (!string.IsNullOrEmpty(fromName))
-                    {
-                        msg.SetFrom(_mailSetting.FromEmail, fromName);
-                    }
-                    if (!string.IsNullOrEmpty(replyToEmail))
-                    {
-                        msg.ReplyTo = new EmailAddress()
-                        {
-                            Email = replyToEmail,
-                            Name = ""
-                        };
-                    }
-                    var response = await client.SendEmailAsync(msg);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        status = true;
-                    }
-                }
-                catch
+                var messageEmail = new SendGridMessage()
                 {
-                    status = false;
+                    //From = new EmailAddress(from),
+                    Subject = subject,
+                    PlainTextContent = "",
+                    HtmlContent = body
+                };
+                if (!string.IsNullOrEmpty(replyToEmail))
+                {
+                    messageEmail.ReplyTo = new EmailAddress()
+                    {
+                        Email = replyToEmail,
+                        Name = ""
+                    };
                 }
+                //if (!string.IsNullOrEmpty(fromName))
+                //{
+                //    messageEmail.SetFrom(from, fromName);
+                //}
+                messageEmail.AddTo(new EmailAddress(to));
+                var response = await client.SendEmailAsync(messageEmail);
+                if (response.IsSuccessStatusCode)
+                {
+                    status = true;
+                }
+                //}
+                //catch
+                //{
+                //    status = false;
+                //}
                 return status;
+
+                //    var msg = MailHelper.CreateSingleEmail(new EmailAddress(_mailSetting.FromEmail), new EmailAddress(to), subject, "", body);
+                //    if (!string.IsNullOrEmpty(fromName))
+                //    {
+                //        msg.SetFrom(_mailSetting.FromEmail, fromName);
+                //    }
+                //    if (!string.IsNullOrEmpty(replyToEmail))
+                //    {
+                //        msg.ReplyTo = new EmailAddress()
+                //        {
+                //            Email = replyToEmail,
+                //            Name = ""
+                //        };
+                //    }
+                //    var response = await client.SendEmailAsync(msg);
+                //    if (response.IsSuccessStatusCode)
+                //    {
+                //        status = true;
+                //    }
+                //}
+                //catch
+                //{
+                //    status = false;
+                //}
+                //return status;
             }
             else
             {

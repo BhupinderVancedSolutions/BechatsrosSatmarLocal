@@ -18,8 +18,6 @@ namespace DTO.Request
         public string HomePhone { get; set; }
         [Required(ErrorMessage = "Please enter a Cell.")]
         public string Cell { get; set; }
-        [Required(ErrorMessage = "Please enter a DonationAmount.")]
-        public decimal DonationAmount { get; set; }
         [Required(ErrorMessage = "Please enter a Email.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Please enter a Expmonth.")]
@@ -37,11 +35,14 @@ namespace DTO.Request
         public string DeliveryName { get; set; }
         public string DeiveryAddress { get; set; }
         public int TransactionId { get; set; }
+        public decimal DonationAmount { get; set; }
+        public string TransactionGuid { get; set; }
+
+        public string TransactionResult { get; set; }
         public bool Status { get; set; }
         public string SupportEmail { get; set; }
         public string ExpDate { get; set; }
-        public string TransactionGuid { get; set; }
-        public string TransactionResult { get; set; }
+ 
 
 
 

@@ -12,6 +12,7 @@ using Application.Common.Models.Request;
 using System.Globalization;
 using Application.Common.Interfaces.ExternalAPI;
 using Common.Settings;
+using DTO.Response;
 
 namespace Infrastructure.Implementation.Services
 {
@@ -46,6 +47,39 @@ namespace Infrastructure.Implementation.Services
                   email, "Password Recovery", body);
 
             return isMailSent;
+        }
+
+        public async Task<bool> SendDonationMail(ChargeCardRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel)
+        {
+            try
+            {
+                var DonationReceipt = "Views/EmailTemplates/SendDonationEmail.cshtml";
+
+                var templatePath = DonationReceipt;
+                var emailSubject = resultViewModel.Status ? $"Official donation receipt from {cardKnoxDonationReceiptRequest.Name}" : $"{cardKnoxDonationReceiptRequest.Name} Donation Failed";
+                var organizatioEmailSubject = resultViewModel.Status ? "Congratulations! New donation Towards you" : "Donation Failed";
+                var body = string.Empty;
+
+                var obj = new TransactionEmailRequestDto()
+                {
+                    Name = cardKnoxDonationReceiptRequest.Name,
+                    Address = cardKnoxDonationReceiptRequest.Address,
+                    HomePhone = cardKnoxDonationReceiptRequest.PhoneNumber,
+                    Email = cardKnoxDonationReceiptRequest.Email,
+                    TransactionGuid = cardKnoxDonationReceiptRequest.TransactionGuid,
+                    Status = (cardKnoxDonationReceiptRequest.TransactionResult == "succeeded" && cardKnoxDonationReceiptRequest.TransactionId > 0 ? true : false),
+
+                };
+                body = await RazorTemplateEngine.RenderAsync(templatePath, obj);
+                var pdf = CommonHelper.CreatePdfUsingSelectHtmlToPdf(body);
+                var mail = await _sendGridEmail.SendMail(cardKnoxDonationReceiptRequest.Email, emailSubject, body, "", null);
+                return mail;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
     }

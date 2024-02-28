@@ -1,8 +1,5 @@
 ﻿using Application.Common.Interfaces.Services;
-using Application.Common.Interfaces.Services.HelperService;
 using Application.Common.Interfaces.Services.PaymentService;
-using AuthorizeNet.Api.Contracts.V1;
-using AuthorizeNet.APICore;
 using CardknoxApi;
 using Common.Helper;
 using Common.Settings;
@@ -18,18 +15,18 @@ using System.Threading.Tasks;
 namespace Infrastructure.Implementation.Services
 {
     [ScopedService]
-    public class CardKnoxService : ICardKnoxService
+    public class PaymentServices : IPaymentService
     {
  
         private readonly ICardknoxPaymentService _cardknoxPaymentService;
         private readonly AppSettings _appSettings;
-        private readonly IEmailHelperService _emailHelperService;
+        private readonly IEmailTemplateService _emailTemplateService;
 
-        public CardKnoxService( ICardknoxPaymentService cardknoxPaymentService, IOptions<AppSettings> appSettings, IEmailHelperService emailHelperService)
+        public PaymentServices( ICardknoxPaymentService cardknoxPaymentService, IOptions<AppSettings> appSettings, IEmailTemplateService emailTemplateService)
         {
                 _cardknoxPaymentService = cardknoxPaymentService;
                 _appSettings = appSettings.Value;
-                _emailHelperService = emailHelperService;
+            _emailTemplateService = emailTemplateService;
         }
 
         #region Donation Method 
@@ -104,7 +101,7 @@ namespace Infrastructure.Implementation.Services
 
         #region Private
 
-        public async Task<bool> Payments(TransactionDonationRequestDto cardKnoxDonationRequest)
+        public async Task<bool> Payments(ChargeCardRequestDto cardKnoxDonationRequest)
         {
             bool status = true;
             Transactions transaction = new Transactions();
@@ -114,12 +111,12 @@ namespace Infrastructure.Implementation.Services
 
         }
 
-        private async Task<(Transactions, CardknoxResponse)> PaymentByCardknox(TransactionDonationRequestDto cardKnoxDonationRequest)
+        private async Task<(Transactions, CardknoxResponse)> PaymentByCardknox(ChargeCardRequestDto cardKnoxDonationRequest)
         {
             try
             {
                 var transactions = new Transactions();
-                var response = _cardknoxPaymentService.PaymentByCreditCard(cardKnoxDonationRequest.DonationAmount, cardKnoxDonationRequest.CreditCardNumber, CommonHelper.GetStringValue(cardKnoxDonationRequest.ExpMonth), CommonHelper.GetStringValue(cardKnoxDonationRequest.ExpYear), cardKnoxDonationRequest.Cvv, _appSettings.ClientId, _appSettings.ClientSecret);
+                var response = _cardknoxPaymentService.PaymentByCreditCard(cardKnoxDonationRequest.AmountPerMonth, cardKnoxDonationRequest.CreditCardNumber, CommonHelper.GetStringValue(cardKnoxDonationRequest.ExpMonth), CommonHelper.GetStringValue(cardKnoxDonationRequest.ExpYear), cardKnoxDonationRequest.Cvv, _appSettings.ClientId, _appSettings.ClientSecret);
                 bool isTransactionSucceeded = string.IsNullOrEmpty(response.Error);
                 transactions.TransactionGuid = response.RefNum;
                 transactions.CCProcessorId = (int)Domain.Enums.CCProcessorType.Cardknox;
@@ -139,10 +136,10 @@ namespace Infrastructure.Implementation.Services
             }
         }
 
-        private async Task<ResultViewModel> SendDonationEmail (TransactionDonationRequestDto cardKnoxDonationRequest, int transactionId, bool isTransactionSucceeded, string message)
+        private async Task<ResultViewModel> SendDonationEmail (ChargeCardRequestDto cardKnoxDonationRequest, int transactionId, bool isTransactionSucceeded, string message)
         {
             ResultViewModel resultViewModel = new ResultViewModel();
-            await _emailHelperService.SendDonationMail(cardKnoxDonationRequest, new ResultViewModel { Status = (isTransactionSucceeded && transactionId > 0), Message = message });
+            await _emailTemplateService.SendDonationMail(cardKnoxDonationRequest, new ResultViewModel { Status = (isTransactionSucceeded && transactionId > 0), Message = message });
             resultViewModel.Status = true;
 
 

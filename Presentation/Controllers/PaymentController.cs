@@ -11,15 +11,10 @@ namespace Presentation.Controllers
 {
     public class PaymentController : ControllerBase
     {
-        private readonly ICardKnoxService _cardKnoxService;
-        public PaymentController(ICardKnoxService cardKnoxService)
+        private readonly IPaymentService _paymentService;
+        public PaymentController(IPaymentService paymentService)
         {
-                _cardKnoxService = cardKnoxService;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            return View();
+                _paymentService = paymentService;
         }
 
         public async Task<IActionResult> ChargeCard(decimal? amount)
@@ -33,25 +28,16 @@ namespace Presentation.Controllers
         {
             return View("~/Views/Payment/ChargeCard.cshtml");
         }
-        [HttpPost]
-        public async Task<IActionResult> ChargeCardDonation(TransactionDonationRequestDto cardKnoxDonationRequest)
-        {
-            cardKnoxDonationRequest.ExpMonth = 12;
-            cardKnoxDonationRequest.ExpYear = 25;
-            var res = await _cardKnoxService.Payments(cardKnoxDonationRequest);
-
-            return Json(res);
-        }
+      
         [HttpPost]
         public async Task<IActionResult> ChargeCard(ChargeCardRequestDto chargeCardRequestDto)
         {
-            chargeCardRequestDto.ExpMonth = 12;
-            chargeCardRequestDto.ExpYear = 25;
-           //var res = await _cardKnoxService.Payments(chargeCardRequestDto);
+            //chargeCardRequestDto.ExpMonth = 12;
+            //chargeCardRequestDto.ExpYear = 25;
+           var res = await _paymentService.Payments(chargeCardRequestDto);
 
             return null;
         }
-
 
     }
 }
