@@ -54,6 +54,7 @@
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="wwwroot\assets\js\ChargeCard\charge-card.js" />
     <None Include="wwwroot\assets\js\ThirdPartyPlugIn\Ag-Grid\ag-grid-enterprise.min.noStyle.v25.0.1.js" />
     <None Include="wwwroot\assets\js\ThirdPartyPlugIn\Bootstrap\bootstrap-datetimepicker.min.js" />
     <None Include="wwwroot\assets\js\ThirdPartyPlugIn\Bootstrap\bootstrap.bundle.js" />
