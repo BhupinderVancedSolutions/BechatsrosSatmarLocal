@@ -22,9 +22,12 @@ namespace Presentation.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ChargeCard()
+        public async Task<IActionResult> ChargeCard(decimal? amount)
         {
-            return View("~/Views/Payment/ChargeCard.cshtml");
+            ChargeCardRequestDto chargeCardRequestDto = new();
+            chargeCardRequestDto.Amount = amount == null || amount == 0 ? 12 : (decimal)amount;
+            chargeCardRequestDto.AmountPerMonth = chargeCardRequestDto.Amount / 12;
+            return View("~/Views/Payment/ChargeCard.cshtml", chargeCardRequestDto);
         }
         public async Task<IActionResult> ChargeCardform()
         {

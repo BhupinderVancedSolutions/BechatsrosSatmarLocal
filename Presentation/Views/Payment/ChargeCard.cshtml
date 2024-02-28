@@ -3,9 +3,6 @@
 
 <form id="charge-card">
     <div class="form-wapper">
-        <div class="signin-link text-end">
-            <a href="#" class="link-underline link-underline-opacity-0">Login</a>
-        </div>
         <div class="form-wapper_logo">
             <img src="~/assets/images/logo.png" alt="#" />
 
@@ -17,6 +14,8 @@
             <div class="form-box">
                 <div class="form-header">
                     <h2>Customer Info</h2>
+                    <input type="hidden" asp-for="ExpYear" />
+                    <input type="hidden" asp-for="ExpMonth" />
                 </div>
                 <div class="row">
                     <div class="col-6">
@@ -223,9 +222,12 @@
             <!-- Middle banner -->
             <div class="form-middle-banner">
                 <p>פרייז</p>
-                <p>בלויז $325.00 פאר א יאהר</p>
-                <h2>($27.08 Monthly)</h2>
+                <p>בלויז $@Model.Amount פאר א יאהר</p>
+                <h2>($@Model.AmountPerMonth Monthly)</h2>
                 <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
+
+                <input type="hidden" asp-for="Amount" />
+                <input type="hidden" asp-for="AmountPerMonth" />
             </div>
             <div class="form-box">
                 <div class="form-header">
@@ -251,7 +253,7 @@
                         <div class="form-group">
                             <label for="name">Exp.*</label>
                            @*  <input type="number" placeholder="MMYY" class="form-control" asp-for="ExpDate" id="ExpDate" maxlength="4"> *@
-            <input type="text" class="form-control exp-date" asp-for="ExpDate" maxlength="4" minlength="3" placeholder="MMYY" onkeypress="return isNumber(event)" onchange="showHideExpDateErrorMsg()" onkeyup="expDate()" autocomplete="off">
+            <input type="text" class="form-control exp-date" asp-for="ExpDate" maxlength="4" minlength="3" placeholder="MMYY" onkeypress="return isNumber(event)" onchange="showHideExpDateErrorMsg()" autocomplete="off">
                             <span asp-validation-for="ExpDate" class="text-danger errormsg"></span>
                             <span class="error-msg text-danger errormsg d-none"></span>
                         </div>

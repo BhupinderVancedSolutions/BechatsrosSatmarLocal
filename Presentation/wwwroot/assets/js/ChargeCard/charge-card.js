@@ -2,41 +2,65 @@
 
 
 
-function ChargeCard() {
+function ChargeCard() {debugger
     
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
     if ($("#charge-card").valid() && IsValidExpDate) {
+
+        var expDate = $("#ExpDate").val();
+        if (expDate.length == 4)
+        {            
+            $("#ExpMonth").val(expDate.substr(0, 2));
+            $("#ExpYear").val("20" + expDate.substr(2, 2));            
+        }
         ProcessChargeCard();
-
-
     }
 
 
 
 }
+//function ProcessChargeCard() {debugger    
+//    var formData = $("#charge-card").serialize();
+//    $.ajax({
+//        type: "POST",
+//        url: "/Payment/ChargeCard",
+//        data: { chargeCardRequestDto: formData },
+//        dataType: "json",
+//        //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',  
+
+//        success: function (data) {
+
+//            //addCreditCardAndSendEmail(formData, data);
+//            if (data.status) {
+//                toastr.success("Payment successfully.");
+//            }
+//        },
+//        error: function () {
+
+//        }
+//    });
+
+//}
 function ProcessChargeCard() {
-    debugger
-    var formData = $("#charge-card").serialize();
+    debugger;
+    var formData = $("#charge-card").serializeArray();
     $.ajax({
         type: "POST",
         url: "/Payment/ChargeCard",
-        data: { cardKnoxDonationRequest: formData },
+        data: formData, 
         dataType: "json",
-
         success: function (data) {
-
-            //addCreditCardAndSendEmail(formData, data);
             if (data.status) {
-                toastr.success("Payment successfully.");
+                toastr.success("Payment successful.");
             }
         },
         error: function () {
-
+            // Handle error
         }
     });
-
 }
+
 $("#ExpDate").focusout(function () {
     
     var expDate = $("#ExpDate").val();
