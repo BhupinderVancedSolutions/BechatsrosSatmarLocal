@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces.Services.HelperService;
+﻿using Application.Common.Interfaces.ExternalAPI;
+using Application.Common.Interfaces.Services.HelperService;
 using Application.Common.Models.Response;
 using Common;
 using Common.Helper;
@@ -21,10 +22,12 @@ namespace Infrastructure.Implementation.Services.HelperService
     {
         #region fields
         private readonly MailSetting _mailSetting;
+        private readonly ISendGridEmail _sendGridEmail;
         #endregion
-        public EmailHelperService(IOptions<MailSetting> mailSetting)
+        public EmailHelperService(IOptions<MailSetting> mailSetting, ISendGridEmail sendGridEmail)
         {
             _mailSetting = mailSetting.Value;
+            _sendGridEmail = sendGridEmail;
         }
 
         public async Task<bool> SendDonationMail(TransactionDonationRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel)
@@ -51,8 +54,8 @@ namespace Infrastructure.Implementation.Services.HelperService
                 };
                 body = await RazorTemplateEngine.RenderAsync(templatePath, obj);
                 var pdf = CommonHelper.CreatePdfUsingSelectHtmlToPdf(body);
-              return await EmailHelper.SendMail(_mailSetting.FromEmail, cardKnoxDonationReceiptRequest.Email, _mailSetting.SendGridKey, emailSubject, body, pdf, $"{emailSubject}.pdf", "", null);
-              
+              var mail = await _sendGridEmail.SendMail( cardKnoxDonationReceiptRequest.Email, emailSubject, body, "", null);
+                return mail; 
             }
             catch (Exception)
             {
