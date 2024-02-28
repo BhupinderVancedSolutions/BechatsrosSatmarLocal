@@ -24,7 +24,7 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> ChargeCardform()
         {
-            return View("~/Views/CardKnox/ChargeCard.cshtml");
+            return View("~/Views/Payment/ChargeCard.cshtml");
         }
 
         [HttpPost]
