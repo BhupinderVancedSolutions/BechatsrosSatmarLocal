@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace Presentation.Controllers
 {
-    public class CardKnoxController : ControllerBase
+    public class PaymentController : ControllerBase
     {
         private readonly ICardKnoxService _cardKnoxService;
-        public CardKnoxController(ICardKnoxService cardKnoxService)
+        public PaymentController(ICardKnoxService cardKnoxService)
         {
                 _cardKnoxService = cardKnoxService;
         }
@@ -22,13 +22,13 @@ namespace Presentation.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CardKnoxDonationform()
+        public async Task<IActionResult> ChargeCardform()
         {
-            return View("~/Views/CardKnox/CardKnoxDonationform.cshtml");
+            return View("~/Views/CardKnox/ChargeCard.cshtml");
         }
 
         [HttpPost]
-        public async Task<IActionResult> CardKnoxDonation(TransactionDonationRequestDto cardKnoxDonationRequest)
+        public async Task<IActionResult> ChargeCardDonation(TransactionDonationRequestDto cardKnoxDonationRequest)
         {
             cardKnoxDonationRequest.ExpMonth = 12;
             cardKnoxDonationRequest.ExpYear = 25;

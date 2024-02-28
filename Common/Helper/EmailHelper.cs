@@ -9,7 +9,7 @@ namespace Common.Helper
 {
     public class EmailHelper
     {
-        public async static Task<bool> SendMailWithAttachment(string from, string to, string sendGridKey, string subject, string body, byte[] attachment, string attachmentName, string fromName = "", string replyToEmail = "")
+        public async static Task<bool> SendMail(string from, string to, string sendGridKey, string subject, string body, byte[] attachment, string attachmentName, string fromName = "", string replyToEmail = "")
         {
 
             bool status = false;

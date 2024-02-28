@@ -51,7 +51,7 @@ namespace Infrastructure.Implementation.Services.HelperService
                 };
                 body = await RazorTemplateEngine.RenderAsync(templatePath, obj);
                 var pdf = CommonHelper.CreatePdfUsingSelectHtmlToPdf(body);
-              return await EmailHelper.SendMailWithAttachment(_mailSetting.FromEmail, cardKnoxDonationReceiptRequest.Email, _mailSetting.SendGridKey, emailSubject, body, pdf, $"{emailSubject}.pdf", "", null);
+              return await EmailHelper.SendMail(_mailSetting.FromEmail, cardKnoxDonationReceiptRequest.Email, _mailSetting.SendGridKey, emailSubject, body, pdf, $"{emailSubject}.pdf", "", null);
               
             }
             catch (Exception)

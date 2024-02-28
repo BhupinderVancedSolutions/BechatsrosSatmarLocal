@@ -2,7 +2,7 @@
     debugger
     $.ajax({
         type: "GET",
-        url: "/CardKnox/CardKnoxDonationform",
+        url: "/Payment/ChargeCardform",
         dataType: "html",
         success: function (data) {
             $("#donation-method").html("");
@@ -32,7 +32,7 @@ function ProcessChargeCard() {
         var formData = $("#donation-method").serializeJSON();
         $.ajax({
             type: "POST",
-            url: "/CardKnox/CardKnoxDonation",
+            url: "/Payment/ChargeCardDonation",
             data: { cardKnoxDonationRequest: formData },
             dataType: "json",
 
