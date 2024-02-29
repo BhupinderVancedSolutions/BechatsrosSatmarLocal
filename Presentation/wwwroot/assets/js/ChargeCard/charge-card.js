@@ -5,7 +5,6 @@
 
 function ChargeCard()
 {  
-    ShowLoader(true);   
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
     if ($("#charge-card").valid() && IsValidExpDate) {
