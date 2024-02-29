@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DTO.Request
 {
-    public class ChargeCardRequestDto
+    public class TransactionRequestDto
     {
         [Required(ErrorMessage = "Please enter a Name.")]
         public string Name { get; set; }

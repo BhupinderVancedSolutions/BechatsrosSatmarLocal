@@ -5,6 +5,6 @@ namespace Application.Common.Interfaces.Services
 {
     public interface IPaymentService
     {
-        Task<bool> Payments(ChargeCardRequestDto cardKnoxDonationRequest);
+        Task<bool> Payments(TransactionRequestDto cardKnoxDonationRequest);
     }
 }

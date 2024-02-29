@@ -49,7 +49,7 @@ namespace Infrastructure.Implementation.Services
             return isMailSent;
         }
 
-        public async Task<bool> SendDonationMail(ChargeCardRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel)
+        public async Task<bool> SendDonationMail(TransactionRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel)
         {
             try
             {

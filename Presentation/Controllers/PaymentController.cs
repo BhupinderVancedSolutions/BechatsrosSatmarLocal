@@ -18,7 +18,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult> ChargeCard(decimal? amount)
         {
             ViewData["ReturnUrl"] = amount;
-            ChargeCardRequestDto chargeCardRequestDto = new();
+            TransactionRequestDto chargeCardRequestDto = new();
             chargeCardRequestDto.Amount = amount == null || amount == 0 ? 12 : (decimal)amount;
             chargeCardRequestDto.AmountPerMonth = chargeCardRequestDto.Amount / 12;
             return View("~/Views/Payment/ChargeCard.cshtml", chargeCardRequestDto);
@@ -29,7 +29,7 @@ namespace Presentation.Controllers
         }
       
         [HttpPost]
-        public async Task<IActionResult> ChargeCard(ChargeCardRequestDto chargeCardRequestDto)
+        public async Task<IActionResult> ChargeCard(TransactionRequestDto chargeCardRequestDto)
         {
             await _paymentService.Payments(chargeCardRequestDto);
             return null;

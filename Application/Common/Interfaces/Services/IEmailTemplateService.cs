@@ -12,7 +12,7 @@ namespace Application.Common.Interfaces.Services
     {
         #region User
         public Task<bool> SendForgotPasswordMail(string name, string email, string passwordResetLink);
-        Task<bool> SendDonationMail(ChargeCardRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel);
+        Task<bool> SendDonationMail(TransactionRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel);
         #endregion
     }
 }

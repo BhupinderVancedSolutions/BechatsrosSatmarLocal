@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Enums
 {
-    public enum PaymentMethod
+    public enum PaymentMethodEnum
     {
         Cash = 1,
         Check = 2,
@@ -17,13 +12,13 @@ namespace Domain.Enums
         [Display(Name = "OJC Card")]
         OJC = 5,
         [Display(Name = "Donors Fund")]
-        DonorsFund = 6,
-        Other = 10,
+        DonorsFund = 6,       
         [Display(Name = "Matbia")]
-        Matbia = 8,
+        Matbia = 7,
         [Display(Name = "Pledger")]
-        Pledger = 9,
+        Pledger = 8,
         [Display(Name = "Donors Fuse")]
-        DonorsFuse = 11,
+        DonorsFuse =9,
+        Other = 10,
     }
 }
