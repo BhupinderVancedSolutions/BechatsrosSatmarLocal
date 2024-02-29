@@ -3,8 +3,8 @@
 });
 
 
-function ChargeCard() {
-    
+function ChargeCard() {debugger
+    ShowLoader(true, 8000);
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
     if ($("#charge-card").valid() && IsValidExpDate) {
@@ -22,12 +22,11 @@ function ChargeCard() {
 
 }
 function ProcessChargeCard() {
-    ;
     var formData = $("#charge-card").serializeArray();
     $.ajax({
         type: "POST",
         url: "/Payment/ChargeCard",
-        data: formData, 
+        data: formData,
         dataType: "json",
         success: function (data) {
             if (data.status) {
@@ -35,9 +34,31 @@ function ProcessChargeCard() {
             }
         },
         error: function () {
+        },
+        complete: function () {
+            HideLoader();
         }
     });
 }
+
+function HideLoader() {
+    $(".loader").hide(); 
+
+function ShowLoader(isShowLoader, timeLimit) {
+    debugger;
+    if (isShowLoader) {
+        $(".loader").show();
+        
+        setTimeout(function () {
+            $(".loader").hide();
+        }, timeLimit);
+    } else {
+        $(".loader").hide();
+    }
+}
+
+
+
 
 $("#ExpDate").focusout(function () {
     
@@ -122,6 +143,13 @@ $(".form-check-input").on("change", function () {
         $(".showhide-CheckBox").hide();
     }
 });
+$(document).ready(function () {
+    $("#resetBtn").click(function () {
+       $("#charge-card")[0].reset();
+    });
+});
+
+
 
 
 
