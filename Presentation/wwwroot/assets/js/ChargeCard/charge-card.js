@@ -41,9 +41,6 @@ function ProcessChargeCard() {
     });
 }
 
-function HideLoader() {
-    $(".loader").hide(); 
-
 function ShowLoader(isShowLoader, timeLimit) {
     debugger;
     if (isShowLoader) {
