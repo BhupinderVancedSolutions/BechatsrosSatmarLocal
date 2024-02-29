@@ -17,6 +17,7 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> ChargeCard(decimal? amount)
         {
+            ViewData["ReturnUrl"] = amount;
             ChargeCardRequestDto chargeCardRequestDto = new();
             chargeCardRequestDto.Amount = amount == null || amount == 0 ? 12 : (decimal)amount;
             chargeCardRequestDto.AmountPerMonth = chargeCardRequestDto.Amount / 12;
