@@ -52,22 +52,18 @@ namespace Infrastructure.Implementation.Services
         public async Task<bool> SendDonationMail(TransactionRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel)
         {
             try
-            {
-                var DonationReceipt = "Views/EmailTemplates/SendDonationEmail.cshtml";
-
-                var templatePath = DonationReceipt;
-                var emailSubject = resultViewModel.Status ? $"Official donation receipt from {cardKnoxDonationReceiptRequest.Name}" : $"{cardKnoxDonationReceiptRequest.Name} Donation Failed";
-                var organizatioEmailSubject = resultViewModel.Status ? "Congratulations! New donation Towards you" : "Donation Failed";
+            {                
+                var templatePath = "Views/EmailTemplates/SendTransactionEmail.cshtml"; 
+                var emailSubject = resultViewModel.Status ? "Payment Succeeded" : "Payment Failed";                
                 var body = string.Empty;
-
                 var obj = new TransactionEmailRequestDto()
                 {
-                    Name = cardKnoxDonationReceiptRequest.Name,
+                    Name = cardKnoxDonationReceiptRequest.FirstName+ cardKnoxDonationReceiptRequest.LastName,
                     Address = cardKnoxDonationReceiptRequest.Address,
                     HomePhone = cardKnoxDonationReceiptRequest.PhoneNumber,
                     Email = cardKnoxDonationReceiptRequest.Email,
                     TransactionGuid = cardKnoxDonationReceiptRequest.TransactionGuid,
-                    Status = (cardKnoxDonationReceiptRequest.TransactionResult == "succeeded" && cardKnoxDonationReceiptRequest.TransactionId > 0 ? true : false),
+                    Status = (cardKnoxDonationReceiptRequest.TransactionResult == "Succeeded" && cardKnoxDonationReceiptRequest.TransactionId > 0 ? true : false),
 
                 };
                 body = await RazorTemplateEngine.RenderAsync(templatePath, obj);
