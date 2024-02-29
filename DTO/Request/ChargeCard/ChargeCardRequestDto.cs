@@ -40,10 +40,6 @@ namespace DTO.Request
         [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Phone Number.")]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Please enter the last 4 digits of the Card.")]
-        [RegularExpression("^[0-9]{4}$", ErrorMessage = "Last 4 digits of Card Number must be 4 digits.")]
-        public string CardLast4Digit { get; set; }
-
         [Required(ErrorMessage = "Enter Expiry Date.")]
         [StringLength(4, MinimumLength = 4, ErrorMessage = "Expiry Date must be 4 digits.")]
         public string ExpDate { get; set; }
@@ -68,6 +64,16 @@ namespace DTO.Request
         public int TransactionId { get; set; }
         public string TransactionGuid { get; set; }
         public string TransactionResult { get; set; }
+        [Required(ErrorMessage = "Please enter a Delivery Name.")]
+        public string DeliveryName { get; set; }
+        [Required(ErrorMessage = "Please enter an Delivery Address")]
+        public string DeliveryAddress { get; set; }
+        [Required(ErrorMessage = "Please enter a Delivery City.")]
+        public string DeliveryCity { get; set; }
+        [Required(ErrorMessage = "Please enter a Delivery Zip.")]
+        public string DeliveryZip { get; set; }
+        public bool IsDeliveryAddress { get; set; }
+        public bool IsAutoRenew { get; set; }
 
     }
 }
