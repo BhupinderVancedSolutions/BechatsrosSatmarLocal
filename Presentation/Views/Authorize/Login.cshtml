@@ -3,6 +3,7 @@
     ViewData["Title"] = "Login";
     Layout = null;
     var successMessage = TempData["SuccessMesage"] != null ? TempData["SuccessMesage"].ToString() : string.Empty;
+    var returnurl = ViewData["ReturnUrl"] != null ? ViewData["ReturnUrl"].ToString() : string.Empty;
 }
 
 <!doctype html>
@@ -44,7 +45,7 @@
                     <span class="errormsg">@ViewBag.ErrMsg</span>
                 </div>
             }
-            <form enctype="multipart/form-data" method="post" asp-controller="Authorize" asp-action="login" asp-route-returnurl="@ViewData[" ReturnUrl"]">
+            <form enctype="multipart/form-data" method="post" asp-controller="Authorize" asp-action="login" asp-route-returnurl="@returnurl">
                 <div class="form-group">
                     <label class="control-label d-block">Email</label>
                     <input asp-for="Email" type="email"

@@ -4,6 +4,8 @@
 @using Microsoft.Extensions.Options;
 @inject IOptions<AppSettings> Settings
 @{
+    
+    var returnurl = ViewData["ReturnUrl"] != null ? ViewData["ReturnUrl"].ToString() : string.Empty;
     var userId = 0;        
     var userDetail = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<UserRequest>("LoggedInUserDetails", Settings.Value.Secret);
     if (userDetail != null)
@@ -11,6 +13,7 @@
        
         userId = userDetail.UserId;
     }
+    
 }
 
 
@@ -73,13 +76,13 @@
                         @if (userId == 0)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-action="Login" asp-controller="Authorize">Log In</a>
+                                <a class="nav-link text-dark" asp-area="" asp-action="Login" asp-controller="Authorize" asp-route-returnurl="@returnurl">Log In</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-action="LogOut" asp-controller="Authorize">Sign out</a>
+                                <a class="nav-link text-dark" asp-area="" asp-action="LogOut" asp-controller="Authorize" >Sign out</a>
                             </li>
                         }
                     </ul>
