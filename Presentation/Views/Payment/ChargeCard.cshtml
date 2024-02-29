@@ -290,12 +290,16 @@
             </div>
             <div class="form-footer text-end">
                 <button class="btn" id="resetBtn">Reset</button>
-                <button type="button" class="btn btn-primary" onclick="ChargeCard()">Confirm Order</button>
+                <button type="button" class="btn btn-primary" onclick="ChargeCard()" >Confirm Order</button>
             </div>
         </div>
     </div>
-    <div class="loader" style="display:none"><div class="spinner"><img src="~/assets/images/loader.svg" /></div></div>
 </form>
+
+<div class="loader" style="display:none" >
+    <div class="spinner" id="exampleModalLabel"><img src="~/assets/images/loader.svg" /></div>
+</div>
+
 <script src="~/assets/js/chargecard/charge-card.js" asp-append-version="true"></script>
 
 

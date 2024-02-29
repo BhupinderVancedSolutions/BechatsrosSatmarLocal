@@ -4,7 +4,7 @@
 
 
 function ChargeCard()
-{
+{  
     ShowLoader(true);   
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
@@ -25,13 +25,6 @@ function ChargeCard()
 
 }
 function ProcessChargeCard() {
-
-    setTimeout(function () {
-        $(".transaction-error-modal").modal("hide");
-    }, 3000)
-    setTimeout(function () {
-        $(".transaction-successful-modal").modal("hide");
-    }, 3000)
     ShowLoader(true);   
     var formData = $("#charge-card").serializeArray();
     $.ajax({
@@ -40,7 +33,7 @@ function ProcessChargeCard() {
         data: formData,
         dataType: "json",
         success: function (data)
-        {           
+        {
             if (data.status)
             {
 
@@ -49,8 +42,10 @@ function ProcessChargeCard() {
             }
             else
             {
-               $(".donation-error").html(data.Message);
-             //   $(".transaction-error-modal").modal("show");
+                $(".donation-error").html(data.message);
+                $(".sucess-fail-modal").modal("show");
+                $("#charge-card")[0].reset();
+              
                
             }
             ShowLoader(false);
