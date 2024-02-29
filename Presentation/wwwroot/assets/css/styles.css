@@ -4887,22 +4887,28 @@ form .record-info .row-grid {
         background-color: #F4F4FF;
     }
 
- /*   LOGIN FORM*/
+ /*   Order FORM*/
+/* ===Form wapper 
+===================================== */
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
 .form-wapper {
-    width: 800px;
+    max-width: 800px;
     margin: auto;
 }
 /* login button */
-.signin-link a {
-    font-size: 20px;
-    font-weight: 600;
-    color: #000;
-    margin-left: auto;
-}
+.form-wapper .signin-link a {
+        font-size: 20px;
+        font-weight: 600;
+        color: #000;
+        margin-left: auto;
+    }
 /* form-wapper logo */
-.form-wapper_logo {
-    text-align: center;
-}
+.form-wapper .form-wapper_logo {
+        text-align: center;
+    }
 /* form-wapper logo */
 .form-wapper .form-wapper_header {
     text-align: center;
@@ -4910,15 +4916,16 @@ form .record-info .row-grid {
     font-size: 32px;
     font-weight: bold;
 }
+/*== Main form css==
+ =================================================== */
+.form-wapper .form-wapper_form {
+        padding: 56px;
+        background: #fff;
+        box-shadow: 0px 6px 60px rgb(0,0,0,7%);
+        border-radius: 20px;
+    }
 
-.form-wapper_form {
-    padding: 56px;
-    background: #fff;
-    box-shadow: 0px 6px 60px rgb(0,0,0,7%);
-    border-radius: 20px;
-}
-
-    .form-wapper_form .form-header h2 {
+.form-wapper .form-wapper_form .form-header h2 {
         color: #7B3373;
         font-size: 24px;
         font-weight: 600;
@@ -4929,53 +4936,117 @@ form .record-info .row-grid {
         margin-bottom: 30px;
     }
 
-        .form-wapper_form .form-header h2:before {
-            content: "";
-            width: 6px;
-            height: 22px;
-            background: #7B3373;
-            left: 0;
-            position: absolute;
-        }
+.form-wapper .form-wapper_form .form-header h2:before {
+        content: "";
+        width: 6px;
+        height: 22px;
+        background: #7B3373;
+        left: 0;
+        position: absolute;
+    }
 
-    .form-wapper_form .form-group {
+.form-wapper .form-wapper_form .form-group {
         margin-bottom: 16px;
     }
 
-        .form-wapper_form .form-group label {
-            margin-bottom: 8px;
-            font-size: 12px;
-            font-weight: 500;
-            color: #767676;
-        }
+.form-wapper .form-wapper_form .form-group label {
+        margin-bottom: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #767676;
+    }
 
 .form-wapper .form-wapper_form .check {
     padding: 24px 0px;
 }
+/*== Main form css==
+ ================================End=================== */
 
-/* middle banner */
-.form-middle-banner {
-    width: 460px;
-    margin: auto;
-    text-align: center;
-    background: rgb(195, 145, 48, 10%);
-    margin-top: 46px;
-    margin-bottom: 36px;
-    padding: 22px 62px;
-    border-radius: 8px;
-}
+/*==== middle banner
+============================ */
+.form-wapper .form-middle-banner {
+        max-width: 460px;
+        min-width: 320px;
+        margin: auto;
+        text-align: center;
+        background: rgb(195, 145, 48, 10%);
+        margin-top: 46px;
+        margin-bottom: 36px;
+        padding: 22px 62px;
+        border-radius: 8px;
+    }
 
-    .form-middle-banner p {
+.form-wapper .form-middle-banner p {
         color: #504D4D;
     }
-
+/*==== middle banner
+========================End=================== */
 /* Button css */
-.btn-primary {
-    background-color: #C39130;
-    border-color: #C39130;
+ .form-wapper .btn:hover {
+        background-color: #C39130 !important;
+        border-color: #d79f34 !important;
+        color: #fff !important;
+    }
+.form-wapper .btn-primary {
+        background-color: #C39130 !important;
+        border-color: #C39130 !important;
+    }
+ .form-wapper .btn-primary:hover {
+        background-color: #d79f34 !important;
+        border-color: #d79f34 !important;
+    }
+.form-wapper input::placeholder {
+    font-size: 12px;
+}
+.form-wapper select {
+    font-size: 12px;
+    padding: 9px 6px;
 }
 
-    .btn-primary:hover {
-        background-color: #d79f34;
-        border-color: #d79f34;
+/* ===Form wapper 
+==========================End=========== */
+
+/* Checkbox override Css
+================================================ */
+.form-wapper .check input[type=checkbox] {
+        position: relative;
+        border: 1px solid #0D0C0A;
+        border-radius: 4px;
+        background: none;
+        cursor: pointer;
+        line-height: 0;
+        margin: 0 .6em 0 0;
+        outline: 0;
+        padding: 0 !important;
+        vertical-align: text-top;
+        height: 18px;
+        width: 18px;
+        -webkit-appearance: none;
     }
+
+.form-wapper .check input[type=checkbox]:hover {
+        opacity: 1;
+    }
+
+.form-wapper .check input[type=checkbox]:checked {
+        background-color: #0D0C0A;
+        opacity: 1;
+    }
+
+.form-wapper .check input[type=checkbox]:before {
+        content: '';
+        position: absolute;
+        right: 50%;
+        top: 50%;
+        width: 6px;
+        height: 10px;
+        border: solid #FFF;
+        border-width: 0 2px 2px 0;
+        margin: -1px -1px 0 -1px;
+        transform: rotate(45deg) translate(-50%, -50%);
+        z-index: 2;
+    }
+/* Checkbox override Css
+=====================================End=========== */
+/* ===Form wapper 
+=============================End======== */
