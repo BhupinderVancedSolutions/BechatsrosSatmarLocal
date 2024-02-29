@@ -54,7 +54,7 @@ namespace Infrastructure.Implementation.Services
                 transactions.ItemTypeId = isTransactionSucceeded ? (int)TransactionStatusEnum.Success : (int)TransactionStatusEnum.Failed;
                 transactions.Reason = isTransactionSucceeded ? null : $"Error : {response.Error}, ErrorCode : {response.ErrorCode}";
                 transactions.IsTransactionSucceeded = isTransactionSucceeded;
-                var resultViewModel = await SendDonationEmail(cardKnoxDonationRequest, transactions.TransactionId, isTransactionSucceeded, response.Error);
+                var resultViewModel = await SendDonationEmail(cardKnoxDonationRequest, transactions.TransactionGuid, isTransactionSucceeded, response.Error);
                 return (transactions, response);
             }
             catch (Exception)
@@ -63,10 +63,10 @@ namespace Infrastructure.Implementation.Services
             }
         }
 
-        private async Task<ResultViewModel> SendDonationEmail (TransactionRequestDto cardKnoxDonationRequest, int transactionId, bool isTransactionSucceeded, string message)
+        private async Task<ResultViewModel> SendDonationEmail (TransactionRequestDto cardKnoxDonationRequest, string transactionId, bool isTransactionSucceeded, string errorMessage)
         {
             ResultViewModel resultViewModel = new ResultViewModel();
-            await _emailTemplateService.SendDonationMail(cardKnoxDonationRequest, new ResultViewModel { Status = (isTransactionSucceeded && transactionId > 0), Message = message });
+            await _emailTemplateService.SendTransactionMail(cardKnoxDonationRequest, transactionId, isTransactionSucceeded, errorMessage);
             resultViewModel.Status = true;
             return resultViewModel;
         }

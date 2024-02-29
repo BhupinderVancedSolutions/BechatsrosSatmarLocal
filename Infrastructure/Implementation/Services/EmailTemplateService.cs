@@ -49,21 +49,23 @@ namespace Infrastructure.Implementation.Services
             return isMailSent;
         }
 
-        public async Task<bool> SendDonationMail(TransactionRequestDto cardKnoxDonationReceiptRequest, ResultViewModel resultViewModel)
+        public async Task<bool> SendTransactionMail(TransactionRequestDto cardKnoxDonationReceiptRequest, string transactionId, bool isTransactionSucceeded, string errorMessage)
         {
             try
             {                
                 var templatePath = "Views/EmailTemplates/SendTransactionEmail.cshtml"; 
-                var emailSubject = resultViewModel.Status ? "Payment Succeeded" : "Payment Failed";                
+                var emailSubject = isTransactionSucceeded ? "Payment Succeeded" : "Payment Failed";                
                 var body = string.Empty;
                 var obj = new TransactionEmailRequestDto()
                 {
-                    Name = cardKnoxDonationReceiptRequest.FirstName+ cardKnoxDonationReceiptRequest.LastName,
-                    Address = cardKnoxDonationReceiptRequest.Address,
-                    HomePhone = cardKnoxDonationReceiptRequest.PhoneNumber,
-                    Email = cardKnoxDonationReceiptRequest.Email,
-                    TransactionGuid = cardKnoxDonationReceiptRequest.TransactionGuid,
+                    Name = cardKnoxDonationReceiptRequest.FirstName+" "+ cardKnoxDonationReceiptRequest.LastName,
+                    Address = cardKnoxDonationReceiptRequest.Address+", "+ cardKnoxDonationReceiptRequest.City+", "+cardKnoxDonationReceiptRequest.Zip,
+                    Phone = cardKnoxDonationReceiptRequest.PhoneNumber,
+                    Email = cardKnoxDonationReceiptRequest.Email,                   
                     Status = (cardKnoxDonationReceiptRequest.TransactionResult == "Succeeded" && cardKnoxDonationReceiptRequest.TransactionId > 0 ? true : false),
+                    DomainUrl=_appSettings.ApplicationUrl,
+                    Amount= cardKnoxDonationReceiptRequest.Amount,
+                    TransactionId= transactionId
 
                 };
                 body = await RazorTemplateEngine.RenderAsync(templatePath, obj);

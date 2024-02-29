@@ -123,6 +123,7 @@
         table-layout: fixed;
         border-spacing: 0;
         mso-table-lspace: 0pt;
+        min-height: 29.7cm;
         mso-table-rspace: 0pt;
         vertical-align: top;
         min-width: 320px;
@@ -169,11 +170,7 @@
                       display: table-cell;
                       vertical-align: top;
                     ">
-                                    <div style="        background-color: #07A19B;
-        width: 100% !important;
-        max-width: 660px;
-        margin: auto;
-">
+                                    <div>
                                         <!--[if (!mso)&(!IE)]><!--><div style="
                           padding: 0px;
                           border-top: 0px solid transparent;
@@ -210,7 +207,7 @@
                                       margin:0;
                                     ">
 
-                                                                    <img src="@Model.DomainUrl/assets/images/white-logo.png" style="width:204px;" alt="" />
+                                                                    <img src="@Model.DomainUrl/assets/images/logo.png" style="width:210px;" alt="" />
 
                                                                 </p>
                                                             </div>
@@ -232,68 +229,7 @@
                         </div>
                     </div>
 
-                    <div class="u-row-container"
-                         style="padding: 0px; background-color: transparent">
-                        <div class="u-row"
-                             style="
-                  margin: 0 auto;
-                  min-width: 320px;
-                  max-width: 800px;
-                  overflow-wrap: break-word;
-                  word-wrap: break-word;
-                  word-break: break-word;
-                  background-color: #ffffff;
-                ">
-                            <div style="
-                    border-collapse: collapse;
-                    display: table;
-                    width: 100%;
-                    background-color: transparent;
-                  ">
-                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:800px;"><tr style="background-color: #ffffff;"><![endif]-->
-                                <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 800px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-                                <div class="u-col u-col-100"
-                                     style="
-                      max-width: 320px;
-                      min-width: 800px;
-                      display: table-cell;
-                      vertical-align: top;
-                    ">
-                                    <div style="background-color: #F5F5F5; width: 100% !important; max-width: 660px; margin: auto;">
-                                        <!--[if (!mso)&(!IE)]><!--><div style="
-                          padding: 0px;
-                          border-top: 0px solid transparent;
-                          border-left: 0px solid transparent;
-                          border-right: 0px solid transparent;
-                          border-bottom: 0px solid transparent;
-                        ">
-                                            <!--<![endif]-->
-                                            <table style="font-family: 'Poppins', sans-serif"
-                                                   role="presentation"
-                                                   cellpadding="0"
-                                                   cellspacing="0"
-                                                   width="100%"
-                                                   border="0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td width="100%" style="width:100%;background:#fff;">
-                                                            @*<img src="@Model.HeaderImagePath" alt="" style="width: 100%;height: auto;min-height: 138px;max-height: 255px;aspect-ratio: 18/7;" />*@
-                                                            <img src="@Model.HeaderImagePath" style="width:100%;height:auto;min-height:138px;max-height:255px;aspect-ratio:18/7;" alt="" />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                            <!--[if (!mso)&(!IE)]><!-->
-                                        </div>
-                                        <!--<![endif]-->
-                                    </div>
-                                </div>
-                                <!--[if (mso)|(IE)]></td><![endif]-->
-                                <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
-                            </div>
-                        </div>
-                    </div>
+                  
 
                     <div class="u-row-container"
                          style="padding: 0px; background-color: transparent">
@@ -360,7 +296,7 @@
                                         font-size: 14px;
                                         line-height: 19.6px;
                                         font-weight: 600;
-                                      ">Hi @(!string.IsNullOrEmpty(Model.Name) ? Model.Name : Model.NameOnCard),</span>
+                                      ">Hi @(!string.IsNullOrEmpty(Model.Name) ? Model.Name : ""),</span>
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 100%">
                                                                     &nbsp;
@@ -371,7 +307,7 @@
                                         font-size: 14px;
                                         line-height: 19.6px;
                                       ">
-                                                                        @(Model.Status ? "Thanks for your payment. Here is your official Donation Receipt for income tax purposes" : "Below is the details of your transaction")
+                                                                        Below is the details of your transaction
                                                                     </span>
                                                                 </p>
                                                             </div>
@@ -408,9 +344,7 @@
                     display: table;
                     width: 100%;
                     background-color: transparent;
-                  ">
-                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:800px;"><tr style="background-color: #fff;"><![endif]-->
-                                <!--[if (mso)|(IE)]><td align="center" width="600" style="background-color: #fef2e2;width: 800px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                  ">                                
                                 <div class="u-col u-col-100"
                                      style="
                       max-width: 320px;
@@ -439,23 +373,11 @@
                                                    width="100%"
                                                    border="0">
                                                 <tbody>
-                                                    <tr>
-                                                        <!--<td style="
-                                                        color: #131921;
-                                                        font-size: 14px;
-                                                        line-height: 140%;padding-top: 14px;padding-left: 23px; padding-bottom: 10px;border-bottom: 0.5px solid #E0E0E0;">
-                                                                                      Receipt ID
-                                                                                  </td>
-                                                                                  <td style="
-                                                          color: #131921;
-                                                          font-size: 14px;
-                                                          line-height: 140%;padding-top: 14px;padding-bottom: 10px;padding-right: 23px;border-bottom: 0.5px solid #E0E0E0;">
-                                                                                      <strong>: {{ReceiptId}}</strong>
-                                                                                  </td>-->
+                                                    <tr>                                                       
                                                         @if (Model.Status)
                                                         {
                                                             <td style='color:#131921;font-size:14px;line-height:140%;padding-top:14px;padding-left:23px;padding-bottom:10px;border-bottom:0.5px solid #E0E0E0;'>Receipt ID</td>
-                                                            <td style='color:#131921;font-size:14px;line-height:140%;padding-top:14px;padding-bottom:10px;padding-right:23px;border-bottom:0.5px solid #E0E0E0;'><strong>: @Model.TransactionGuid</strong></td>
+                                                            <td style='color:#131921;font-size:14px;line-height:140%;padding-top:14px;padding-bottom:10px;padding-right:23px;border-bottom:0.5px solid #E0E0E0;'><strong>: @Model.TransactionId</strong></td>
                                                         }
                                                         else
                                                         {
@@ -512,42 +434,28 @@
                               color: #131921;
                               font-size: 14px;
                               line-height: 140%;padding-top: 10px;padding-left: 23px; padding-bottom: 10px;border-bottom: 0.5px solid #E0E0E0;">
-                                                             Home Phone
+                                                             Phone
                                                         </td>
                                                         <td style="
                               color: #131921;
                               font-size: 14px;
                               line-height: 140%;padding-top: 10px;padding-bottom: 10px;padding-right: 23px;border-bottom: 0.5px solid #E0E0E0;">
-                                                            <strong>: @Model.HomePhone</strong>
+                                                            <strong>: @Model.Phone</strong>
                                                         </td>
                                                     <tr>
                                                         <td style="
                               color: #131921;
                               font-size: 14px;
                               line-height: 140%;padding-top: 10px;padding-left: 23px; padding-bottom: 10px;border-bottom: 0.5px solid #E0E0E0;">
-                                                            Donation Amount
+                                                            Amount
                                                         </td>
                                                         <td style="
                               color: #131921;
                               font-size: 14px;
                               line-height: 140%;padding-top: 10px;padding-bottom: 10px;padding-right: 23px;border-bottom: 0.5px solid #E0E0E0;">
-                                                            <strong>: $@(Convert.ToString(Model.DonationAmount))</strong>
+                                                            <strong>: $@(Convert.ToString(Model.Amount))</strong>
                                                         </td>
-                                                    </tr>
-                                                    <tr style="display:none">
-                                                        <td style="
-                              color: #131921;
-                              font-size: 14px;
-                              line-height: 140%;padding-top: 10px;padding-left: 23px; padding-bottom: 10px;border-bottom: 0.5px solid #E0E0E0;">
-                                                            Appears on Statement
-                                                        </td>
-                                                        <td style="
-                              color: #131921;
-                              font-size: 14px;
-                              line-height: 140%;padding-top: 10px;padding-bottom: 10px;padding-right: 23px;border-bottom: 0.5px solid #E0E0E0;">
-                                                            <strong> : CHARIDY IVELT</strong>
-                                                        </td>
-                                                    </tr>
+                                                    </tr>                                                    
                                                 </tbody>
                                             </table>
 
@@ -562,154 +470,8 @@
                         </div>
                     </div>
 
-                    <div class="u-row-container"
-                         style="padding: 0px; background-color: transparent">
-                        <div class="u-row"
-                             style="
-                  margin: 0 auto;
-                  min-width: 320px;
-                  max-width: 800px;
-                  overflow-wrap: break-word;
-                  word-wrap: break-word;
-                  word-break: break-word;
-                  background-color: transparent;
-                ">
-                            <div style="
-                    border-collapse: collapse;
-                    display: table;
-                    width: 100%;
-                    background-color: transparent;
-                  ">
-                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:800px;"><tr style="background-color: transparent;"><![endif]-->
-                                <!--[if (mso)|(IE)]><td align="center" width="600" style="background-color: #ffffff;width: 800px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-                                <div class="u-col u-col-100"
-                                     style="
-                      max-width: 320px;
-                      min-width: 800px;
-                      display: table-cell;
-                      vertical-align: top;
-                    ">
-                                    <div style="background-color: #ffffff; width: 100% !important">
-                                        <!--[if (!mso)&(!IE)]><!--><div style="
-                          padding: 0px;
-                          border-top: 0px solid transparent;
-                          border-left: 0px solid transparent;
-                          border-right: 0px solid transparent;
-                          border-bottom: 0px solid transparent;
-                        ">
-                                            <!--<![endif]-->
-                                            <table style="font-family: 'Poppins', sans-serif"
-                                                   role="presentation"
-                                                   cellpadding="0"
-                                                   cellspacing="0"
-                                                   width="100%"
-                                                   border="0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 15px 20px 0px;
-                                  font-family: 'Poppins', sans-serif;
-                                "
-                                                            align="left">
-                                                            <div style="
-                                    color: #000000;
-                                    line-height: 180%;
-                                    text-align: left;
-                                    word-wrap: break-word;
-                                    max-width: 660px;
-                                    margin: auto;
-                                  ">
-                                                                <p style="border-bottom: 2px dashed #707070;padding-top: 31px;"></p>
-                                                                <p style="font-size: 14px; line-height: 180%;font-weight: 300;padding-top: 11px;">
-                                                                    <i>No goods or services were provided in exchange for this contribution. All donations are tax deductible.</i>
-                                                                </p>
-                                                                <p style="border-bottom: 2px dashed #707070;padding-top: 11px;"></p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-
-                                            <!--[if (!mso)&(!IE)]><!-->
-                                        </div>
-                                        <!--<![endif]-->
-                                    </div>
-                                </div>
-                                <!--[if (mso)|(IE)]></td><![endif]-->
-                                <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="u-row-container"
-                         style="padding: 0px; background-color: transparent">
-                        <div class="u-row"
-                             style="
-                margin: 0 auto;
-                min-width: 320px;
-                max-width: 800px;
-                overflow-wrap: break-word;
-                word-wrap: break-word;
-                word-break: break-word;
-                background-color: #fff;
-                padding: 23px 0 40px;
-              ">
-                            <div style="
-                  border-collapse: collapse;
-                  display: table;
-                  width: 100%;
-                  background-color: transparent;
-                ">
-                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:800px;"><tr style="background-color: #fff;"><![endif]-->
-                                <!--[if (mso)|(IE)]><td align="center" width="600" style="background-color: #fef2e2;width: 800px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-                                <div class="u-col u-col-100"
-                                     style="
-                    max-width: 320px;
-                    min-width: 800px;
-                    display: table-cell;
-                    vertical-align: top;
-                  ">
-                                    <div style="        background-color: #07A19B;
-        width: 100% !important;
-        max-width: 660px;
-        margin: auto;
-        color:#fff;
-    ">
-                                        <!--[if (!mso)&(!IE)]><!--><div style="
-                        padding: 12px 55px;
-                        border-top: 0px solid transparent;
-                        border-left: 0px solid transparent;
-                        border-right: 0px solid transparent;
-                        border-bottom: 0px solid transparent;
-                      ">
-                                            <!--<![endif]-->
-                                            <p style="font-size: 14px; line-height: 140%;text-align: center;">
-                                                <span style="
-                          font-family: Poppins, sans-serif;
-                          font-size: 14px;
-                          line-height: 24px;
-                          font-weight: 500;
-                        ">
-                                                    <strong>
-                                                        <b>Please note</b>: You can manage your donation from your Tzedakah portal.
-                                                        <br />
-                                                        <a href="@Model.DomainUrl" style="color: #fff;"><u>Click here</u></a> to sign in to your account.
-                                                    </strong>
-                                                </span>
-                                            </p>
-
-                                            <!--[if (!mso)&(!IE)]><!-->
-                                        </div>
-                                        <!--<![endif]-->
-                                    </div>
-                                </div>
-                                <!--[if (mso)|(IE)]></td><![endif]-->
-                                <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
-                            </div>
-                        </div>
-                    </div>
+                  
+                    
 
 
 
@@ -1111,37 +873,7 @@
                         border-left: 0px solid transparent;
                         border-right: 0px solid transparent;
                         border-bottom: 0px solid transparent;
-                      ">
-                                     @*    <table style="font-family: 'Poppins', sans-serif"
-                                               role="presentation"
-                                               cellpadding="0"
-                                               cellspacing="0"
-                                               width="100%"
-                                               border="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="        overflow-wrap: break-word;
-        word-break: break-word;
-        padding: 0;
-        font-family: 'Poppins', sans-serif;
-        font-size: 12px;
-        padding-bottom: 30px;
-    "
-                                                        align="left">
-                                                        <div align="center">
-                                                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:'Poppins',sans-serif;"><tr><td style="font-family:'Poppins',sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:41px; v-text-anchor:middle; width:141px;" arcsize="10%" stroke="f" fillcolor="#006291"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Poppins',sans-serif;"><![endif]-->
-                                                            <p style="line-height: 25px;">
-                                                                ©@Model.CurrentYear  Tzedakah.live
-                                                            </p>
-                                                            <p style="line-height: 25px;">
-                                                                @(Model.Address != null || Model.Country != null ? Model.OrganizationAddress : "124 St. Stephen's Green 124, Dublin 2, USA.")
-                                                            </p>
-                                                            <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table> *@
+                      ">                                    
                                     </div>
                                 </div>
                             </div>
