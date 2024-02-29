@@ -220,15 +220,32 @@
             
 
             <!-- Middle banner -->
-            <div class="form-middle-banner">
-                <p>פרייז</p>
-                <p>בלויז $@Model.Amount פאר א יאהר</p>
-                <h2>($@Model.AmountPerMonth Monthly)</h2>
-                <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
+            @if (@Model.UserId > 0)
+            {
+                <div class="form-middle-banner">
+                    <p>פרייז</p>
+                    <p>בלויז  $ פאר א יאהר</p>
+                    <input type="number" class="form-control w-50 m-auto" asp-for="Amount" />
+                    <h2 class="d-flex justify-content-center">( $ <div class="ms-2" id="divAmountPerMonth">@Model.AmountPerMonth</div><span class="ms-2">Monthly</span> )</h2>
+                    <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
+                    <input type="hidden" asp-for="AmountPerMonth" />
+                </div>
 
-                <input type="hidden" asp-for="Amount" />
-                <input type="hidden" asp-for="AmountPerMonth" />
-            </div>
+            }
+            else
+            {
+                <div class="form-middle-banner">
+                    <p>פרייז</p>
+                    <p>בלויז $@Model.Amount פאר א יאהר</p>
+                    <h2>($@Model.AmountPerMonth Monthly)</h2>
+                    <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
+
+                    <input type="hidden" asp-for="Amount" />
+                    <input type="hidden" asp-for="AmountPerMonth" />
+                </div>
+
+            }
+
             <div class="form-box">
                 <div class="form-header">
                     <h2>Payment Info</h2>
@@ -273,7 +290,7 @@
             </div>
             <div class="form-footer text-end">
                 <button class="btn" id="resetBtn">Reset</button>
-                <button class="btn btn-primary" onclick="ChargeCard()">Confirm Order</button>
+                <button type="button" class="btn btn-primary" onclick="ChargeCard()">Confirm Order</button>
             </div>
         </div>
     </div>

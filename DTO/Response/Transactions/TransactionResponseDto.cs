@@ -13,5 +13,7 @@
         public int? CCProcessorId { get; set; }             
         public string Reason { get; set; }          
         public bool IsTransactionSucceeded { get; set; }
+        public bool Status { get; set; }
+
     }
 }

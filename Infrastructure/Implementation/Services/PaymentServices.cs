@@ -54,6 +54,7 @@ namespace Infrastructure.Implementation.Services
                 transactions.ItemTypeId = isTransactionSucceeded ? (int)TransactionStatusEnum.Success : (int)TransactionStatusEnum.Failed;
                 transactions.Reason = isTransactionSucceeded ? null : $"Error : {response.Error}, ErrorCode : {response.ErrorCode}";
                 transactions.IsTransactionSucceeded = isTransactionSucceeded;
+                transactions.Status = cardKnoxDonationRequest.Status;
                 var resultViewModel = await SendDonationEmail(cardKnoxDonationRequest, transactions.TransactionId, isTransactionSucceeded, response.Error);
                 return (transactions, response);
             }

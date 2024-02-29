@@ -96,6 +96,51 @@
         </main>
     </div>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <div class="div-modal"></div>
+    <div class="donate-inner-wrapper modal transaction-successful-modal" tabindex="-1" role="dialog" aria-labelledby="DonationSuccessfulModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-thanks">
+            <button type="button" data-dismiss="modal" class="close close-btn" aria-label="Close">
+                ×
+            </button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="donate-shadow-box">
+                        <div class="thankyou-box">
+                            <img src="~/assets/images/payment-success.svg" alt="">
+                            <h2>
+                                Thank you
+                            </h2>
+                            <p>
+                                Your Payment was successful!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="donate-inner-wrapper modal transaction-error-modal" tabindex="-1" role="dialog" aria-labelledby="DonationErrorModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="donate-shadow-box">
+                        <div class="thankyou-box">
+                            @*<img src="assets/images/payment-err.svg" alt="">*@
+                            <img src="~/assets/images/payment-failed.svg" alt="">
+                            <h2>
+                                Error
+                            </h2>
+                            <p class="donation-error">
+                            </p>
+                            <p>A receipt was sent to your email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 
