@@ -22,17 +22,12 @@ namespace Presentation.Controllers
             chargeCardRequestDto.Amount = amount == null || amount == 0 ? 12 : (decimal)amount;
             chargeCardRequestDto.AmountPerMonth = chargeCardRequestDto.Amount / 12;
             return View("~/Views/Payment/ChargeCard.cshtml", chargeCardRequestDto);
-        }
-        public async Task<IActionResult> ChargeCardform()
-        {
-            return View("~/Views/Payment/ChargeCard.cshtml");
-        }
-      
+        }             
         [HttpPost]
         public async Task<IActionResult> ChargeCard(TransactionRequestDto chargeCardRequestDto)
         {
-            await _paymentService.Payments(chargeCardRequestDto);
-            return null;
+            var result=await _paymentService.Payments(chargeCardRequestDto);
+            return Json(result);
         }
 
     }

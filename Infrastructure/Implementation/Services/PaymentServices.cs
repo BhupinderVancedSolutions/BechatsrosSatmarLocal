@@ -30,13 +30,12 @@ namespace Infrastructure.Implementation.Services
             _emailTemplateService = emailTemplateService;
         }      
 
-        public async Task<bool> Payments(TransactionRequestDto cardKnoxDonationRequest)
-        {
-            bool status = true;
+        public async Task<TransactionResponseDto> Payments(TransactionRequestDto cardKnoxDonationRequest)
+        {            
             TransactionResponseDto transaction = new TransactionResponseDto();
             CardknoxResponse cardknoxResponse;
             (transaction, cardknoxResponse) =await PaymentByCardknox( cardKnoxDonationRequest);
-            return (status);
+            return (transaction);
 
         }
         #region Private
@@ -54,6 +53,7 @@ namespace Infrastructure.Implementation.Services
                 transactions.TransactionType = "Card";
                 transactions.ItemTypeId = isTransactionSucceeded ? (int)TransactionStatusEnum.Success : (int)TransactionStatusEnum.Failed;
                 transactions.Reason = isTransactionSucceeded ? null : $"Error : {response.Error}, ErrorCode : {response.ErrorCode}";
+                transactions.IsTransactionSucceeded = isTransactionSucceeded;
                 var resultViewModel = await SendDonationEmail(cardKnoxDonationRequest, transactions.TransactionId, isTransactionSucceeded, response.Error);
                 return (transactions, response);
             }
