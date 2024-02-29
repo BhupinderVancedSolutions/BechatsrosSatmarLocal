@@ -1,8 +1,9 @@
-﻿
+﻿$(document).ready(function () {
+    $(".form-check-input").prop("checked", true);
+});
 
 
-
-function ChargeCard() {debugger
+function ChargeCard() {
     
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
@@ -20,30 +21,8 @@ function ChargeCard() {debugger
 
 
 }
-//function ProcessChargeCard() {debugger    
-//    var formData = $("#charge-card").serialize();
-//    $.ajax({
-//        type: "POST",
-//        url: "/Payment/ChargeCard",
-//        data: { chargeCardRequestDto: formData },
-//        dataType: "json",
-//        //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',  
-
-//        success: function (data) {
-
-//            //addCreditCardAndSendEmail(formData, data);
-//            if (data.status) {
-//                toastr.success("Payment successfully.");
-//            }
-//        },
-//        error: function () {
-
-//        }
-//    });
-
-//}
 function ProcessChargeCard() {
-    debugger;
+    ;
     var formData = $("#charge-card").serializeArray();
     $.ajax({
         type: "POST",
@@ -56,7 +35,6 @@ function ProcessChargeCard() {
             }
         },
         error: function () {
-            // Handle error
         }
     });
 }
@@ -69,7 +47,7 @@ $("#ExpDate").focusout(function () {
     }
 });
 
-$("#ExpDate").keyup(function () { // focusout method to bind function
+$("#ExpDate").keyup(function () { 
     $(".error-msg").addClass("d-none");
 });
 function validateExpDate() {
@@ -116,7 +94,7 @@ function isNumber(evt) {
     }
     return true;
 }
-function showHideExpDateErrorMsg() { // Show Hide Expiry Date Messages 
+function showHideExpDateErrorMsg() { 
     if ($.trim($(".exp-date").val()) != '') {
         $(".error-msg").addClass("d-none");
     }
@@ -136,5 +114,14 @@ function expDate() {
         $(".error-msg").addClass("d-none");
     }
 }
+
+$(".form-check-input").on("change", function () {
+    if ($(this).prop("checked")) {
+        $(".showhide-CheckBox").show();
+    } else {
+        $(".showhide-CheckBox").hide();
+    }
+});
+
 
 

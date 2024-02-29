@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System;
 using Application.Common.Interfaces.Services;
 using DTO.Request;
-using CardknoxApi;
-using Microsoft.AspNetCore.Http;
 
 namespace Presentation.Controllers
+
 {
     public class PaymentController : ControllerBase
     {
@@ -32,10 +30,7 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> ChargeCard(ChargeCardRequestDto chargeCardRequestDto)
         {
-            //chargeCardRequestDto.ExpMonth = 12;
-            //chargeCardRequestDto.ExpYear = 25;
-           var res = await _paymentService.Payments(chargeCardRequestDto);
-
+            await _paymentService.Payments(chargeCardRequestDto);
             return null;
         }
 

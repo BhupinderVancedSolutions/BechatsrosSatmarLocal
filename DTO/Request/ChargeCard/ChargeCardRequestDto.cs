@@ -44,7 +44,7 @@ namespace DTO.Request
         [RegularExpression("^[0-9]{4}$", ErrorMessage = "Last 4 digits of Card Number must be 4 digits.")]
         public string CardLast4Digit { get; set; }
 
-        [Required(ErrorMessage = "Please enter the Expiry Date.")]
+        [Required(ErrorMessage = "Enter Expiry Date.")]
         [StringLength(4, MinimumLength = 4, ErrorMessage = "Expiry Date must be 4 digits.")]
         public string ExpDate { get; set; }
 

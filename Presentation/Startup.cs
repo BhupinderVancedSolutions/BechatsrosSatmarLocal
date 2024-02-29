@@ -10,7 +10,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Middlewares;
-using Presentation.Adapter;
 using Application.Adapter;
 using Infrastructure.Adapter;
 using System.Text;
@@ -18,19 +17,9 @@ using System.Globalization;
 using Infrastructure.Implementation.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Implementation.BackgroundJob;
-using Application.Common.Interfaces.Services.PaymentService;
-using Infrastructure.Implementation.Services;
-using Application.Common.Interfaces.Repositories;
-using Infrastructure.Implementation.Repositories;
-using Application.Common.Interfaces.Services;
-using Infrastructure.Implementation.Services.PaymentService;
 using Mapster;
 using System.Reflection;
 using MapsterMapper;
-using Stripe;
-using Application.Common.Interfaces.Services.HelperService;
-using Infrastructure.Implementation.Services.HelperService;
-using Common.Helper;
 using Common.Settings;
 
 namespace Presentation
@@ -72,13 +61,6 @@ namespace Presentation
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             services.AddSingleton<IMapper, Mapper>();
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            //services.AddScoped<ICardKnoxService, CardKnoxService>();
-            //services.AddScoped<ICardknoxPaymentService, CardknoxPaymentService>();
-            //services.AddScoped<IPaymentProviderService, PaymentProviderService>();
-            services.AddScoped<IEmailHelperService, EmailHelperService>();
-
-            //services.AddScoped<IPaymentProviderRepository, PaymentProviderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
