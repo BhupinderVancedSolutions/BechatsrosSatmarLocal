@@ -14,19 +14,9 @@
         public string Secret { get; init; }
         public string ApplicationPath { get; set; }
         public int LinkValidHours { get; set; }
-        public string AdminEmail { get; init; }
-        public string OrganizationMemberSheetName { get; set; }
-        public string WebApplicationUrl { get; set; }
-        public string AngularApplicationUrl { get; set; }
-        public int PageSize { get; set; }
-        public string HebrewAudioFilePathMale { get; set; }
-        public string HebrewAudioFilePathFemale { get; set; }
-        public string ExchangedAmountBaseUrl { get; set; }
-        public string ExchangedAmountKey { get; set; }
-        public string ExchangedAmountSymbolCurrency { get; set; }
+        public string AdminEmail { get; init; }                     
         public string EncryptionSecret { get; set; }
-        public string CurrentYear { get; set; }
-        public string BitlyAccessToken { get; set; }
+        public string CurrentYear { get; set; }    
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
     }
