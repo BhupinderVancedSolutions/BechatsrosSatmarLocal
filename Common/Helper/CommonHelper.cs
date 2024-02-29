@@ -862,7 +862,20 @@ namespace Common.Helper
             return isEmail;
         }
 
+        public static void RemoveKeyFromSession(HttpContext httpContext, string key)
+        {
+            httpContext.Session.Remove(key);
+        }
 
+        /// <summary>
+        /// Remove all entries from the current session, if any.
+        /// The session cookie is not removed.
+        /// </summary>
+        /// <param name="httpContext"></param>
+        public static void ClearSession(HttpContext httpContext)
+        {
+            httpContext.Session.Clear();
+        }
 
     }
 }

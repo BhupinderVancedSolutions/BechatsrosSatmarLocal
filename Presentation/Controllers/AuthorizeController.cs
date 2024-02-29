@@ -59,7 +59,7 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult LogOut()
         {
-            //CommonHelper.RemoveKeyFromSession(HttpContext, "LoggedInUserDetails");           
+            CommonHelper.RemoveKeyFromSession(HttpContext, "LoggedInUserDetails");           
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Authorize");
         }
