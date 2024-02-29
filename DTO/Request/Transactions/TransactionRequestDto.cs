@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DTO.Request
 {
@@ -35,9 +34,8 @@ namespace DTO.Request
         [MinLength(3, ErrorMessage = "Cvv minimum length of 3.")]
         [MaxLength(4, ErrorMessage = "Cvv maximum length of 4.")]
         public string Cvv { get; set; }
-
-        [Required(ErrorMessage = "Please enter a Phone Number.")]
-        [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Phone Number.")]
+        [Required(ErrorMessage = "Please enter a PhoneNumber.")]
+        [MaxLength(10, ErrorMessage = "PhoneNumber maximum length of 10")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Enter Expiry Date.")]
@@ -64,16 +62,18 @@ namespace DTO.Request
         public int TransactionId { get; set; }
         public string TransactionGuid { get; set; }
         public string TransactionResult { get; set; }
-        [Required(ErrorMessage = "Please enter a Delivery Name.")]
+        [Required(ErrorMessage = "Please enter a Name.")]
         public string DeliveryName { get; set; }
-        [Required(ErrorMessage = "Please enter an Delivery Address")]
+        [Required(ErrorMessage = "Please enter an Address")]
         public string DeliveryAddress { get; set; }
-        [Required(ErrorMessage = "Please enter a Delivery City.")]
+        [Required(ErrorMessage = "Please enter a  City.")]
         public string DeliveryCity { get; set; }
-        [Required(ErrorMessage = "Please enter a Delivery Zip.")]
+        [Required(ErrorMessage = "Please enter a  Zip.")]
         public string DeliveryZip { get; set; }
         public bool IsDeliveryAddress { get; set; }
         public bool IsAutoRenew { get; set; }
+        public int? UserId { get; set; }
+        public bool Status { get; set; }
 
     }
 }

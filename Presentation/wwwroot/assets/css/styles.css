@@ -5050,3 +5050,68 @@ body {
 =====================================End=========== */
 /* ===Form wapper 
 =============================End======== */
+.donate-inner-wrapper {
+    background: #f7f8fa;
+    width: 100%;
+    height: auto;
+    /*padding: 63px 0 90px;*/
+    background: url(../images/bottom-banner.png) no-repeat;
+    background-size: cover;
+    background-attachment: fixed
+}
+
+.donate-carousel .carousel-item > img {
+    height: 420px;
+    background-size: contain;
+    background-position: 100%;
+    min-height: 125px
+}
+
+donate-inner-wrapper h2 {
+    font-size: 44px;
+    font-weight: 700;
+    color: #07a19b;
+    margin-bottom: 40px;
+    line-height: 50px;
+    text-align: right
+}
+
+.donation-gray-outer {
+    background: #f3f4f6;
+    padding: 20px 40px;
+    border-radius: 6px;
+    max-width: 576px;
+    margin: auto;
+}
+
+.donate-shadow-box {
+    height: 900px;
+    display: flex;
+}
+.thankyou-box {
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 30px rgb(0 0 0 / 5%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 70px 50px 80px;
+    width: 455px;
+    height: 350px;
+    /* margin-left: auto; */
+    font-family: "Poppins", sans-serif !important;
+    margin: auto;
+}
+
+    .donate-shadow-box .image > img {
+        width: 100px !important;
+        height: auto;
+        max-height: 100px
+    }
+/*Loader css*/
+.loader {
+    position: absolute;
+    top: 50%;
+    transform: translate(250%, -50%);
+}

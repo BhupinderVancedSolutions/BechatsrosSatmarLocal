@@ -3,41 +3,83 @@
 });
 
 
-function ChargeCard() {
-    
+function ChargeCard()
+{
+    ShowLoader(true);   
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
     if ($("#charge-card").valid() && IsValidExpDate) {
 
         var expDate = $("#ExpDate").val();
-        if (expDate.length == 4)
-        {            
+        if (expDate.length == 4) {
             $("#ExpMonth").val(expDate.substr(0, 2));
-            $("#ExpYear").val("20" + expDate.substr(2, 2));            
+            $("#ExpYear").val("20" + expDate.substr(2, 2));
         }
         ProcessChargeCard();
+       
+    } else {
+        return false;
     }
 
-
+    return false;
 
 }
 function ProcessChargeCard() {
-    ;
+
+    setTimeout(function () {
+        $(".transaction-error-modal").modal("hide");
+    }, 3000)
+    setTimeout(function () {
+        $(".transaction-successful-modal").modal("hide");
+    }, 3000)
+    ShowLoader(true);   
     var formData = $("#charge-card").serializeArray();
     $.ajax({
         type: "POST",
         url: "/Payment/ChargeCard",
-        data: formData, 
+        data: formData,
         dataType: "json",
-        success: function (data) {
-            if (data.status) {
-                toastr.success("Payment successful.");
+        success: function (data)
+        {           
+            if (data.status)
+            {
+
+                $(".transaction-successful-modal").modal("show");
+               
             }
+            else
+            {
+               $(".donation-error").html(data.Message);
+             //   $(".transaction-error-modal").modal("show");
+               
+            }
+            ShowLoader(false);
         },
         error: function () {
+           // ShowLoader(false);
+        },
+        complete: function () {
+            
+           // ShowLoader(false);
         }
     });
+    return false;
 }
+
+function ShowLoader(isShowLoader) {
+   
+    if (isShowLoader)
+    {
+        $(".loader").show();
+               
+    } else
+    {
+        $(".loader").hide();
+    }
+}
+
+
+
 
 $("#ExpDate").focusout(function () {
     
@@ -122,6 +164,22 @@ $(".form-check-input").on("change", function () {
         $(".showhide-CheckBox").hide();
     }
 });
+$(document).ready(function () {
+    $("#resetBtn").click(function () {
+       $("#charge-card")[0].reset();
+    });
+});
+
+$("#Amount").keyup(function () {
+    var amountInput = parseFloat($("#Amount").val());
+    if ($.isNumeric(amountInput)) {
+        var amount = parseFloat(amountInput);
+        var amountPerMonth = parseFloat(amount / 12);
+        $("#divAmountPerMonth").text(amountPerMonth.toFixed(2));
+    } else {
+        $("#divAmountPerMonth").text("0.00");
+    }
+})
 
 
 
