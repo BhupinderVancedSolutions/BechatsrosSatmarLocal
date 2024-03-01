@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     $(".form-check-input").prop("checked", true);
+    $(".mask-number").inputmask("(999) 999-9999");
+    $("#example1").inputmask('Regex', { regex: "^[1-9][0-9]?$|^100$" });
 
     //resetbtn
     $("#resetBtn").click(function () {
