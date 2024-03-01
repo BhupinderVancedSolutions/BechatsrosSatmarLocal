@@ -46,6 +46,7 @@ namespace Presentation
             services.AddControllersWithViews();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<MailSetting>(Configuration.GetSection("Mail"));
+            services.Configure<CardknoxSetting>(Configuration.GetSection("CardKnox"));
             services.AddApplication();
             services.AddInfrastructure(Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
