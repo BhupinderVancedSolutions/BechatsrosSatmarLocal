@@ -8,13 +8,13 @@
         public string Token { get; set; }
         public string TokenType { get; set; }
         public string TokenAlias { get; set; }
-        public string RefNum { get; set; }
         public string Exp { get; set; }
         public string Routing { get; set; }
         public string AccountType { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string Zip { get; set; }
-        public string SetAsDefault { get; set; }       
+        public bool SetAsDefault { get; set; }
+
     }
 }

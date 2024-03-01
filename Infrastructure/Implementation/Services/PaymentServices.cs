@@ -35,7 +35,22 @@ namespace Infrastructure.Implementation.Services
         {            
             TransactionResponseDto transaction = new TransactionResponseDto();
             CardknoxResponse cardknoxResponse;
-            (transaction, cardknoxResponse) =await PaymentByCardknox( cardKnoxDonationRequest);
+            if (cardKnoxDonationRequest.IsAutoRenew)
+            {
+                var result = await _cardknoxPaymentService.AddRecurringPayment(cardKnoxDonationRequest);
+                if (result.IsError)
+                {
+                    transaction.IsError = result.IsError;
+                    transaction.ErrorMessage = result.ErrorMessage;
+                } else
+                {
+                    transaction.IsError = result.IsError;
+                }
+            }
+            else
+            {
+                (transaction, cardknoxResponse) = await PaymentByCardknox(cardKnoxDonationRequest);
+            }
             return (transaction);
 
         }
@@ -68,8 +83,8 @@ namespace Infrastructure.Implementation.Services
         private async Task<ResultViewModel> SendDonationEmail (TransactionRequestDto cardKnoxDonationRequest, string transactionId, bool isTransactionSucceeded, string errorMessage)
         {
             ResultViewModel resultViewModel = new ResultViewModel();
-            await _emailTemplateService.SendTransactionMail(cardKnoxDonationRequest, transactionId, isTransactionSucceeded, errorMessage);
             resultViewModel.Status = true;
+            await _emailTemplateService.SendTransactionMail(cardKnoxDonationRequest, transactionId, isTransactionSucceeded, errorMessage);
             return resultViewModel;
         }
 

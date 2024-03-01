@@ -5,6 +5,7 @@
         public string RefNum { get; set; }
         public string Result { get; set; }
         public string Error { get; set; }
-        public string CustomerId { get; set; }        
+        public string CustomerId { get; set; }   
+        public bool Status { get; set; }
 }
 }

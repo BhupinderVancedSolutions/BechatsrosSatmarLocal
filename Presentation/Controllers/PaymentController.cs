@@ -38,8 +38,8 @@ namespace Presentation.Controllers
         public async Task<IActionResult> ChargeCard(TransactionRequestDto chargeCardRequestDto)
         {
 
-            var result=await _paymentService.Payments(chargeCardRequestDto);
-            return Json(new { Status = result.Status, Message = result.Reason });
+            var result = await _paymentService.Payments(chargeCardRequestDto);
+            return Json(new { IsError = result.IsError, Message = result.Reason, error = result.ErrorMessage });
         }
 
     }

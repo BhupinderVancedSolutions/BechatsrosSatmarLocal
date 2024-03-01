@@ -30,40 +30,37 @@ function chargeCard()
 
 }
 function processChargeCard() {
-    ShowLoader(true);   
+    ShowLoader(true);
     var formData = $("#charge-card").serializeArray();
     $.ajax({
         type: "POST",
         url: "/Payment/ChargeCard",
         data: formData,
         dataType: "json",
-        success: function (data)
-        {
-            if (data.status)
-            {
-
+        success: function (data) {
+            if (!data.isError) {
                 $(".sucess-modal").modal("show");
-               
+                $("#charge-card")[0].reset();
             }
-            else
-            {
-                $(".donation-error").html(data.message);
+            else {
+                $(".donation-error").html(data.error);
+                $(".sucess-fail-modal").modal("show");
                 $(".sucess-fail-modal").modal("show");
                 $("#charge-card")[0].reset();
-              
-               
+
+
             }
             ShowLoader(false);
         },
         error: function () {
-           // ShowLoader(false);
+            // ShowLoader(false);
         },
         complete: function () {
-            
-           // ShowLoader(false);
+
+            // ShowLoader(false);
         }
     });
-    return false;
+    /*return false;*/
 }
 
 function ShowLoader(isShowLoader) {

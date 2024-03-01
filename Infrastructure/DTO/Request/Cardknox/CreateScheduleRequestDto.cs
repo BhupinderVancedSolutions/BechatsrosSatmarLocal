@@ -14,8 +14,8 @@
         public bool SkipSaturdayAndHolidays { get; set; }
         public bool AllowInitialTransactionToDecline { get; set; }
         public bool CustReceipt { get; set; }
-        public string Custom01 { get; set; }
-        public string Custom02 { get; set; }
-        public string Custom03 { get; set; }			
+        //public string Custom01 { get; set; }
+        //public string Custom02 { get; set; }
+        //public string Custom03 { get; set; }			
     }
 }

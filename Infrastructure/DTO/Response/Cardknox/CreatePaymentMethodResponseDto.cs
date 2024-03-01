@@ -6,5 +6,6 @@
         public string Result { get; set; }
         public string Error { get; set; }
         public string PaymentMethodId { get; set; }
+        public bool Status { get; set; }
     }
 }

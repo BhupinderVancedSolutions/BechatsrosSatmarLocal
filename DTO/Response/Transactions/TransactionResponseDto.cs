@@ -14,6 +14,8 @@
         public string Reason { get; set; }          
         public bool IsTransactionSucceeded { get; set; }
         public bool Status { get; set; }
+        public bool IsError { get; set; }
+        public string ErrorMessage { get; set; }
 
     }
 }

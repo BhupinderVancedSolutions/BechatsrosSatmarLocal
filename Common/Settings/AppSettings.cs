@@ -19,5 +19,7 @@
         public string CurrentYear { get; set; }    
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
+        public string SoftwareVersion { get; set; }
+        public string SoftwareName { get; set; }
     }
 }
