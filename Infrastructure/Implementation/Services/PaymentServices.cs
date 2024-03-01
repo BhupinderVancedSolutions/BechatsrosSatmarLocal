@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.Services;
 using Application.Common.Interfaces.Services.PaymentService;
+using Application.Models.Response;
 using CardknoxApi;
 using Common.Enums;
 using Common.Helper;
@@ -50,6 +51,12 @@ namespace Infrastructure.Implementation.Services
             else
             {
                 (transaction, cardknoxResponse) = await PaymentByCardknox(cardKnoxDonationRequest);
+                if (transaction.TransactionResult == "Failed")
+                {
+                    transaction.IsError = true;
+                    transaction.ErrorMessage = transaction.Reason;
+                }
+                
             }
             return (transaction);
 
