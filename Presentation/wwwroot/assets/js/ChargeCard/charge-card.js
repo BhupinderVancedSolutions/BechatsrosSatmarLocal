@@ -1,9 +1,14 @@
 ﻿$(document).ready(function () {
     $(".form-check-input").prop("checked", true);
+
+    //resetbtn
+    $("#resetBtn").click(function () {
+        $("#charge-card")[0].reset();
+    });
 });
 
 
-function ChargeCard()
+function chargeCard()
 {
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
@@ -14,7 +19,7 @@ function ChargeCard()
             $("#ExpMonth").val(expDate.substr(0, 2));
             $("#ExpYear").val("20" + expDate.substr(2, 2));
         }
-        ProcessChargeCard();
+        processChargeCard();
        
     } else {
         return false;
@@ -23,7 +28,7 @@ function ChargeCard()
     return false;
 
 }
-function ProcessChargeCard() {
+function processChargeCard() {
     ShowLoader(true);   
     var formData = $("#charge-card").serializeArray();
     $.ajax({
@@ -157,11 +162,6 @@ $(".form-check-input").on("change", function () {
     } else {
         $(".showhide-CheckBox").hide();
     }
-});
-$(document).ready(function () {
-    $("#resetBtn").click(function () {
-       $("#charge-card")[0].reset();
-    });
 });
 
 $("#Amount").keyup(function () {

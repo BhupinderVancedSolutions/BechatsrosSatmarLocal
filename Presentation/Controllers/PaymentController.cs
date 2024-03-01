@@ -6,6 +6,7 @@ using Common.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Common.Helper;
+using System;
 
 namespace Presentation.Controllers
 
@@ -29,10 +30,10 @@ namespace Presentation.Controllers
             ViewData["ReturnUrl"] = amount;
             TransactionRequestDto chargeCardRequestDto = new();
             chargeCardRequestDto.Amount = amount == null || amount == 0 ? 12 : (decimal)amount;
-            chargeCardRequestDto.AmountPerMonth = chargeCardRequestDto.Amount / 12;
+            chargeCardRequestDto.AmountPerMonth = Math.Round(chargeCardRequestDto.Amount / 12, 2);
             chargeCardRequestDto.UserId = _user?.UserId ?? 0;
             return View("~/Views/Payment/ChargeCard.cshtml", chargeCardRequestDto);
-        }             
+        }
         [HttpPost]
         public async Task<IActionResult> ChargeCard(TransactionRequestDto chargeCardRequestDto)
         {
