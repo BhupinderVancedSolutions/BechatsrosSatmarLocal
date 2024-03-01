@@ -5091,15 +5091,11 @@ donate-inner-wrapper h2 {
 }
 .thankyou-box {
     text-align: center;
-    background: #fff;
     border-radius: 10px;
-    box-shadow: 0 3px 30px rgb(0 0 0 / 5%);
     display: flex;
     align-items: center;
     flex-direction: column;
     padding: 70px 50px 80px;
-    width: 455px;
-    height: 350px;
     /* margin-left: auto; */
     font-family: "Poppins", sans-serif !important;
     margin: auto;
