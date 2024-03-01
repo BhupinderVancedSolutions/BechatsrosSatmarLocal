@@ -68,7 +68,8 @@ namespace DTO.Request
         public string DeliveryAddress { get; set; }
         [Required(ErrorMessage = "Please enter a  City.")]
         public string DeliveryCity { get; set; }
-        [Required(ErrorMessage = "Please enter a  Zip.")]
+        [Required(ErrorMessage = "Please enter a Zip.")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Zip Code must be 5 digits.")]
         public string DeliveryZip { get; set; }
         public bool IsDeliveryAddress { get; set; }
         public bool IsAutoRenew { get; set; }
