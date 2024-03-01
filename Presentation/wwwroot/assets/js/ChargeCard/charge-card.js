@@ -4,7 +4,7 @@
 
 
 function ChargeCard()
-{  
+{
     var IsValidExpDate = true;
     IsValidExpDate = validateExpDate();
     if ($("#charge-card").valid() && IsValidExpDate) {
@@ -36,7 +36,7 @@ function ProcessChargeCard() {
             if (data.status)
             {
 
-                $(".transaction-successful-modal").modal("show");
+                $(".sucess-modal").modal("show");
                
             }
             else
