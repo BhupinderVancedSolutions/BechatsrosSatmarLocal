@@ -64,11 +64,11 @@ function ShowLoader(isShowLoader) {
    
     if (isShowLoader)
     {
-        $(".loader").show();
+        $(".overlay").show();
                
     } else
     {
-        $(".loader").hide();
+        $(".overlay").hide();
     }
 }
 
