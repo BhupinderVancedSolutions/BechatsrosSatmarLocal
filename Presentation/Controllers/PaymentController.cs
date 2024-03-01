@@ -40,7 +40,6 @@ namespace Presentation.Controllers
 
             var result=await _paymentService.Payments(chargeCardRequestDto);
             return Json(new { Status = result.Status, Message = result.Reason });
-            //return Json(result);
         }
 
     }
