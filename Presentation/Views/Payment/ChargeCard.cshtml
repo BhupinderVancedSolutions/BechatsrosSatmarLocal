@@ -42,7 +42,8 @@
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
                             <label for="City">City*</label>
-                            <input type="text" placeholder="City" class="form-control" id="City" autocomplete="off">
+                            <input type="text" placeholder="City" asp-for="City" class="form-control" id="City" autocomplete="off">
+                            <span asp-validation-for="City" class="text-danger errormsg"></span>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
@@ -94,10 +95,11 @@
                             <span asp-validation-for="DeliveryAddress"  class="text-danger errormsg"></span>
                             </div>
                         </div>
-                    <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="col-sm-12 col-md-3">
                         <div class="form-group">
-                            <label for="DeliveryCity">DeliveryCity</label>
-                            <input type="text" class="form-control" id="DeliveryCity" autocomplete="off">
+                            <label for="DeliveryCity">City*</label>
+                            <input type="text" placeholder="City" asp-for="DeliveryCity" class="form-control" id="DeliveryCity" autocomplete="off">
+                            <span asp-validation-for="DeliveryCity" class="text-danger errormsg"></span>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-2">
@@ -194,7 +196,6 @@
 <script>
     function setupCityAutocomplete(inputId) {
         var cityInput = document.getElementById(inputId);
-        cityInput.placeholder = ""; 
         var cityOptions = {
             types: ['(cities)'],
             componentRestrictions: {
