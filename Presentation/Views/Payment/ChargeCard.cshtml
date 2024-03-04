@@ -71,7 +71,7 @@
             </div>
 
             <div class="check d-flex gap-1">
-            <input type="checkbox" class="form-check-input " name="IsDeliveryAddress" asp-for="IsDeliveryAddress"checked>
+                  <input type="checkbox" class="form-check-input " name="IsDeliveryAddress" asp-for="IsDeliveryAddress"checked>
                 <label for="check">Deliver to a different address</label>
             </div>
                 <div class="form-box showhide-CheckBox">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
             <!-- Middle banner -->
             @if (@Model.UserId > 0)
             {
@@ -182,7 +182,6 @@
                 <button class="btn" id="resetBtn" onclick="resetCard()">Reset</button>
                 <button type="button" class="btn btn-primary" onclick="chargeCard()">Confirm Order</button>
             </div>
-        </div>
     </div>
 </form>
 <div class="overlay" style="display:none">
