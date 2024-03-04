@@ -42,61 +42,7 @@
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
                             <label for="City">City*</label>
-                            <select name="City" id="City" class="form-select" asp-for="City">
-                                <option value="">select</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
-                                <option value="DC">District Of Columbia</option>
-                                <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="ID">Idaho</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IN">Indiana</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NV">Nevada</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="NY" selected="selected">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="OH">Ohio</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="OR">Oregon</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TN">Tennessee</option>
-                                <option value="TX">Texas</option>
-                                <option value="UT">Utah</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WA">Washington</option>
-                                <option value="WV">West Virginia</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
-                                <option value="OT">Other</option>
-                            </select>
+                            <input type="text" placeholder="City" class="form-control" id="City" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
@@ -134,91 +80,35 @@
                     </div>
 
                     <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="col-sm-12 col-md-6 col-lg-3">
                             <div class="form-group">
-                                <label for="name">Name*</label>
-                                <input type="text" class="form-control" asp-for="DeliveryName" id="DeliveryName">
-                                <span asp-validation-for="DeliveryName" class="text-danger errormsg"></span>
+                             <label for="name">Name*</label>
+                            <input type="text" class="form-control" asp-for="DeliveryName" id="DeliveryName">
+                            <span asp-validation-for="DeliveryName" class="text-danger errormsg"></span>
                             </div>
                         </div>
                     <div class="col-sm-12 col-md-6 col-lg-4">
                             <div class="form-group">
                                 <label for="name">Address*</label>
-                                <input type="text" class="form-control" asp-for="DeliveryAddress" id="DeliveryAddress">
-                                <span asp-validation-for="DeliveryAddress" class="text-danger errormsg"></span>
+                            <input type="text" class="form-control" asp-for="DeliveryAddress" id="DeliveryAddress">
+                            <span asp-validation-for="DeliveryAddress"  class="text-danger errormsg"></span>
                             </div>
                         </div>
-                    <div class="col-sm-12 col-md-6 col-lg-2">
-                            <div class="form-group">
-                                <label for="DeliveryCity">City*</label>
-                                <select name="DeliveryCity" id="DeliveryCity" class="form-select" asp-for="DeliveryCity">
-                                    <option selected>select</option>
-                                    <option value="AL">Alabama</option>
-                                    <option value="AK">Alaska</option>
-                                    <option value="AZ">Arizona</option>
-                                    <option value="AR">Arkansas</option>
-                                    <option value="CA">California</option>
-                                    <option value="CO">Colorado</option>
-                                    <option value="CT">Connecticut</option>
-                                    <option value="DE">Delaware</option>
-                                    <option value="DC">District Of Columbia</option>
-                                    <option value="FL">Florida</option>
-                                    <option value="GA">Georgia</option>
-                                    <option value="HI">Hawaii</option>
-                                    <option value="ID">Idaho</option>
-                                    <option value="IL">Illinois</option>
-                                    <option value="IN">Indiana</option>
-                                    <option value="IA">Iowa</option>
-                                    <option value="KS">Kansas</option>
-                                    <option value="KY">Kentucky</option>
-                                    <option value="LA">Louisiana</option>
-                                    <option value="ME">Maine</option>
-                                    <option value="MD">Maryland</option>
-                                    <option value="MA">Massachusetts</option>
-                                    <option value="MI">Michigan</option>
-                                    <option value="MN">Minnesota</option>
-                                    <option value="MS">Mississippi</option>
-                                    <option value="MO">Missouri</option>
-                                    <option value="MT">Montana</option>
-                                    <option value="NE">Nebraska</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="NH">New Hampshire</option>
-                                    <option value="NJ">New Jersey</option>
-                                    <option value="NM">New Mexico</option>
-                                    <option value="NY" selected="selected">New York</option>
-                                    <option value="NC">North Carolina</option>
-                                    <option value="ND">North Dakota</option>
-                                    <option value="OH">Ohio</option>
-                                    <option value="OK">Oklahoma</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="PA">Pennsylvania</option>
-                                    <option value="RI">Rhode Island</option>
-                                    <option value="SC">South Carolina</option>
-                                    <option value="SD">South Dakota</option>
-                                    <option value="TN">Tennessee</option>
-                                    <option value="TX">Texas</option>
-                                    <option value="UT">Utah</option>
-                                    <option value="VT">Vermont</option>
-                                    <option value="VA">Virginia</option>
-                                    <option value="WA">Washington</option>
-                                    <option value="WV">West Virginia</option>
-                                    <option value="WI">Wisconsin</option>
-                                    <option value="WY">Wyoming</option>
-                                    <option value="OT">Other</option>
-                                </select>
-                            </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="DeliveryCity">DeliveryCity</label>
+                            <input type="text" class="form-control" id="DeliveryCity" autocomplete="off">
                         </div>
+                    </div>
                     <div class="col-sm-12 col-md-6 col-lg-2">
-                            <div class="form-group">
-                                <label for="name">Zip*</label>
+                        <div class="form-group">
+                            <label for="name">Zip*</label>
                             <input type="text" class="form-control" asp-for="DeliveryZip" maxlength="5" onkeypress="return isNumber(event)">
-                            <span asp-validation-for="DeliveryZip" class="text-danger errormsg"></span> 
+                            <span asp-validation-for="DeliveryZip" class="text-danger errormsg"></span>
 
-                            </div>
                         </div>
                     </div>
                 </div>
-            
 
             <!-- Middle banner -->
             @if (@Model.UserId > 0)
@@ -226,8 +116,8 @@
                 <div class="form-middle-banner">
                     <p>פרייז</p>
                     <p>בלויז  $ פאר א יאהר</p>
-                    <input type="number" class="form-control w-50 m-auto" asp-for="Amount" />
-                    <h2 class="d-flex justify-content-center">( $ <div class="ms-2" id="divAmountPerMonth">@Model.AmountPerMonth</div><span class="ms-2">Monthly</span> )</h2>
+                    <input type="number" class="form-control my-2 w-50 m-auto" asp-for="Amount" />
+                    <h2 class="d-flex font-weight-bold justify-content-center">( $<div id="divAmountPerMonth">@Model.AmountPerMonth</div><span class="ms-2">Monthly</span> )</h2>
                     <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
                     <input type="hidden" asp-for="AmountPerMonth" />
                 </div>
@@ -300,6 +190,52 @@
 </div>
 
 <script src="~/assets/js/chargecard/charge-card.js" asp-append-version="true"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.26&libraries=places&key=AIzaSyC80AXqIsLG3EBinSky-Oynud0aT0Meijs"></script>
+<script>
+    function setupCityAutocomplete(inputId) {
+        var cityInput = document.getElementById(inputId);
+        cityInput.placeholder = ""; 
+        var cityOptions = {
+            types: ['(cities)'],
+            componentRestrictions: {
+                country: "us"
+            }
+        };
+        var cityAutocomplete = new google.maps.places.Autocomplete(cityInput, cityOptions);
+        cityAutocomplete.addListener('place_changed', function () {
+            var place = cityAutocomplete.getPlace();
+            console.log(place);
+            if (place && place.address_components) {
+                var cityState = "";
+                var city, state;
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var component = place.address_components[i];
+                    if (component.types.includes('locality')) {
+                        city = component.long_name;
+                    } else if (component.types.includes('administrative_area_level_1')) {
+                        state = component.short_name;
+                    }
+                }
+                if (city && state) {
+                    cityInput.value = city + ", " + state;
+                }
+            }
+        });
+    }
+
+    setupCityAutocomplete('City');
+    setupCityAutocomplete('DeliveryCity');
+</script>
+
+
+
+
+
+
+
+
+
 
 
 
