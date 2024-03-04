@@ -5139,3 +5139,17 @@ donate-inner-wrapper h2 {
     pointer-events: auto; /* Disable click-through to elements below */
 }
 
+.modal-body.delete-complete {
+    min-height: 200px;
+    max-height: 280px;
+}
+
+.modal-body.delete-complete h2 {
+    font-size: 20px;
+    font-weight:700;
+    padding-bottom:36px;
+}
+
+.modal-body.delete-complete p {
+    padding-bottom: 20px;
+}
