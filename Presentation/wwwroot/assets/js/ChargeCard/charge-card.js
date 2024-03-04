@@ -1,13 +1,18 @@
 ﻿$(document).ready(function () {
     $(".form-check-input").prop("checked", true);
 
-    //resetbtn
-    $("#resetBtn").click(function () {
-        $("#charge-card")[0].reset();
-    });
+  });
+
+function resetCard() {
+    $("#charge-card")[0].reset();
+}
+
+
+$(document).on("keypress", "#charge-card", function (e) {
+    if (e.which === 13) {
+        e.preventDefault();
+    }
 });
-
-
 
 function chargeCard()
 {

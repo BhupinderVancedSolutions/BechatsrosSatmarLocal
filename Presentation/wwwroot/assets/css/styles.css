@@ -5047,11 +5047,22 @@ body {
         transform: rotate(45deg) translate(-50%, -50%);
         z-index: 2;
     }
-/* Checkbox override Css
+    .form-wapper .form-wapper_form input:focus {
+        box-shadow: none !important;
+    }
+    .form-wapper .form-wapper_form input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+    .form-wapper .form-wapper_form input[type=number]::-webkit-inner-spin-button,.form-wapper .form-wapper_form
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0 !important;
+    }
+        /* Checkbox override Css
 =====================================End=========== */
-/* ===Form wapper 
+        /* ===Form wapper 
 =============================End======== */
-.donate-inner-wrapper {
+        .donate-inner-wrapper {
     background: #f7f8fa;
     width: 100%;
     height: auto;
@@ -5124,3 +5135,4 @@ donate-inner-wrapper h2 {
     align-items: center;
     pointer-events: auto; /* Disable click-through to elements below */
 }
+
