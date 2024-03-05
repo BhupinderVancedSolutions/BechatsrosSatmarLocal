@@ -26,7 +26,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 body {
-    background: #F4F4FF;
+    background: #FFFBFE;
     color: var(--black-color);
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
@@ -4965,9 +4965,12 @@ body {
 
 /*==== middle banner
 ============================ */
-.form-wapper .form-middle-banner {
+    .form-wapper .form-middle-banner {
         max-width: 460px;
         min-width: 320px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         margin: auto;
         text-align: center;
         background: rgb(195, 145, 48, 10%);
@@ -4982,6 +4985,7 @@ body {
     }
     .form-wapper .form-middle-banner h2 {
         font-weight: 700;
+        font-size: 20px;
     }
     /*==== middle banner
 ========================End=================== */
