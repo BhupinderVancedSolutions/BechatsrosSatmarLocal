@@ -67,7 +67,7 @@ namespace Infrastructure.Implementation.Services
             try
             {
                 var transactions = new TransactionResponseDto();
-                var response = _cardknoxPaymentService.PaymentByCreditCard(transactionRequestDto.AmountPerMonth, transactionRequestDto.CreditCardNumber, CommonHelper.GetStringValue(transactionRequestDto.ExpMonth), CommonHelper.GetStringValue(transactionRequestDto.ExpYear), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _appSettings.ClientSecret);
+                var response = _cardknoxPaymentService.PaymentByCreditCard(transactionRequestDto.AmountPerMonth, transactionRequestDto.CreditCardNumber, CommonHelper.GetStringValue(transactionRequestDto.ExpMonth), CommonHelper.GetStringValue(transactionRequestDto.ExpYear), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _cardknoxSetting.ClientSecret);
                 bool isTransactionSucceeded = string.IsNullOrEmpty(response.Error);
                 transactions.TransactionGuid = response.RefNum;
                 transactions.CCProcessorId = (int)CCProcessorTypeEnum.Cardknox;

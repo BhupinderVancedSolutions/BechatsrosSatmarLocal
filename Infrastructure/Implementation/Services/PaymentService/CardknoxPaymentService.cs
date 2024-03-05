@@ -78,7 +78,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
             }
             if (createCustomerResponse.Error == null || createCustomerResponse.Error == "")
             {
-                var cardKnoxPaymentResponse = SaveCreditCard(transactionRequestDto.Amount, transactionRequestDto.CreditCardNumber, transactionRequestDto.ExpMonth.ToString(), transactionRequestDto.ExpYear.ToString(), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _appSettings.ClientSecret);
+                var cardKnoxPaymentResponse = SaveCreditCard(transactionRequestDto.Amount, transactionRequestDto.CreditCardNumber, transactionRequestDto.ExpMonth.ToString(), transactionRequestDto.ExpYear.ToString(), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _cardknoxSetting.ClientSecret);
                 if (cardKnoxPaymentResponse.Error != null && cardKnoxPaymentResponse.Error != "") 
                 {
                     cardKnoxRecurringResponse.IsError = true;
@@ -139,7 +139,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
         private async Task<CreateCustomerResponseDto> CreateCustomers(CreateCustomerRequestDto createCustomerRequestDto, HttpClient client)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, _appSettings.BaseUrl + "CreateCustomer")
+            var request = new HttpRequestMessage(HttpMethod.Post, _cardknoxSetting.BaseUrl + "CreateCustomer")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(createCustomerRequestDto), Encoding.UTF8, contentType)
             };
@@ -153,7 +153,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
         private async Task<CreatePaymentMethodResponseDto> CreatePaymentMethod(CreatePaymentMethodRequestDto createPaymentMethodRequestDto, HttpClient client)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, _appSettings.BaseUrl + "CreatePaymentMethod")
+            var request = new HttpRequestMessage(HttpMethod.Post, _cardknoxSetting.BaseUrl + "CreatePaymentMethod")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(createPaymentMethodRequestDto), Encoding.UTF8, contentType)
             };
@@ -167,7 +167,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
         private async Task<CreateScheduleResponseDto> CreateSchedule(CreateScheduleRequestDto createScheduleRequestDto, HttpClient client)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, _appSettings.BaseUrl + "CreateSchedule")
+            var request = new HttpRequestMessage(HttpMethod.Post, _cardknoxSetting.BaseUrl + "CreateSchedule")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(createScheduleRequestDto), Encoding.UTF8, contentType)
             };
