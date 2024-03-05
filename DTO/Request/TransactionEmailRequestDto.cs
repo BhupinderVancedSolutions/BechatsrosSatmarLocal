@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace DTO.Request
+﻿namespace DTO.Request
 {
   
     public class TransactionEmailRequestDto
