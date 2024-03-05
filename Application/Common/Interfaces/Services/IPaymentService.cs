@@ -6,6 +6,6 @@ namespace Application.Common.Interfaces.Services
 {
     public interface IPaymentService
     {
-        Task<TransactionResponseDto> Payments(TransactionRequestDto cardKnoxDonationRequest);
+        Task<TransactionResponseDto> Payments(TransactionRequestDto transactionRequestDto);
     }
 }

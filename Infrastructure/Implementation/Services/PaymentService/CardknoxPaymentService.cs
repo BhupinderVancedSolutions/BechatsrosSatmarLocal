@@ -31,7 +31,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
         }
         #region Method
 
-        public CardknoxResponse PaymentByCreditCard(decimal amount, string cardNumber, string expirationMonth, string expirationYear, string cvv, string clientId, string clientSecret)
+        public CardknoxResponse PaymentByCreditCard(decimal amount, string cardNumber, string expirationMonth, string expirationYear, string cvv, string xkey, string clientSecret)
         {
             if (expirationYear.Length > 2)
             {
@@ -47,27 +47,27 @@ namespace Infrastructure.Implementation.Services.PaymentService
                
             };
 
-            CardknoxRequest cardknoxRequest = new CardknoxRequest(clientId, clientSecret, "1.0.1");
+            CardknoxRequest cardknoxRequest = new CardknoxRequest(xkey, clientSecret, "1.0.1");
             Cardknox cardknox = new Cardknox(cardknoxRequest);                   
             var response = cardknox.CCSale(cCSale);
             return response;
         }
 
-        public async Task<CardKnoxRecurringResponse> AddRecurringPayment(TransactionRequestDto cardKnoxDonationRequest)
+        public async Task<CardKnoxRecurringResponse> AddRecurringPayment(TransactionRequestDto transactionRequestDto)
         {
             HttpClient client = GetClient(_cardknoxSetting.Token).GetAwaiter().GetResult();
-            CreateScheduleResponseDto createScheduleResponseDto =new CreateScheduleResponseDto();
+            CreateScheduleResponseDto createScheduleResponseDto = new CreateScheduleResponseDto();
             CardKnoxRecurringResponse cardKnoxRecurringResponse = new();
             CreateCustomerRequestDto createCustomerRequestDto = new()
             {
-                SoftwareName = _appSettings.SoftwareName,
-                SoftwareVersion = _appSettings.SoftwareVersion,
-                BillPhone = cardKnoxDonationRequest.PhoneNumber,
-                BillFirstName = cardKnoxDonationRequest.FirstName,
-                BillLastName = cardKnoxDonationRequest.LastName,
-                BillCity= cardKnoxDonationRequest.City,
-                BillZip = cardKnoxDonationRequest.Zip,
-                Email = cardKnoxDonationRequest.Email
+                SoftwareName = _cardknoxSetting.xSoftwareName,
+                SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
+                BillPhone = transactionRequestDto.PhoneNumber,
+                BillFirstName = transactionRequestDto.FirstName,
+                BillLastName = transactionRequestDto.LastName,
+                BillCity= transactionRequestDto.City,
+                BillZip = transactionRequestDto.Zip,
+                Email = transactionRequestDto.Email
             };
             
             var createCustomerResponse = await CreateCustomers(createCustomerRequestDto, client);
@@ -78,7 +78,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
             }
             if (createCustomerResponse.Error == null || createCustomerResponse.Error == "")
             {
-                var cardKnoxPaymentResponse = SaveCreditCard(cardKnoxDonationRequest.Amount, cardKnoxDonationRequest.CreditCardNumber, cardKnoxDonationRequest.ExpMonth.ToString(), cardKnoxDonationRequest.ExpYear.ToString(), cardKnoxDonationRequest.Cvv, _appSettings.ClientId, _appSettings.ClientSecret);
+                var cardKnoxPaymentResponse = SaveCreditCard(transactionRequestDto.Amount, transactionRequestDto.CreditCardNumber, transactionRequestDto.ExpMonth.ToString(), transactionRequestDto.ExpYear.ToString(), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _appSettings.ClientSecret);
                 if (cardKnoxPaymentResponse.Error != null && cardKnoxPaymentResponse.Error != "") 
                 {
                     cardKnoxRecurringResponse.IsError = true;
@@ -91,11 +91,11 @@ namespace Infrastructure.Implementation.Services.PaymentService
                     CreatePaymentMethodRequestDto createPaymentMethodRequestDto = new()
                     {
                         SetAsDefault = true,
-                        Exp = cardKnoxDonationRequest.ExpDate,
+                        Exp = transactionRequestDto.ExpDate,
                         CustomerId = createCustomerResponse.CustomerId,
-                        SoftwareName = _appSettings.SoftwareName,
-                        SoftwareVersion = _appSettings.SoftwareVersion,
-                        Zip = cardKnoxDonationRequest.Zip,
+                        SoftwareName = _cardknoxSetting.xSoftwareName,
+                        SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
+                        Zip = transactionRequestDto.Zip,
                         Token = cardKnoxPaymentResponse.Token,
                         TokenType = "CC"
                     };
@@ -110,9 +110,9 @@ namespace Infrastructure.Implementation.Services.PaymentService
                     {
                         CreateScheduleRequestDto createScheduleRequestDto = new()
                         {
-                            Amount = cardKnoxDonationRequest.Amount,
-                            SoftwareName = _appSettings.SoftwareName,
-                            SoftwareVersion = _appSettings.SoftwareVersion,
+                            Amount = transactionRequestDto.Amount,
+                            SoftwareName = _cardknoxSetting.xSoftwareName,
+                            SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
                             IntervalType = "Year",
                             IntervalCount = 1,
                             ScheduleName = "Samplee Schedule",
@@ -124,7 +124,6 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
 
                         };
-
                         createScheduleResponseDto = await CreateSchedule(createScheduleRequestDto, client);
                         if (createScheduleResponseDto.Error != null && createScheduleResponseDto.Error != "")
                         {
@@ -140,7 +139,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
         private async Task<CreateCustomerResponseDto> CreateCustomers(CreateCustomerRequestDto createCustomerRequestDto, HttpClient client)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://api.cardknox.com/v2/CreateCustomer")
+            var request = new HttpRequestMessage(HttpMethod.Post, _appSettings.BaseUrl + "CreateCustomer")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(createCustomerRequestDto), Encoding.UTF8, contentType)
             };
@@ -154,7 +153,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
         private async Task<CreatePaymentMethodResponseDto> CreatePaymentMethod(CreatePaymentMethodRequestDto createPaymentMethodRequestDto, HttpClient client)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://api.cardknox.com/v2/CreatePaymentMethod")
+            var request = new HttpRequestMessage(HttpMethod.Post, _appSettings.BaseUrl + "CreatePaymentMethod")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(createPaymentMethodRequestDto), Encoding.UTF8, contentType)
             };
@@ -168,7 +167,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
         private async Task<CreateScheduleResponseDto> CreateSchedule(CreateScheduleRequestDto createScheduleRequestDto, HttpClient client)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://api.cardknox.com/v2/CreateSchedule")
+            var request = new HttpRequestMessage(HttpMethod.Post, _appSettings.BaseUrl + "CreateSchedule")
             {
                 Content = new StringContent(JsonConvert.SerializeObject(createScheduleRequestDto), Encoding.UTF8, contentType)
             };
@@ -180,7 +179,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
         
         }
 
-        private async Task<HttpClient> GetClient(string token)
+        private Task<HttpClient> GetClient(string token)
         {
             HttpClient client = new HttpClient
             {
@@ -189,10 +188,10 @@ namespace Infrastructure.Implementation.Services.PaymentService
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
             client.DefaultRequestHeaders.Add("Authorization", token);
             client.DefaultRequestHeaders.Add("X-Recurring-Api-Version", "2.1");
-            return client;
+            return Task.FromResult(client);
         }
 
-        public CardknoxResponse SaveCreditCard(decimal amount, string cardNumber, string expirationMonth, string expirationYear, string cvv, string clientId, string clientSecret)
+        public CardknoxResponse SaveCreditCard(decimal amount, string cardNumber, string expirationMonth, string expirationYear, string cvv, string xkey, string clientSecret)
         {
             if (expirationYear.Length > 2)
             {
@@ -205,7 +204,7 @@ namespace Infrastructure.Implementation.Services.PaymentService
                 Exp = $"{expirationMonth}{expirationYear}",
                 CVV = cvv,
             };
-            CardknoxRequest cardknoxRequest = new CardknoxRequest(clientId, clientSecret, "1.0.1");
+            CardknoxRequest cardknoxRequest = new CardknoxRequest(xkey, clientSecret, "1.0.1");
             Cardknox cardknox = new Cardknox(cardknoxRequest);
             var response = cardknox.CCSave(cCSave);
             return response;

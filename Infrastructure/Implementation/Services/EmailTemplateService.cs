@@ -1,5 +1,4 @@
 ﻿using Application.Common.Interfaces.Services;
-using Application.Common.Models.Response;
 using DTO.Request;
 using Infrastructure.Attributes;
 using Microsoft.Extensions.Options;
@@ -7,12 +6,8 @@ using System;
 using System.Threading.Tasks;
 using Razor.Templating.Core;
 using Common.Helper;
-using System.Collections.Generic;
-using Application.Common.Models.Request;
-using System.Globalization;
 using Application.Common.Interfaces.ExternalAPI;
 using Common.Settings;
-using DTO.Response;
 
 namespace Infrastructure.Implementation.Services
 {
@@ -49,35 +44,27 @@ namespace Infrastructure.Implementation.Services
             return isMailSent;
         }
 
-        public async Task<bool> SendTransactionMail(TransactionRequestDto cardKnoxDonationReceiptRequest, string transactionId, bool isTransactionSucceeded, string errorMessage)
-        {
-            try
-            {                
+        public async Task<bool> SendTransactionMail(TransactionRequestDto transactionRequestDto, string transactionId, bool isTransactionSucceeded, string errorMessage)
+        {             
                 var templatePath = "Views/EmailTemplates/SendTransactionEmail.cshtml"; 
                 var emailSubject = isTransactionSucceeded ? "Payment Succeeded" : "Payment Failed";                
                 var body = string.Empty;
                 var obj = new TransactionEmailRequestDto()
                 {
-                    Name = cardKnoxDonationReceiptRequest.FirstName+" "+ cardKnoxDonationReceiptRequest.LastName,
-                    Address = cardKnoxDonationReceiptRequest.Address+", "+ cardKnoxDonationReceiptRequest.City+", "+cardKnoxDonationReceiptRequest.Zip,
-                    Phone = cardKnoxDonationReceiptRequest.PhoneNumber,
-                    Email = cardKnoxDonationReceiptRequest.Email,                   
-                    Status = (cardKnoxDonationReceiptRequest.TransactionResult == "Succeeded" && cardKnoxDonationReceiptRequest.TransactionId > 0 ? true : false),
+                    Name = transactionRequestDto.FirstName+" "+ transactionRequestDto.LastName,
+                    Address = transactionRequestDto.Address+", "+ transactionRequestDto.City+", "+ transactionRequestDto.Zip,
+                    Phone = transactionRequestDto.PhoneNumber,
+                    Email = transactionRequestDto.Email,                   
+                    Status = (transactionRequestDto.TransactionResult == "Succeeded" && transactionRequestDto.TransactionId > 0 ? true : false),
                     DomainUrl=_appSettings.ApplicationUrl,
-                    Amount= cardKnoxDonationReceiptRequest.Amount,
+                    Amount= transactionRequestDto.Amount,
                     TransactionId= transactionId
 
                 };
                 body = await RazorTemplateEngine.RenderAsync(templatePath, obj);
                 var pdf = CommonHelper.CreatePdfUsingSelectHtmlToPdf(body);
-                var mail = await _sendGridEmail.SendMail(cardKnoxDonationReceiptRequest.Email, emailSubject, body, "", null);
+                var mail = await _sendGridEmail.SendMail(transactionRequestDto.Email, emailSubject, body, "", null);
                 return mail;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
         }
 
     }

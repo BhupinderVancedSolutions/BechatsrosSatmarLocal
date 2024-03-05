@@ -20,12 +20,10 @@ namespace Presentation.Controllers
     {
         private readonly AppSettings _appSettings;
         private readonly UserRequest _user;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public AuthorizeController(IOptions<AppSettings> appSettings,IOptions<UserRequest> user, IHttpContextAccessor httpContextAccessor)
+        public AuthorizeController(IOptions<AppSettings> appSettings, IHttpContextAccessor httpContextAccessor)
         {
             _appSettings = appSettings.Value;
             _user = httpContextAccessor.HttpContext.Session.GetObjectFromJson<UserRequest>("LoggedInUserDetails", _appSettings.Secret);
-            _httpContextAccessor = httpContextAccessor;
         }
 
         [AllowAnonymous]
@@ -85,7 +83,7 @@ namespace Presentation.Controllers
             forgetPasswordRequest.PasswordResetLink = passwordResetLink;
             var command = forgetPasswordRequest.Adapt<ForgotPasswordCommand>();
             var result = await Mediator.Send(command);
-            if (result.Succeeded == true)
+            if (result.Succeeded)
             {
                 ViewBag.SuccessMsg = "Please check you email for password Reset.";
             }
@@ -120,7 +118,7 @@ namespace Presentation.Controllers
                 }
                 else
                 {
-                    if (_appSettings.LinkValidHours >= (DateTime.Now - (DateTime)result.PasswordExpirationDate).Hours)
+                    if (_appSettings.LinkValidHours >= (DateTime.Now - result.PasswordExpirationDate).Hours)
                     {
                         var userDetail = result.Adapt<UserRequest>();
                         HttpContext.Session.SetObjectAsJson("LoggedInUserDetails", userDetail, _appSettings.Secret);
@@ -143,7 +141,7 @@ namespace Presentation.Controllers
             resetPasswordRequest.UserId = _user.UserId;
             var command = resetPasswordRequest.Adapt<ResetPasswordCommand>();
             var res = await Mediator.Send(command);
-            if (res.Succeeded == true)
+            if (res.Succeeded)
             {
                 ViewBag.SucessMsg = "Password updated successfully";
                 return View() ;

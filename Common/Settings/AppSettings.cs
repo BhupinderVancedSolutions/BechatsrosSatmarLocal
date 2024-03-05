@@ -17,9 +17,8 @@
         public string AdminEmail { get; init; }                     
         public string EncryptionSecret { get; set; }
         public string CurrentYear { get; set; }    
-        public string ClientId { get; set; }
         public string ClientSecret { get; set; }
-        public string SoftwareVersion { get; set; }
-        public string SoftwareName { get; set; }
+        public string BaseUrl { get; set; }
+
     }
 }

@@ -50,7 +50,6 @@ function processChargeCard() {
             else {
                 $(".donation-error").html(data.error);
                 $(".sucess-fail-modal").modal("show");
-                $(".sucess-fail-modal").modal("show");
                 $("#charge-card")[0].reset();
 
 

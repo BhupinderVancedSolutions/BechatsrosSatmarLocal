@@ -1,6 +1,5 @@
 ﻿using Application.Common.Interfaces.Services;
 using Application.Common.Interfaces.Services.PaymentService;
-using Application.Models.Response;
 using CardknoxApi;
 using Common.Enums;
 using Common.Helper;
@@ -11,7 +10,6 @@ using DTO.Response;
 using DTO.Response.Transactions;
 using Infrastructure.Attributes;
 using Microsoft.Extensions.Options;
-using Org.BouncyCastle.Asn1.Crmf;
 using System;
 using System.Threading.Tasks;
 
@@ -24,33 +22,35 @@ namespace Infrastructure.Implementation.Services
         private readonly ICardknoxPaymentService _cardknoxPaymentService;
         private readonly AppSettings _appSettings;
         private readonly IEmailTemplateService _emailTemplateService;
-
-        public PaymentServices( ICardknoxPaymentService cardknoxPaymentService, IOptions<AppSettings> appSettings, IEmailTemplateService emailTemplateService)
+        private readonly CardknoxSetting _cardknoxSetting;
+        public PaymentServices( ICardknoxPaymentService cardknoxPaymentService, IOptions<AppSettings> appSettings, IEmailTemplateService emailTemplateService, IOptions<CardknoxSetting> cardknoxSetting)
         {
                 _cardknoxPaymentService = cardknoxPaymentService;
                 _appSettings = appSettings.Value;
             _emailTemplateService = emailTemplateService;
+            _cardknoxSetting = cardknoxSetting.Value;
         }      
 
-        public async Task<TransactionResponseDto> Payments(TransactionRequestDto cardKnoxDonationRequest)
+        public async Task<TransactionResponseDto> Payments(TransactionRequestDto transactionRequestDto)
         {            
             TransactionResponseDto transaction = new TransactionResponseDto();
             CardknoxResponse cardknoxResponse;
-            if (cardKnoxDonationRequest.IsAutoRenew)
+            if (transactionRequestDto.IsAutoRenew)
             {
-                var result = await _cardknoxPaymentService.AddRecurringPayment(cardKnoxDonationRequest);
+                var result = await _cardknoxPaymentService.AddRecurringPayment(transactionRequestDto);
                 if (result.IsError)
                 {
                     transaction.IsError = result.IsError;
                     transaction.ErrorMessage = result.ErrorMessage;
-                } else
+                } 
+                else
                 {
                     transaction.IsError = result.IsError;
                 }
             }
             else
             {
-                (transaction, cardknoxResponse) = await PaymentByCardknox(cardKnoxDonationRequest);
+                (transaction, cardknoxResponse) = await PaymentByCardknox(transactionRequestDto);
                 if (transaction.TransactionResult == "Failed")
                 {
                     transaction.IsError = true;
@@ -62,12 +62,12 @@ namespace Infrastructure.Implementation.Services
 
         }
         #region Private
-        private async Task<(TransactionResponseDto, CardknoxResponse)> PaymentByCardknox(TransactionRequestDto cardKnoxDonationRequest)
+        private async Task<(TransactionResponseDto, CardknoxResponse)> PaymentByCardknox(TransactionRequestDto transactionRequestDto)
         {
             try
             {
                 var transactions = new TransactionResponseDto();
-                var response = _cardknoxPaymentService.PaymentByCreditCard(cardKnoxDonationRequest.AmountPerMonth, cardKnoxDonationRequest.CreditCardNumber, CommonHelper.GetStringValue(cardKnoxDonationRequest.ExpMonth), CommonHelper.GetStringValue(cardKnoxDonationRequest.ExpYear), cardKnoxDonationRequest.Cvv, _appSettings.ClientId, _appSettings.ClientSecret);
+                var response = _cardknoxPaymentService.PaymentByCreditCard(transactionRequestDto.AmountPerMonth, transactionRequestDto.CreditCardNumber, CommonHelper.GetStringValue(transactionRequestDto.ExpMonth), CommonHelper.GetStringValue(transactionRequestDto.ExpYear), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _appSettings.ClientSecret);
                 bool isTransactionSucceeded = string.IsNullOrEmpty(response.Error);
                 transactions.TransactionGuid = response.RefNum;
                 transactions.CCProcessorId = (int)CCProcessorTypeEnum.Cardknox;
@@ -77,8 +77,8 @@ namespace Infrastructure.Implementation.Services
                 transactions.ItemTypeId = isTransactionSucceeded ? (int)TransactionStatusEnum.Success : (int)TransactionStatusEnum.Failed;
                 transactions.Reason = isTransactionSucceeded ? null : $"Error : {response.Error}, ErrorCode : {response.ErrorCode}";
                 transactions.IsTransactionSucceeded = isTransactionSucceeded;
-                transactions.Status = cardKnoxDonationRequest.Status;
-                var resultViewModel = await SendDonationEmail(cardKnoxDonationRequest, transactions.TransactionGuid, isTransactionSucceeded, response.Error);
+                transactions.Status = transactionRequestDto.Status;
+                var resultViewModel = await SendDonationEmail(transactionRequestDto, transactions.TransactionGuid, isTransactionSucceeded, response.Error);
                 return (transactions, response);
             }
             catch (Exception)
