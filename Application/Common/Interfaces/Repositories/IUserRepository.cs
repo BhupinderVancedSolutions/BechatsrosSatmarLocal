@@ -1,4 +1,4 @@
-﻿using Application.Common.Models.Request;
+﻿using Application.Common.DTO.Request;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;

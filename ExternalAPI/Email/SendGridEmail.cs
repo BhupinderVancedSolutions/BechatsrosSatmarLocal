@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces.ExternalAPI;
-using Application.Common.Models.Request;
+using Application.Common.DTO.Request;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;

@@ -1,17 +1,13 @@
-﻿using Application.Common.Models.Response;
+﻿using Application.Common.DTO.Response;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
-using Application.Models.Response;
+using Application.DTO.Response;
 using Infrastructure.Attributes;
 using System.Threading.Tasks;
 using Mapster;
 using Common.Helper;
 using System;
 using Microsoft.Extensions.Options;
-using Application.Common.Models.Request;
-using Domain.Entities;
-using System.Collections.Generic;
-using MapsterMapper;
 using Common.Settings;
 
 namespace Infrastructure.Implementation.Services

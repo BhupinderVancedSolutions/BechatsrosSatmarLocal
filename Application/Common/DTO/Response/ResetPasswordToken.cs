@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.Common.Models.Response
+namespace Application.Common.DTO.Response
 {
     public class ResetPasswordToken
     {

@@ -1,14 +1,10 @@
-﻿using Application.Common.Models.Request;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Application.Common.Interfaces.Repositories;
 using Infrastructure.Attributes;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Common.Interfaces.DataBase;
 using System.Data;
-using Dapper;
-using System.Linq;
 
 namespace Infrastructure.Implementation.Repositories
 {

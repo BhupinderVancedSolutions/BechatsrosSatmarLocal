@@ -1,4 +1,4 @@
-﻿namespace Application.Common.Models.Request
+﻿namespace Application.Common.DTO.Request
 {
     public class AttachmentRequest
     {

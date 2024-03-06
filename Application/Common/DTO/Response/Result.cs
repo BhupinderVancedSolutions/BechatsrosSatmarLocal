@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Application.Models.Response
+namespace Application.DTO.Response
 {
     public class Result
     {

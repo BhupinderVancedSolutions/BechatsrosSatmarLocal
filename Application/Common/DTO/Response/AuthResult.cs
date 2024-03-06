@@ -1,4 +1,4 @@
-﻿namespace Application.Models.Response
+﻿namespace Application.DTO.Response
 {
     public class AuthResult
     {

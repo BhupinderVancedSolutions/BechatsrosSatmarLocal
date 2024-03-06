@@ -1,4 +1,4 @@
-﻿using Application.Common.Models.Response;
+﻿using Application.Common.DTO.Response;
 using Application.Common.Interfaces.Services;
 using MediatR;
 using System.Threading;

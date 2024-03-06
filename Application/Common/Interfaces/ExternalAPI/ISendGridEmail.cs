@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.Common.Models.Request;
+using Application.Common.DTO.Request;
 
 namespace Application.Common.Interfaces.ExternalAPI
 {

@@ -1,4 +1,4 @@
-﻿using Application.Common.Models;
+﻿using Application.Common.DTO;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;

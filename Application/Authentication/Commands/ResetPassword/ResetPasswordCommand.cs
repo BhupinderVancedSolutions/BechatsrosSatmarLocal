@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces.Services;
-using Application.Models.Response;
+using Application.DTO.Response;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.Common.Models
+namespace Application.Common.DTO
 {
     public class ErrorDetails
     {
