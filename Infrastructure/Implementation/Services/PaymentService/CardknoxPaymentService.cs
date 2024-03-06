@@ -69,24 +69,78 @@ namespace Infrastructure.Implementation.Services.PaymentService
                 BillZip = transactionRequestDto.Zip,
                 Email = transactionRequestDto.Email
             };
-            
-            var createCustomerResponse = await CreateCustomers(createCustomerRequestDto, client);
-            if(createCustomerResponse.Error != null && createCustomerResponse.Error != "")
-            {
-                cardKnoxRecurringResponse.IsError = true;
-                cardKnoxRecurringResponse.ErrorMessage = createCustomerResponse.Error;
-            }
-            if (createCustomerResponse.Error == null || createCustomerResponse.Error == "")
-            {
-                var cardKnoxPaymentResponse = SaveCreditCard(transactionRequestDto.Amount, transactionRequestDto.CreditCardNumber, transactionRequestDto.ExpMonth.ToString(), transactionRequestDto.ExpYear.ToString(), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _cardknoxSetting.ClientSecret);
-                if (cardKnoxPaymentResponse.Error != null && cardKnoxPaymentResponse.Error != "") 
-                {
-                    cardKnoxRecurringResponse.IsError = true;
-                    cardKnoxRecurringResponse.ErrorMessage = cardKnoxPaymentResponse.Error;
-                }
+
+            //var createCustomerResponse = await CreateCustomers(createCustomerRequestDto, client);
+            //if(createCustomerResponse.Error != null && createCustomerResponse.Error != "")
+            //{
+            //    cardKnoxRecurringResponse.IsError = true;
+            //    cardKnoxRecurringResponse.ErrorMessage = createCustomerResponse.Error;
+            //}
+            //if (createCustomerResponse.Error == null || createCustomerResponse.Error == "")
+            //{
+            //    var cardKnoxPaymentResponse = SaveCreditCard(transactionRequestDto.Amount, transactionRequestDto.CreditCardNumber, transactionRequestDto.ExpMonth.ToString(), transactionRequestDto.ExpYear.ToString(), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _cardknoxSetting.ClientSecret);
+            //    if (cardKnoxPaymentResponse.Error != null && cardKnoxPaymentResponse.Error != "") 
+            //    {
+            //        cardKnoxRecurringResponse.IsError = true;
+            //        cardKnoxRecurringResponse.ErrorMessage = cardKnoxPaymentResponse.Error;
+            //    }
 
 
-                if (createCustomerResponse != null && !string.IsNullOrEmpty(createCustomerResponse.CustomerId) && (cardKnoxPaymentResponse.Error == null || cardKnoxPaymentResponse.Error == ""))
+            //    if (createCustomerResponse != null && !string.IsNullOrEmpty(createCustomerResponse.CustomerId) && (cardKnoxPaymentResponse.Error == null || cardKnoxPaymentResponse.Error == ""))
+            //    {
+            //        CreatePaymentMethodRequestDto createPaymentMethodRequestDto = new()
+            //        {
+            //            SetAsDefault = true,
+            //            Exp = transactionRequestDto.ExpDate,
+            //            CustomerId = createCustomerResponse.CustomerId,
+            //            SoftwareName = _cardknoxSetting.xSoftwareName,
+            //            SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
+            //            Zip = transactionRequestDto.Zip,
+            //            Token = cardKnoxPaymentResponse.Token,
+            //            TokenType = "CC"
+            //        };
+
+            //        var createPaymentMethodResponse = await CreatePaymentMethod(createPaymentMethodRequestDto, client);
+            //        if (createPaymentMethodResponse.Error != null && createPaymentMethodResponse.Error != "")
+            //        {
+            //            cardKnoxRecurringResponse.IsError = true;
+            //            cardKnoxRecurringResponse.ErrorMessage = createPaymentMethodResponse.Error;
+            //        }
+            //        if (createPaymentMethodResponse != null && !string.IsNullOrEmpty(createPaymentMethodResponse.PaymentMethodId) && (createPaymentMethodResponse.Error == null || createPaymentMethodResponse.Error == ""))
+            //        {
+            //            CreateScheduleRequestDto createScheduleRequestDto = new()
+            //            {
+            //                Amount = transactionRequestDto.Amount,
+            //                SoftwareName = _cardknoxSetting.xSoftwareName,
+            //                SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
+            //                IntervalType = "Year",
+            //                IntervalCount = 1,
+            //                ScheduleName = "Samplee Schedule",
+            //                TotalPayments = 5,
+            //                SkipSaturdayAndHolidays = false,
+            //                AllowInitialTransactionToDecline = false,
+            //                CustReceipt = false,
+            //                CustomerId = createCustomerResponse.CustomerId
+
+
+            //            };
+            //            createScheduleResponseDto = await CreateSchedule(createScheduleRequestDto, client);
+            //            if (createScheduleResponseDto.Error != null && createScheduleResponseDto.Error != "")
+            //            {
+            //                cardKnoxRecurringResponse.IsError = true;
+            //                cardKnoxRecurringResponse.ErrorMessage = createScheduleResponseDto.Error;
+            //            }
+            //        }
+
+            //    }
+            //}
+
+            var createCustomerResponse = await CreateCustomers(createCustomerRequestDto, client);            
+            if (createCustomerResponse != null && !string.IsNullOrEmpty(createCustomerResponse.CustomerId) && string.IsNullOrEmpty(createCustomerResponse.Error))
+            {
+                var cardKnoxPaymentResponse = SaveCreditCard(transactionRequestDto.Amount, transactionRequestDto.CreditCardNumber, transactionRequestDto.ExpMonth.ToString(), transactionRequestDto.ExpYear.ToString(), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _cardknoxSetting.ClientSecret);                
+
+                if (cardKnoxPaymentResponse!=null && string.IsNullOrEmpty(cardKnoxPaymentResponse.Error))
                 {
                     CreatePaymentMethodRequestDto createPaymentMethodRequestDto = new()
                     {
@@ -99,14 +153,9 @@ namespace Infrastructure.Implementation.Services.PaymentService
                         Token = cardKnoxPaymentResponse.Token,
                         TokenType = "CC"
                     };
-
-                    var createPaymentMethodResponse = await CreatePaymentMethod(createPaymentMethodRequestDto, client);
-                    if (createPaymentMethodResponse.Error != null && createPaymentMethodResponse.Error != "")
-                    {
-                        cardKnoxRecurringResponse.IsError = true;
-                        cardKnoxRecurringResponse.ErrorMessage = createPaymentMethodResponse.Error;
-                    }
-                    if (createPaymentMethodResponse != null && !string.IsNullOrEmpty(createPaymentMethodResponse.PaymentMethodId) && (createPaymentMethodResponse.Error == null || createPaymentMethodResponse.Error == ""))
+                   
+                    var createPaymentMethodResponse = await CreatePaymentMethod(createPaymentMethodRequestDto, client);                   
+                    if (createPaymentMethodResponse != null && !string.IsNullOrEmpty(createPaymentMethodResponse.PaymentMethodId) && string.IsNullOrEmpty(createPaymentMethodResponse.Error))
                     {
                         CreateScheduleRequestDto createScheduleRequestDto = new()
                         {
@@ -125,15 +174,31 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
                         };
                         createScheduleResponseDto = await CreateSchedule(createScheduleRequestDto, client);
-                        if (createScheduleResponseDto.Error != null && createScheduleResponseDto.Error != "")
+                        if (!string.IsNullOrEmpty(createScheduleResponseDto.Error))
                         {
                             cardKnoxRecurringResponse.IsError = true;
-                            cardKnoxRecurringResponse.ErrorMessage = createScheduleResponseDto.Error;
+                            cardKnoxRecurringResponse.ErrorMessage = createScheduleResponseDto!=null? createScheduleResponseDto.Error:" Something went wrong. Please Try again";
                         }
+                    }
+                    else
+                    {
+                        cardKnoxRecurringResponse.IsError = true;
+                        cardKnoxRecurringResponse.ErrorMessage = createPaymentMethodResponse!=null? createPaymentMethodResponse.Error : " Something went wrong. Please Try again";
                     }
 
                 }
+                else
+                {
+                    cardKnoxRecurringResponse.IsError = true;
+                    cardKnoxRecurringResponse.ErrorMessage = cardKnoxPaymentResponse!=null? cardKnoxPaymentResponse.Error : " Something went wrong. Please Try again";
+                }
             }
+            else
+            {
+                cardKnoxRecurringResponse.IsError = true;
+                cardKnoxRecurringResponse.ErrorMessage = createCustomerResponse!=null? createCustomerResponse.Error : " Something went wrong. Please Try again";
+            }
+
             return cardKnoxRecurringResponse;
         }
 
