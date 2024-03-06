@@ -1,6 +1,6 @@
 ﻿namespace Application.Common.DTO.Response
 {
-    public class ApplicationUserResponse
+    public class ApplicationUserResponseDto
     {
         public int UserId { get; init; }
         public string FirstName { get; init; } 

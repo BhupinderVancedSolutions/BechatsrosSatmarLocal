@@ -1,6 +1,6 @@
 ﻿namespace Application.DTO.Response
 {
-    public class AuthResult
+    public class AuthResultResponseDto
     {
         public bool IsSuccess { get; init; }
         public object Result { get; init; }

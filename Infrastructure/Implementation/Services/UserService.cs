@@ -26,18 +26,18 @@ namespace Infrastructure.Implementation.Services
 
         }
 
-        public async Task<AuthResult> AuthenticateUser(string email, string password)
+        public async Task<AuthResultResponseDto> AuthenticateUser(string email, string password)
         {
             var user = await _userRepository.AuthenticateUser(email);
 
             if (user == null)
-                return new AuthResult { IsSuccess = false, ErrorMessage = "User dosen't exists." };
+                return new AuthResultResponseDto { IsSuccess = false, ErrorMessage = "User dosen't exists." };
 
             string pwd = EncryptionHelper.DecryptByteArrayToString(user.Password, _appSettings.Secret);
             if (password != pwd)
-                return new AuthResult { IsSuccess = false, ErrorMessage = "Invalid password." };
+                return new AuthResultResponseDto { IsSuccess = false, ErrorMessage = "Invalid password." };
 
-            return new AuthResult { IsSuccess = true, Result = user.Adapt<ApplicationUserResponse>(), ErrorMessage = string.Empty };
+            return new AuthResultResponseDto { IsSuccess = true, Result = user.Adapt<ApplicationUserResponseDto>(), ErrorMessage = string.Empty };
         }
 
         public async Task<Result> ForgotPassword(string email, string passwordtoken, string passwordResetLink)
@@ -59,10 +59,10 @@ namespace Infrastructure.Implementation.Services
             return result;
         }
 
-        public async Task<ResetPasswordToken> GetUserByPasswordToken(string passwordToken)
+        public async Task<ResetPasswordTokenResponseDto> GetUserByPasswordToken(string passwordToken)
         {
             var user = await _userRepository.GetUserByPasswordToken(passwordToken);
-            return user.Adapt<ResetPasswordToken>();
+            return user.Adapt<ResetPasswordTokenResponseDto>();
         }
         public async Task<TeamConnect> GetUserByTeamConnectToken(string teamConnectToken)
         {

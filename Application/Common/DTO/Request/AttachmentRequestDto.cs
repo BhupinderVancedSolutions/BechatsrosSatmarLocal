@@ -1,6 +1,6 @@
 ﻿namespace Application.Common.DTO.Request
 {
-    public class AttachmentRequest
+    public class AttachmentRequestDto
     {
         public byte[] Content
         {

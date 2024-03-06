@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Application.Authentication.Queries
 {
-    public class ResetPasswordQuery : IRequest<ResetPasswordToken>
+    public class ResetPasswordQuery : IRequest<ResetPasswordTokenResponseDto>
     {
         public string PasswordToken { get; init; }
     }
 
-    public class ResetPasswordQueryHandler : IRequestHandler<ResetPasswordQuery, ResetPasswordToken>
+    public class ResetPasswordQueryHandler : IRequestHandler<ResetPasswordQuery, ResetPasswordTokenResponseDto>
     {
         private readonly IUserService _userService;
 
@@ -20,7 +20,7 @@ namespace Application.Authentication.Queries
             _userService = userService;
         }
 
-        public async Task<ResetPasswordToken> Handle(ResetPasswordQuery request, CancellationToken cancellationToken)
+        public async Task<ResetPasswordTokenResponseDto> Handle(ResetPasswordQuery request, CancellationToken cancellationToken)
         {
             return await _userService.GetUserByPasswordToken(request.PasswordToken);
         }

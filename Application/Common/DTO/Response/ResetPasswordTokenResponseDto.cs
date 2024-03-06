@@ -2,7 +2,7 @@
 
 namespace Application.Common.DTO.Response
 {
-    public class ResetPasswordToken
+    public class ResetPasswordTokenResponseDto
     {
         public int UserId { get; init; }
         public string PasswordToken { get; set; }

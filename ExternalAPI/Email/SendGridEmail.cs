@@ -278,7 +278,7 @@ namespace ExternalAPI.Email
 
             return status;
         }
-        public async Task<bool> SendMailWithMultipleAttachments(string to, string subject, string body, List<AttachmentRequest> attachments, string fromName = "", string replyToEmail = "")
+        public async Task<bool> SendMailWithMultipleAttachments(string to, string subject, string body, List<AttachmentRequestDto> attachments, string fromName = "", string replyToEmail = "")
         {
 
             bool status = false;

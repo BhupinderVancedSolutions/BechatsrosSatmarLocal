@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Application.Authentication.Commands
 {
-    public class AuthenticateUserCommand : IRequest<AuthResult>
+    public class AuthenticateUserCommand : IRequest<AuthResultResponseDto>
     {
         public string Email { get; init; }
         public string Password { get; init; }
     }
 
-    public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, AuthResult>
+    public class AuthenticateUserCommandHandler : IRequestHandler<AuthenticateUserCommand, AuthResultResponseDto>
     {
         private readonly IUserService _userService;
 
@@ -21,7 +21,7 @@ namespace Application.Authentication.Commands
             _userService = userService;
         }
 
-        public async Task<AuthResult> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
+        public async Task<AuthResultResponseDto> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
         {
             return await _userService.AuthenticateUser(request.Email, request.Password);
         }
