@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .ag-root-wrapper-body.ag-layout-normal {
+        height: 50%;
+    }
+
+    .ag-grid-wrapper {
+        border-radius: 0 0 4px 4px;
+        position: relative;
+    }
+</style>
+<button class="btn font-xs" type="button" onclick="GetAddModal()">Add</button>
+
+
+
+
+<div class="content-inner-wrapper">
+    <div class="ag-grid-wrapper">
+        <div class="ag-loader" style="display:none">
+            <div class="spinner"></div>
+        </div>
+        <div class="ag-theme-balham all-City"></div>
+    </div>
+</div>
+@* 
+@section Scripts {
+    <script src="~\assets\js\CityCharge\city-charge.js"></script>
+} *@
+<script src="~/assets/js/citycharge/city-charge.js"></script>
+
+

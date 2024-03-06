@@ -11,10 +11,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Implementation.DataBase
 {
-    public class TeamConnectContext : ITeamConnectContext
+    public class BechatsrosSatmarContext : IBechatsrosSatmar
     {
         private readonly string _connectionString;
-        public TeamConnectContext(IConfiguration configuration)
+        public BechatsrosSatmarContext(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }

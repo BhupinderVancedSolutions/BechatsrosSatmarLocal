@@ -15,9 +15,11 @@ namespace Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<ITeamConnectContext, TeamConnectContext>();
+            services.AddScoped<IBechatsrosSatmar, BechatsrosSatmarContext>();
             services.AddScoped<IParameterManager, ParameterManager>();
             services.RegisterApplicationServices(Assembly.GetExecutingAssembly());
+
+            //services.AddScoped<ICityChargeService, CityChargeService>();
         }
     }
 }

@@ -32,4 +32,9 @@
 	  <ProjectReference Include="..\DTO\DTO.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Authentication\Commands\CityCharge\" />
+	  <Folder Include="Common\Interfaces\Services\PaymentService\" />
+	</ItemGroup>
+
 </Project>

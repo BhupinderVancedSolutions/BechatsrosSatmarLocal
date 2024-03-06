@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Implementation.DataBase
 {
-    public class TeamConnectEntityContext : DbContext
+    public class BechatsrosSatmarEntityContext : DbContext
     {
-        public TeamConnectEntityContext(DbContextOptions<TeamConnectEntityContext> options) : base(options)
+        public BechatsrosSatmarEntityContext(DbContextOptions<BechatsrosSatmarEntityContext> options) : base(options)
         {
 
         }

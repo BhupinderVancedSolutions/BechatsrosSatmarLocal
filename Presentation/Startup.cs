@@ -40,7 +40,7 @@ namespace Presentation
             TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
             ApplicationMapsterMappings.Configure();
             InfrastructureMapsterMappings.Configure();
-            services.AddDbContextPool<TeamConnectEntityContext>(options =>
+            services.AddDbContextPool<BechatsrosSatmarEntityContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddOptions();
             services.AddControllersWithViews();
@@ -60,7 +60,6 @@ namespace Presentation
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddSignalR();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
             services.AddSingleton<IMapper, Mapper>();
         }
 
@@ -94,10 +93,16 @@ namespace Presentation
             app.UseAuthorization();            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                 name: "AdminPanel",
+                 areaName: "AdminPanel",
+                 pattern: "AdminPanel/{controller=Setting}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Authorize}/{action=Login}/{id?}"                   
                     );
+
             });
         }
     }

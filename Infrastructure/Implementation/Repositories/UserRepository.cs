@@ -11,9 +11,9 @@ namespace Infrastructure.Implementation.Repositories
     [ScopedService]
     public class UserRepository : IUserRepository
     {
-        private readonly ITeamConnectContext _dbContext;
+        private readonly IBechatsrosSatmar _dbContext;
         private readonly IParameterManager _parameterManager;        
-        public UserRepository(ITeamConnectContext dbContext, IParameterManager parameterManager) 
+        public UserRepository(IBechatsrosSatmar dbContext, IParameterManager parameterManager) 
         {
             _dbContext = dbContext;
             _parameterManager = parameterManager;            

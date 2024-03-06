@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.DataBase
 {
-    public interface ITeamConnectContext
+    public interface IBechatsrosSatmar
     {        
         Task<TEntity> ExecuteStoredProcedure<TEntity>(string storedProcedureName, params object[] parameters);
         Task<IList<TEntity>> ExecuteStoredProcedureList<TEntity>(string storedProcedureName, params object[] parameters);

@@ -1,5 +1,4 @@
-﻿using Application.Common.Interfaces.Services.PaymentService;
-using CardknoxApi;
+﻿using CardknoxApi;
 using CardknoxApi.Operations;
 using Infrastructure.Attributes;
 using Newtonsoft.Json;
@@ -15,6 +14,8 @@ using Infrastructure.DTO.Request.Cardknox;
 using Infrastructure.DTO.Response.Cardknox;
 using System.Net.Http.Headers;
 using DTO.Response;
+using Application.Common.Interfaces.Services;
+using Application.Common.Interfaces.Services.PaymentService;
 
 namespace Infrastructure.Implementation.Services.PaymentService
 {
