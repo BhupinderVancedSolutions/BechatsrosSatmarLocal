@@ -20,9 +20,9 @@
                                 <input type="text" placeholder="Price" class="form-control w-75" asp-for="Price">
                                 <span asp-validation-for="Price" class="text-danger errormsg"></span>
                             </div>
-                            <div>
-
-                                <a href="javascript:void(0);" onclick="AddNew()" class="add-icon btn px-2 btn-primary font-600 add-feature"><i class="fas fa-plus-circle me-1"></i>Add New</a>
+                            <div class="d-flex gap-2 align-items-center">
+                                <a href="javascript:void(0);" onclick="AddNew()" class="add-icon btn btn-primary"><i class="fas fa-plus-circle"></i></a>
+                                <a href="javascript:void(0);" onclick="AddNew()" class="add-icon btn btn-primary"><i class="fas fa-minus-circle"></i></a>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ using DTO.Response;
 using DTO.Response.Transactions;
 using Infrastructure.Attributes;
 using Microsoft.Extensions.Options;
+using SendGrid;
 using System;
 using System.Threading.Tasks;
 
@@ -35,6 +36,7 @@ namespace Infrastructure.Implementation.Services
         {            
             TransactionResponseDto transaction = new TransactionResponseDto();
             CardknoxResponse cardknoxResponse;
+            bool isTransactionSucceeded=false;
             if (transactionRequestDto.IsAutoRenew)
             {
                 var result = await _cardknoxPaymentService.AddRecurringPayment(transactionRequestDto);
@@ -46,6 +48,11 @@ namespace Infrastructure.Implementation.Services
                 else
                 {
                     transaction.IsError = result.IsError;
+                    isTransactionSucceeded = true;
+                }
+                if (_appSettings.IsSendEmail == true)
+                {
+                    var resultViewModel = await SendDonationEmail(transactionRequestDto, result.RefNum, isTransactionSucceeded, transaction.ErrorMessage);
                 }
             }
             else
@@ -56,7 +63,14 @@ namespace Infrastructure.Implementation.Services
                     transaction.IsError = true;
                     transaction.ErrorMessage = transaction.Reason;
                 }
-                
+                else
+                {
+                    isTransactionSucceeded = true;
+                }
+                if (_appSettings.IsSendEmail == true)
+                {
+                    var resultViewModel = await SendDonationEmail(transactionRequestDto, transaction.TransactionGuid, isTransactionSucceeded, transaction.ErrorMessage);
+                }
             }
             return (transaction);
 
@@ -87,7 +101,7 @@ namespace Infrastructure.Implementation.Services
                 transactions.Reason = isTransactionSucceeded ? null : $"Error : {response.Error}, ErrorCode : {response.ErrorCode}";
                 transactions.IsTransactionSucceeded = isTransactionSucceeded;
                 transactions.Status = transactionRequestDto.Status;
-                var resultViewModel = await SendDonationEmail(transactionRequestDto, transactions.TransactionGuid, isTransactionSucceeded, response.Error);
+                
                 return (transactions, response);
             }
             catch (Exception)

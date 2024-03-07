@@ -14,6 +14,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     --sidebar-width: 56px;
     --primary-color: #C39130;
     --primary-hover-color: #d79f34;
+    --secondary-color: #7B3373;
     --primary-color-light: #ECEBFA;
     --grey-color: #888888;
     --greydark-color: #929292;
@@ -944,7 +945,7 @@ width: 6px;
     border-radius: 8px;
     padding: 30px 40px;
     margin: auto;
-    box-shadow: 0px 0px 5px rgba(0,0,0,10%) !important;
+    box-shadow: 0px 0px 5px rgb(0,0,0,10%);
 }
     .auth-form .form-group {
         margin-bottom: 25px;
@@ -5068,8 +5069,11 @@ body {
     }
         /* Checkbox override Css
 =====================================End=========== */
-        /* ===Form wapper 
-=============================End======== */
+    /* ===Form wapper 
+            =====================End========---------------- */
+/*Thank you and Error popup Css
+    =========================================================*/
+
         .donate-inner-wrapper {
     background: #f7f8fa;
     width: 100%;
@@ -5158,14 +5162,74 @@ donate-inner-wrapper h2 {
 .modal-body.delete-complete p {
     padding-bottom: 20px;
 }
+/*Thank you and Error popup Css
+    ==========================================End=======================*/
 
 /*form City charge Csss
         =====================================================================================*/
 .city-charge {
-    max-width: 700px !important;
+    max-width: 670px !important;
 }
 .city-charge .addcity-charge {
         display: flex;
-        grid-gap: 18px;
+        justify-content:space-between;
         align-items: center;
 }
+  .city-charge .addcity-charge .add-icon {
+        font-size: 18px;
+        padding: 4px 12px;
+
+}
+.city-charge .addcity-charge input::placeholder {
+    font-size: 12px;
+}
+
+/*form City charge Csss
+        ===========================================End==========================================*/
+
+
+.main-wrapper .main-wrapper_content {
+    width: calc(100% - 204px);
+}
+
+/*Header navbar Css=
+    ===========================================================*/
+.navbar {
+    background-color: var(--primary-color) !important;
+    color: #ffffff;
+}
+.navbar .navbar-nav a {
+    color: #ffffff !important;
+    font-size: 14px;
+}
+
+/*Header navbar Css=
+    ====================================End=======================*/
+
+/*Sidebar Css
+    ============================================================*/
+.sidebar {
+    background-color: #fff;
+    height: 100vh;
+    width: 204px;
+    position: relative;
+    box-shadow: 0px 5px 5px rgb(0,0,0,10%);
+}
+    .sidebar .menu-list {
+        margin-top: 50px;
+    }
+        .sidebar .menu-list .nav-link {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            padding: 8px 20px;
+            background-color: #a04696;
+        }
+
+ .sidebar .menu-list .nav-link:hover {
+            background-color: var(--secondary-color);
+}
+
+/*Sidebar Css
+    ==========================================End==================*/

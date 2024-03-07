@@ -144,6 +144,10 @@ namespace Infrastructure.Implementation.Services.PaymentService
                             cardKnoxRecurringResponse.IsError = true;
                             cardKnoxRecurringResponse.ErrorMessage = createScheduleResponseDto!=null? createScheduleResponseDto.Error:" Something went wrong. Please Try again";
                         }
+                        else
+                        {
+                            cardKnoxRecurringResponse.RefNum = createScheduleResponseDto.RefNum;
+                        }
                     }
                     else
                     {
