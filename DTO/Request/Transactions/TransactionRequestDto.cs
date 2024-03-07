@@ -7,11 +7,12 @@ namespace DTO.Request
         [Required(ErrorMessage = "Please enter a Name.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please enter a Card Title")]
+        [MaxLength(20, ErrorMessage = "Card Title must be at most 20 characters long")]
         public string CardTitle { get; set; }
 
         [Required(ErrorMessage = "Please enter an Address")]
         public string Address { get; set; }
-
+        [Required(ErrorMessage = "Please enter a Email")]
         [RegularExpression("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}", ErrorMessage = "Please enter a valid Email Address.")]
         [MaxLength(50, ErrorMessage = "Email maximum length of 50.")]
         public string Email { get; set; }

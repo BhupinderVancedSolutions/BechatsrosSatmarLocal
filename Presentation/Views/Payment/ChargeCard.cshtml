@@ -49,8 +49,12 @@
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
                             <label for="City">City*</label>
-                            <input type="text" placeholder="City" asp-for="City" class="form-control" id="City" autocomplete="off">
-                            <span asp-validation-for="City" class="text-danger errormsg"></span>
+                            <select name="City" id="City" class="form-select" asp-for="City">
+                                <option value="">select</option>
+                                <option value="339">Monroe</option>
+                                <option value="339">Monsey</option>
+                                <option value="329">Brooklyn</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
@@ -72,6 +76,7 @@
                         <div class="form-group">
                             <label for="name">Email</label>
                             <input type="text" placeholder="Email" class="form-control" asp-for="Email" id="Email">
+                             <span asp-validation-for="Email" class="text-danger errormsg"></span>
                         </div>
                     </div>
                 </div>
@@ -105,8 +110,14 @@
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
                             <label for="DeliveryCity">City*</label>
-                            <input type="text" placeholder="City" asp-for="DeliveryCity" class="form-control" id="DeliveryCity" autocomplete="off">
-                            <span asp-validation-for="DeliveryCity" class="text-danger errormsg"></span>
+                           <div class="form-group">
+                          <select name="DeliveryCity" id="DeliveryCity" class="form-select" asp-for="DeliveryCity">
+                              <option value="">select</option>
+                              <option value="339">Monroe</option>
+                              <option value="339">Monsey</option>
+                              <option value="329">Brooklyn</option>
+                          </select>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-2">
@@ -120,7 +131,7 @@
                 </div>
             </div>
             <!-- Middle banner -->
-            @if (@Model.UserId > 0)
+           @*  @if (@Model.UserId > 0)
             {
                 <div class="form-middle-banner">
                     <p>פרייז</p>
@@ -130,21 +141,17 @@
                     <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
                     <input type="hidden" asp-for="AmountPerMonth" />
                 </div>
-            }
-            else
-            {
-                <div class="form-middle-banner">
-                    <p>פרייז</p>
-                    <p>בלויז $@Model.Amount פאר א יאהר</p>
-                    <h2>($@Model.AmountPerMonth Monthly)</h2>
-                    <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
-
-                    <input type="hidden" asp-for="Amount" />
-                    <input type="hidden" asp-for="AmountPerMonth" />
-                </div>
-
-            }
-
+            } *@
+           @*  else *@
+            
+              <div class="form-middle-banner">
+               <p>פרייז</p>
+              <p>בלויז $<span id="Amount"></span> פאר א יאהר</p>
+              <h2>($<span id="AmountPerMonth"></span> Monthly)</h2>
+              <p>(אריינגערעכענט פארגרעסערטע יו”ט אויסגאבעס)</p>
+              <input type="hidden" asp-for="Amount" id="hiddenAmount" />
+              <input type="hidden" asp-for="AmountPerMonth" id="hiddenAmountPerMonth" />
+              </div>
             <div class="form-box">
                 <div class="form-header">
                     <h2>Payment Info</h2>
@@ -198,51 +205,33 @@
 </div>
 
 <script src="~/assets/js/chargecard/charge-card.js" asp-append-version="true"></script>
-
-<script src="https://maps.googleapis.com/maps/api/js?v=3.26&libraries=places&key=AIzaSyC80AXqIsLG3EBinSky-Oynud0aT0Meijs"></script>
 <script>
-    function setupCityAutocomplete(inputId) {
-        var cityInput = document.getElementById(inputId);
-        var cityOptions = {
-            types: ['(cities)'],
-            componentRestrictions: {
-                country: "us"
-            }
-        };
-        var cityAutocomplete = new google.maps.places.Autocomplete(cityInput, cityOptions);
-        cityAutocomplete.addListener('place_changed', function () {
-            var place = cityAutocomplete.getPlace();
-            console.log(place);
-            if (place && place.address_components) {
-                var cityState = "";
-                var city, state;
-                for (var i = 0; i < place.address_components.length; i++) {
-                    var component = place.address_components[i];
-                    if (component.types.includes('locality')) {
-                        city = component.long_name;
-                    } else if (component.types.includes('administrative_area_level_1')) {
-                        state = component.short_name;
-                    }
-                }
-                if (city && state) {
-                    cityInput.value = city + ", " + state;
-                }
-            }
-        });
+    function updateAmount(cityValue) {
+        var amount;
+        if (cityValue === "339") {
+            amount = 339; 
+        } else if (cityValue === "329") {
+            amount = 329; 
+        } else {
+            amount = 0; 
+        }
+        document.getElementById("Amount").innerText = amount;
+        document.getElementById("AmountPerMonth").innerText = (amount / 12).toFixed(2);
+        document.getElementById("hiddenAmount").value = amount;
+        document.getElementById("hiddenAmountPerMonth").value = (amount / 12).toFixed(2);
     }
 
-    setupCityAutocomplete('City');
-    setupCityAutocomplete('DeliveryCity');
+    document.getElementById("City").addEventListener("change", function() {
+        var citySelect = document.getElementById("City");
+        var selectedCityIndex = citySelect.selectedIndex;
+        var selectedCityValue = citySelect.options[selectedCityIndex].value;
+        updateAmount(selectedCityValue);
+    });
+
+    document.getElementById("DeliveryCity").addEventListener("change", function() {
+        var deliveryCitySelect = document.getElementById("DeliveryCity");
+        var selectedDeliveryCityIndex = deliveryCitySelect.selectedIndex;
+        var selectedDeliveryCityValue = deliveryCitySelect.options[selectedDeliveryCityIndex].value;
+        updateAmount(selectedDeliveryCityValue);
+    });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
