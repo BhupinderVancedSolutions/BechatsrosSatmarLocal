@@ -16,4 +16,12 @@ namespace DTO.Request.CityCharge
         public decimal? Price { get; set; }
         public int CityId { get; set; }
     }
+
+
+    public class CreateUpdateRequest
+    {
+        public int UserId { get; set; }
+        public string CityName { get; set; }
+        public decimal? Price { get; set; }
+    }
 }

@@ -25,6 +25,12 @@ namespace Infrastructure.Implementation.Services
             _cityChargeRepository = cityChargeRepository;
         }
 
+        public async Task<Result> CreateCity(CreateUpdateRequest createUpdateRequest)
+        {
+            var returnVal = await _cityChargeRepository.CreateCity(createUpdateRequest);
+            return returnVal > 0 ? Result.Success(new string[] { ActionStatusConstant.Created }, returnVal) : Result.Failure(new string[] { ActionStatusConstant.Error });
+        }
+
         public async Task<Result> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList, int userId)
         {
             var returnVal = await _cityChargeRepository.CreateUpdateCity(CreateUpdateCityXml(createUpdateRequestDtoList), userId);

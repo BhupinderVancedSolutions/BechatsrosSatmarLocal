@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using Application.Areas.Queries.GetCityById;
 using System;
 using Application.Areas.Command.UpdateCity;
+using Application.Areas.Command.CreateUpdateCity;
 
 namespace Presentation.Areas.AdminPanel.Controllers
 {
@@ -63,6 +64,13 @@ namespace Presentation.Areas.AdminPanel.Controllers
         public async Task<IActionResult> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList)
         {
            Result  result = await Mediator.Send(createUpdateRequestDtoList.Adapt<CreateUpdateCityCommand>());
+            return Json(new { message = result.Succeeded == true ? result.Messages[0] : result.Errors[0], success = result.Succeeded, isExist = result.IsExist });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCity(CreateUpdateRequest CreateUpdateRequest)
+        {
+            Result result = await Mediator.Send(CreateUpdateRequest.Adapt<CreateCityCommand>());
             return Json(new { message = result.Succeeded == true ? result.Messages[0] : result.Errors[0], success = result.Succeeded, isExist = result.IsExist });
         }
 

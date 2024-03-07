@@ -14,5 +14,7 @@ namespace Application.Common.Interfaces.Services
         Task<PaginatedList<CityChargeResponseDto>> GetCities(CommonRequest commonRequest);
         Task<CityChargeResponseDto> GetCityById(int cityId);
         Task<Result> UpdateCity(UpdateRequestDto  updateRequestDto);
+
+        Task<Result> CreateCity(CreateUpdateRequest createUpdateRequest);
     }
 }

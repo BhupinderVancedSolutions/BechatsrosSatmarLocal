@@ -131,6 +131,34 @@ function saveUpdate() {
 }
 
 
+
+function saveCity() {
+    if ($('.city-form').valid()) {
+        var formData = $(".city-form").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/CityCharge/CreateCity",
+            data: formData,
+            dataType: "json",
+            success: function (data) {
+                if (data.success === true) {
+                    $('.create-city-modal').modal('hide');
+                    ReloadGrid();
+                    toastr.success("City Added Successfully")
+                } else {
+                    toastr.error("Error occurred");
+                }
+                ShowLoader(false);
+            },
+            error: function () {
+                toastr.error("Error occurred");
+                ShowLoader(false);
+            }
+        });
+    }
+}
+
+
 function renderCityEditAction(currentRow) {
     let eGui = document.createElement("div");
     eGui.innerHTML = `<div class="" data-toggle="tooltip" title="Edit">

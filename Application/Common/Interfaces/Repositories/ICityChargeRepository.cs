@@ -1,5 +1,6 @@
 ﻿using Application.Common.Dtos;
 using Application.Common.Models.Request;
+using Application.DTO.Response;
 using DTO.Request.CityCharge;
 using DTO.Response.CityCharge;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Application.Common.Interfaces.Repositories
         Task<bool> IsExistCity(string Name, int id = 0);
         Task<CityChargeResponseDto> GetCityById(int cityId);
         Task<int> UpdateCity(UpdateRequestDto  updateRequestDto);
+        Task<int> CreateCity(CreateUpdateRequest createUpdateRequest);
 
     }
 }

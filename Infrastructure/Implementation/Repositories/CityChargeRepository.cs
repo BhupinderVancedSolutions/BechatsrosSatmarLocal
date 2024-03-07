@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.DataBase;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Models.Request;
+using Application.DTO.Response;
 using Dapper;
 using DTO.Request.CityCharge;
 using DTO.Response.CityCharge;
@@ -88,6 +89,15 @@ namespace Infrastructure.Implementation.Repositories
         {
             return await _dbContext.ExecuteStoredProcedure<CityChargeResponseDto>("usp_GetCityById",
                 _parameterManager.Get("CityId", cityId));
+        }
+
+        public async Task<int> CreateCity(CreateUpdateRequest createUpdateRequest)
+        {
+            return await _dbContext.ExecuteStoredProcedure<int>("usp_CreateCity",
+                 _parameterManager.Get("CityName", createUpdateRequest.CityName),
+                 _parameterManager.Get("Price", createUpdateRequest.Price),
+                 _parameterManager.Get("UserId", createUpdateRequest.UserId)
+               );
         }
     }
 }
