@@ -17,6 +17,7 @@
         public string AdminEmail { get; init; }                     
         public string EncryptionSecret { get; set; }
         public string CurrentYear { get; set; }    
+        public bool IsSendEmail { get;set; }
 
     }
 }
