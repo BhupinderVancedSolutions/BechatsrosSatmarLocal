@@ -51,9 +51,9 @@
                             <label for="City">City*</label>
                             <select name="City" id="City" class="form-select" asp-for="City">
                                 <option value="">select</option>
-                                <option value="339">Monroe</option>
-                                <option value="339">Monsey</option>
-                                <option value="329">Brooklyn</option>
+                                <option value="Monroe">Monroe</option>
+                                <option value="Monsey">Monsey</option>
+                                <option value="Brooklyn">Brooklyn</option>
                             </select>
                         </div>
                     </div>
@@ -113,9 +113,9 @@
                            <div class="form-group">
                           <select name="DeliveryCity" id="DeliveryCity" class="form-select" asp-for="DeliveryCity">
                               <option value="">select</option>
-                              <option value="339">Monroe</option>
-                              <option value="339">Monsey</option>
-                              <option value="329">Brooklyn</option>
+                              <option value="Monroe">Monroe</option>
+                              <option value="Monsey">Monsey</option>
+                              <option value="Brooklyn">Brooklyn</option>
                           </select>
                             </div>
                         </div>
@@ -205,33 +205,3 @@
 </div>
 
 <script src="~/assets/js/chargecard/charge-card.js" asp-append-version="true"></script>
-<script>
-    function updateAmount(cityValue) {
-        var amount;
-        if (cityValue === "339") {
-            amount = 339; 
-        } else if (cityValue === "329") {
-            amount = 329; 
-        } else {
-            amount = 0; 
-        }
-        document.getElementById("Amount").innerText = amount;
-        document.getElementById("AmountPerMonth").innerText = (amount / 12).toFixed(2);
-        document.getElementById("hiddenAmount").value = amount;
-        document.getElementById("hiddenAmountPerMonth").value = (amount / 12).toFixed(2);
-    }
-
-    document.getElementById("City").addEventListener("change", function() {
-        var citySelect = document.getElementById("City");
-        var selectedCityIndex = citySelect.selectedIndex;
-        var selectedCityValue = citySelect.options[selectedCityIndex].value;
-        updateAmount(selectedCityValue);
-    });
-
-    document.getElementById("DeliveryCity").addEventListener("change", function() {
-        var deliveryCitySelect = document.getElementById("DeliveryCity");
-        var selectedDeliveryCityIndex = deliveryCitySelect.selectedIndex;
-        var selectedDeliveryCityValue = deliveryCitySelect.options[selectedDeliveryCityIndex].value;
-        updateAmount(selectedDeliveryCityValue);
-    });
-</script>

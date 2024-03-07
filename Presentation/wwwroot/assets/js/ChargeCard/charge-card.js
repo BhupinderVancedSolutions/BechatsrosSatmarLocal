@@ -180,3 +180,34 @@ $("#Amount").keyup(function () {
 
 
 
+function updateAmount(cityValue) {
+    var amount;
+    if (cityValue === "Monroe" || cityValue === "Monsey") {
+        amount = 339;
+    } else if (cityValue === "Brooklyn")
+    {
+        amount = 329;
+    }
+    else
+    {
+        amount = 0;
+    }
+    document.getElementById("Amount").innerText = amount;
+    document.getElementById("AmountPerMonth").innerText = (amount / 12).toFixed(2);
+    document.getElementById("hiddenAmount").value = amount;
+    document.getElementById("hiddenAmountPerMonth").value = (amount / 12).toFixed(2);
+}
+
+document.getElementById("City").addEventListener("change", function () {
+    var citySelect = document.getElementById("City");
+    var selectedCityIndex = citySelect.selectedIndex;
+    var selectedCityValue = citySelect.options[selectedCityIndex].value;
+    updateAmount(selectedCityValue);
+});
+
+document.getElementById("DeliveryCity").addEventListener("change", function () {
+    var deliveryCitySelect = document.getElementById("DeliveryCity");
+    var selectedDeliveryCityIndex = deliveryCitySelect.selectedIndex;
+    var selectedDeliveryCityValue = deliveryCitySelect.options[selectedDeliveryCityIndex].value;
+    updateAmount(selectedDeliveryCityValue);
+});
