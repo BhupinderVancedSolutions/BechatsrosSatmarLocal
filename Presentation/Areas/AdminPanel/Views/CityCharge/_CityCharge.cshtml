@@ -1,7 +1,7 @@
 ﻿@model DTO.Request.CityCharge.CityChargeRequestDto
 <form class="city-form">
     <div class="modal create-city-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog city-charge">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Add City</h1>
@@ -9,18 +9,21 @@
                 </div>
                 <div class="dv-inner-feature">
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="CityName" class="col-form-label">CityName:</label>
-                            <input type="text" placeholder="City" class="form-control" asp-for="CityName">
-                        </div>
-                        <div class="mb-3">
-                            <label for="Price" class="col-form-label">City Price:</label>
-                            <input type="text" placeholder="Price" class="form-control" asp-for="Price">
+                        <div class="addcity-charge">
+                            <div class="d-flex gap-2 align-items-center">
+                                <label for="CityName" class="col-form-label">CityName:</label>
+                                <input type="text" placeholder="City" class="form-control w-75" asp-for="CityName">
+                            </div>
+                            <div class="d-flex gap-2 align-items-center">
+                                <label for="Price" class="col-form-label">City Price:</label>
+                                <input type="text" placeholder="Price" class="form-control w-75" asp-for="Price">
+                            </div>
+                            <div>
+
+                                <a href="javascript:void(0);" onclick="AddNew()" class="add-icon btn px-2 btn-primary font-600 add-feature"><i class="fas fa-plus-circle me-1"></i>Add New</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <a href="javascript:void(0);" onclick="AddNew()" class="add-icon font-600 add-feature"><i class="fas fa-plus-circle mr-1"></i>Add New</a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
