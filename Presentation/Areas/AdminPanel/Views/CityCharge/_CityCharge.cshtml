@@ -11,16 +11,16 @@
                     <div class="modal-body">
                         <div class="addcity-charge">
                             <div class="d-flex gap-2 align-items-center">
-                                <label for="CityName" class="col-form-label">CityName:</label>
-                                <input type="text" placeholder="City" class="form-control w-75" asp-for="CityName">
+                                <label for="CityName" class="col-form-label">Name:</label>
+                                <input type="text" placeholder="City Name" class="form-control" asp-for="CityName">
                             </div>
                             <div class="d-flex gap-2 align-items-center">
-                                <label for="Price" class="col-form-label">City Price:</label>
-                                <input type="text" placeholder="Price" class="form-control w-75" asp-for="Price">
+                                <label for="Price" class="col-form-label">Price:</label>
+                                <input type="text" placeholder="City Price" class="form-control" asp-for="Price">
                             </div>
-                            <div>
-
-                                <a href="javascript:void(0);" onclick="AddNew()" class="add-icon btn px-2 btn-primary font-600 add-feature"><i class="fas fa-plus-circle me-1"></i>Add New</a>
+                            <div class="d-flex gap-2 align-items-center">
+                                <a href="javascript:void(0);" onclick="AddNew()" class="add-icon btn btn-primary"><i class="fas fa-plus-circle"></i></a>
+                                <a href="javascript:void(0);" onclick="AddNew()" class="add-icon btn btn-primary"><i class="fas fa-minus-circle"></i></a>
                             </div>
                         </div>
                     </div>
