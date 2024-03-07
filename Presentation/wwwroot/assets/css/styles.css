@@ -21,7 +21,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     --gray-100: #ACACAC;
     --black-color: #000000;
     --white-color: #ffffff;
-    --body-font: "Montserrat", sans-serif;
+    --body-font: 'Poppins', sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
 }
@@ -29,7 +29,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 body {
     background: #FFFBFE;
     color: var(--black-color);
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 1;
@@ -5187,10 +5187,15 @@ donate-inner-wrapper h2 {
 /*form City charge Csss
         ===========================================End==========================================*/
 
+
+.main-wrapper .main-wrapper_content {
+    width: calc(100% - 204px);
+}
+
 /*Header navbar Css=
     ===========================================================*/
 .navbar {
-    background-color: var(--secondary-color) !important;
+    background-color: var(--primary-color) !important;
     color: #ffffff;
 }
 .navbar .navbar-nav a {
@@ -5204,18 +5209,26 @@ donate-inner-wrapper h2 {
 /*Sidebar Css
     ============================================================*/
 .sidebar {
-    background-color: var(--secondary-color);
-    top: 45px;
+    background-color: #fff;
+    height: 100vh;
+    width: 204px;
+    position: relative;
+    box-shadow: 0px 5px 5px rgb(0,0,0,10%);
 }
-    .sidebar .menu-list .nav-link {
-        color: #fff;
-        font-weight: 600;
-        text-align: center;
-        padding: 8px 20px;
+    .sidebar .menu-list {
+        margin-top: 50px;
     }
+        .sidebar .menu-list .nav-link {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            padding: 8px 20px;
+            background-color: #a04696;
+        }
 
  .sidebar .menu-list .nav-link:hover {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
 }
 
 /*Sidebar Css
