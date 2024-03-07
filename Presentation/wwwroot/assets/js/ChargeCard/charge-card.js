@@ -46,23 +46,21 @@ function processChargeCard() {
             if (!data.isError) {
                 $(".sucess-modal").modal("show");
                 $("#charge-card")[0].reset();
-            }
-            else {
+                $("#Amount").text('');
+                $("#AmountPerMonth").text('');
+            } else {
                 $(".donation-error").html(data.error);
                 $(".sucess-fail-modal").modal("show");
                 $("#charge-card")[0].reset();
-
-
+                $("#Amount").text('');
+                $("#AmountPerMonth").text('');
             }
             ShowLoader(false);
         },
         error: function () {
-            // ShowLoader(false);
+         
         },
-        complete: function () {
 
-            // ShowLoader(false);
-        }
     });
     /*return false;*/
 }
@@ -182,14 +180,19 @@ $("#Amount").keyup(function () {
 
 function updateAmount(cityValue) {
     var amount;
+    var isDeliveryAddressSelected = document.querySelector('input[name="IsDeliveryAddress"]').checked;
+
+    if (isDeliveryAddressSelected) {
+        var deliveryCitySelect = document.getElementById("DeliveryCity");
+        var selectedDeliveryCityIndex = deliveryCitySelect.selectedIndex;
+        cityValue = deliveryCitySelect.options[selectedDeliveryCityIndex].value;
+    }
+
     if (cityValue === "Monroe" || cityValue === "Monsey") {
         amount = 339;
-    } else if (cityValue === "Brooklyn")
-    {
+    } else if (cityValue === "Brooklyn") {
         amount = 329;
-    }
-    else
-    {
+    } else {
         amount = 0;
     }
     document.getElementById("Amount").innerText = amount;
@@ -210,4 +213,19 @@ document.getElementById("DeliveryCity").addEventListener("change", function () {
     var selectedDeliveryCityIndex = deliveryCitySelect.selectedIndex;
     var selectedDeliveryCityValue = deliveryCitySelect.options[selectedDeliveryCityIndex].value;
     updateAmount(selectedDeliveryCityValue);
+});
+
+document.querySelector('input[name="IsDeliveryAddress"]').addEventListener("change", function () {
+    var isDeliveryAddressSelected = document.querySelector('input[name="IsDeliveryAddress"]').checked;
+    if (isDeliveryAddressSelected) {
+        var deliveryCitySelect = document.getElementById("DeliveryCity");
+        var selectedDeliveryCityIndex = deliveryCitySelect.selectedIndex;
+        var selectedDeliveryCityValue = deliveryCitySelect.options[selectedDeliveryCityIndex].value;
+        updateAmount(selectedDeliveryCityValue);
+    } else {
+        var citySelect = document.getElementById("City");
+        var selectedCityIndex = citySelect.selectedIndex;
+        var selectedCityValue = citySelect.options[selectedCityIndex].value;
+        updateAmount(selectedCityValue);
+    }
 });
