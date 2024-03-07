@@ -1,10 +1,10 @@
 ﻿@model DTO.Request.CityCharge.CityChargeRequestDto
-<form class="city-form" id="citiesForm">
+<form class="city-update-form">
     <div class="modal create-city-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog city-charge">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add City</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit City</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="dv-inner-feature">
@@ -13,12 +13,10 @@
                             <div class="d-flex gap-2 align-items-center">
                                 <label for="CityName" class="col-form-label">CityName:</label>
                                 <input type="text" placeholder="City" class="form-control w-75" asp-for="CityName">
-                                <span asp-validation-for="CityName" class="text-danger errormsg"></span>
                             </div>
                             <div class="d-flex gap-2 align-items-center">
                                 <label for="Price" class="col-form-label">City Price:</label>
                                 <input type="text" placeholder="Price" class="form-control w-75" asp-for="Price">
-                                <span asp-validation-for="Price" class="text-danger errormsg"></span>
                             </div>
                             <div>
 
@@ -29,7 +27,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="submitButton" onclick="saveUpdate()">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateCity(@Model.CityId)">Update</button>
                 </div>
             </div>
         </div>
@@ -37,7 +35,8 @@
 
 
 </form>
-<script src="~/assets/js/chargecard/charge-card.js" asp-append-version="true"></script>
+<script src="~/assets/js/CityCharge/city-charge.js" asp-append-version="true"></script>
+
 
 
 

@@ -1,4 +1,4 @@
-﻿using Application.Common.Dtos;
+﻿
 using Application.Common.Interfaces.DataBase;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Models.Request;
@@ -26,23 +26,28 @@ namespace Infrastructure.Implementation.Repositories
 
         public async Task<int> CreateUpdateCity(string cityXml, int userId)
         {
-            return await _dbContext.ExecuteStoredProcedure<int>("usp_CreateUpdateCity",
+            var dd =  await _dbContext.ExecuteStoredProcedure<int>("usp_CreateUpdateCity",
              _parameterManager.Get("UserId", userId),
              _parameterManager.Get("cityXml", cityXml )
              );
+            return dd;
         }
 
         public async Task<bool> DeleteCity(int cityId)
         {
-         return await _dbContext.ExecuteStoredProcedure("usp_DeleteCity",
-               _parameterManager.Get("CityId", cityId));
+
+                return await _dbContext.ExecuteStoredProcedure("usp_DeleteCity",
+              _parameterManager.Get("CityId", cityId));
+
+        
         }
         public async Task<bool> IsExistCity(string Name, int id = 0)
         {
-            return await _dbContext.ExecuteStoredProcedure<bool>("IsExistCity",
+            return await _dbContext.ExecuteStoredProcedure<bool>("usp_IsCityExist",
                 _parameterManager.Get("Id", id),
                  _parameterManager.Get("Name", Name));
         }
+
         public async Task<(List<CityChargeResponseDto>, int)> GetCities(CommonRequest commonRequest)
         {
             List<CityChargeResponseDto> categorys;
@@ -68,6 +73,21 @@ namespace Infrastructure.Implementation.Repositories
                 _parameterManager.Get("CityId", cityId),
                  _parameterManager.Get("CityName", cityName)
                );
+        }
+
+        public async Task<int> UpdateCity(UpdateRequestDto cityChargeRequestDto)
+        {
+            return await _dbContext.ExecuteStoredProcedure<int>("usp_UpdateCity",
+                _parameterManager.Get("CityId", cityChargeRequestDto.CityId),
+                 _parameterManager.Get("CityName", cityChargeRequestDto.CityName),
+                 _parameterManager.Get("Price", cityChargeRequestDto.Price)
+               );
+        }
+
+        public async Task<CityChargeResponseDto> GetCityById(int cityId)
+        {
+            return await _dbContext.ExecuteStoredProcedure<CityChargeResponseDto>("usp_GetCityById",
+                _parameterManager.Get("CityId", cityId));
         }
     }
 }

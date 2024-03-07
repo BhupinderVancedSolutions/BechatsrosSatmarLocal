@@ -1,17 +1,22 @@
 ﻿
-
 //ag grid start
 const categoryListingColumnDefs = [
     { headerName: 'City Name', field: 'cityName', filter: 'agTextColumnFilter', width: 100, flex: 1 },
     {
-        headerName: 'City Price', field: 'cityPrice', filter: 'agTextColumnFilter', width: 100, flex: 1, cellRenderer: (data) => {
-            return renderPercentageAction(data.value)
-        }
+        headerName: 'City Price', field: 'price', filter: 'agTextColumnFilter', width: 100, flex: 1
     },
+    {
+        headerName: "Action", pinned: 'right',
+        children:
+            [
+                { headerName: '', pinned: 'right', width: 52, minWidth: 52, filter: false, sortable: false, cellRenderer: (data) => { return renderCityEditAction(data); } },
+                { headerName: '', pinned: 'right', width: 52, minWidth: 52, cellRenderer: (data) => { return renderCityDeleteAction(data); }, colId: "delete", filter: false, sortable: false}
+            ],
+    }
 ];
-initAgGrid('.all-City', 'single', true, 20, null, null, null, null, categoryListingColumnDefs);
+initAgGrid('.all-City', 'single', true, 20, null, null, deleteCityAgGrid, null, categoryListingColumnDefs);
 getCategoryListing();
-//listingGridOptions = initAgGrid('.all-City', 'single', true, 20, null, null, null, null, categoryListingColumnDefs);
+
 function getCategoryListing() {
     var categoryServer = new getCategoryServer();
     // create datasource with a reference to the fake server
@@ -60,7 +65,8 @@ function renderCheckBoxForCategory(currentRow) {
 
 
 function GetAddModal() {
-    debugger
+
+
     $.ajax({
         type: 'GET',
         url: '/CityCharge/AddModel',
@@ -76,89 +82,76 @@ function GetAddModal() {
     });
 }
 
-//function AddNew() {
-//    $(".dv-inner-feature:last").clone(true).insertBefore($('#buttons'));
-//};
 
 function saveUpdate() {
     debugger
-    var dataObj = new Object();
-    var formData = new Object();
-    formData.CityName = $("#CityName").val();
-    formData.Price = $("#Price").val();
-    var featuresArray = [];
-    $(".add-feature").each(function (i, o) {
-        var feature = {
-            CityName: $("#CityName").val(),
-            Price: $("#Price").val(),
-        };
-        featuresArray.push(feature);
-    });
-    dataObj = formData;
-    dataObj.createUpdateRequestDtos = featuresArray;
-    $.ajax({
-        type: "POST",
-        url: "/CityCharge/CreateUpdateCity",
-        data: dataObj,
-        dataType: "json",
-        success: function (data) {
-            if (!data.isError) {
+    if ($('#CityName').val != "" && $('#Price').val != "") {
+        var dataObj = new Object();
+        var formData = new Object();
+        formData.CityName = $("#CityName").val();
+        formData.Price = $("#Price").val();
+        var featuresArray = [];
+        $(".add-feature").each(function (i, o) {
+            var feature = {
+                CityName: $("#CityName").val(),
+                Price: $("#Price").val(),
+            };
+            featuresArray.push(feature);
+        });
+        dataObj = formData;
+        dataObj.createUpdateRequestDtos = featuresArray;
+        $.ajax({
+            type: "POST",
+            url: "/CityCharge/CreateUpdateCity",
+            data: dataObj,
+            dataType: "json",
+            success: function (data) {
+                $('.create-city-modal').modal('hide');
+                ReloadGrid();
                 toastr.success("City Added Successfully")
+                ShowLoader(false);
+            },
+            error: function () {
+                toastr.error("Error occurred");
+                ShowLoader(false);
+            },
+            complete: function () {
+                // ShowLoader(false);
             }
-            else {
-                toastr.error("Error occurred")
-            }
-            ShowLoader(false);
-        },
-        error: function () {
-            toastr.error("Error occurred");
-            ShowLoader(false);
-        },
-        complete: function () {
-            // ShowLoader(false);
+        });
+    }
+    else {
+        if ($('#CityName').val() == "") {
+            $('#CityName').addClass('error-input');
         }
-    });
-
-}
-function createCategory() {
-    $.ajax({
-        type: 'GET',
-        url: '/AdminSetting/Category/CreateCategory',
-        dataType: 'html',
-        success: function (data) {
-            $(".div-modal").html("");
-            $(".div-modal").html(data);
-            $('.add-update').modal('show');
-            $("#addUpdateModalLabel").text("Add Catagory");
-        },
-        error: function (ex) {
-            $('.add-update').modal('hide');
+        if ($('#Price').val() == "") {
+            $('#Price').addClass('error-input');
         }
-    });
+    }
 }
 
 
-function renderCategoryEditAction(currentRow) {
+function renderCityEditAction(currentRow) {
     let eGui = document.createElement("div");
     eGui.innerHTML = `<div class="" data-toggle="tooltip" title="Edit">
-    <a class="btn btn-transparent btn-sm link-gray" value="Edit" onclick="editCategoryAgGrid(`+ currentRow.data.categoryId + `);"><svg width="13" height="15" class="icon me-1"><use xlink:href="../assets/images/sprite-icons.svg#edit-icon"></use></svg></a>`;
+    <a class="btn btn-transparent btn-sm link-gray" value="Edit" onclick="editCityAgGrid(`+ currentRow.data.cityId + `);"><svg width="13" height="15" class="icon me-1"><use xlink:href="../assets/images/sprite-icons.svg#edit-icon"></use></svg></a>`;
     return eGui;
 }
 
-function editCategoryAgGrid(categoryId) {
-    editCategory(categoryId);
+function editCityAgGrid(cityId) {
+    editCity(cityId);
 }
 
-function editCategory(categoryId) {
+function editCity(cityId) {
     $.ajax({
         type: "GET",
-        url: "/AdminSetting/Category/EditCategory",
-        data: { categoryId: categoryId },
+        url: "/AdminPanel/CityCharge/EditCity",
+        data: { cityId: cityId },
         dataType: "html",
         success: function (data) {
-            $(".div-modal").html("");
-            $(".div-modal").html(data);
-            $('.add-update').modal('show');
+            $(".all-show-City").html("");
+            $(".all-show-City").html(data);            
+            $('.create-city-modal').modal('show');
             $("#addUpdateModalLabel").text("Update Catagory");
         },
         error: function () {
@@ -167,28 +160,39 @@ function editCategory(categoryId) {
     });
 }
 
-function deleteCategoryAgGrid(selectedMember) {
-    deleteCategory(selectedMember.categoryId);
+function renderCityDeleteAction(currentRow) {
+    let eGui = document.createElement("div");
+    eGui.innerHTML = `<div class="" data-toggle="tooltip" title="delete">
+    <a class="btn btn-transparent btn-sm link-gray" value="delete" onclick="deleteCityAgGrid(`+ currentRow.data.cityId + `);"><svg width="13" height="15" class="icon me-1"><use xlink:href="../assets/images/sprite-icons.svg#trash-icon"></use></svg></a>`;
+    return eGui;
 }
 
-function deleteCategory(categoryId) {
-    $('.module-name').text('category');
-    $('.confirmation-modal').modal('show');
-    $('.confirmation-modal').modal({
+function deleteCityAgGrid(cityId) {
+    deleteCity(cityId);
+}
+
+function deleteCity(cityId) {
+    $('.confirmation-modal-city').modal('show');
+    $('.confirmation-modal-city').modal({
     }).one('click', '.btn-confirmation', function (e) {
         e.preventDefault();
         $.ajax({
             type: "Post",
-            url: "/AdminSetting/Category/DeleteCategory/",
-            data: { categoryId: categoryId },
+            url: "/AdminPanel/CityCharge/DeleteCity/",
+            data: { cityId: cityId },
             dataType: 'json',
             beforeSend: function () {
 
             },
             success: function (data) {
-                $('.confirmation-modal').modal('hide');
-                // method in common.js file
-                displayMessage(data, 'category');
+                $('.confirmation-modal-city').modal('hide');
+
+                if (data.success === true) {
+                    ReloadGrid();
+                    toastr.success("City deleted Successfully");
+                } else {
+                    toastr.error("Error occurred");
+                }
             },
             error: function () {
                 // method in common.js file
@@ -199,20 +203,62 @@ function deleteCategory(categoryId) {
     });
 }
 
-function updateCategoryStatus(categoryId, status) {
+
+function UpdateCity(cityId) {
+    var formData = $('.city-update-form').serialize();
+    formData += '&cityId=' + cityId;
     $.ajax({
-        type: "Post",
-        url: "/AdminSetting/Category/UpdateCategoryStatus/",
-        data: { categoryId: categoryId, status: status },
-        dataType: 'json',
+        type: "POST",
+        url: "/AdminPanel/CityCharge/UpdateCity",
+        data: formData,
+        dataType: "json",
+        beforeSend: function () {
+            showLoader(true);
+        },
         success: function (data) {
-            // method in common.js file
-            displayMessage(data, 'category');
+            if (data.success === true) {
+                ReloadGrid();
+                toastr.success("City Updated Successfully");
+                $('.create-city-modal').modal('hide');
+            } else {
+                toastr.error("Error occurred");
+            }
         },
         error: function () {
-            // method in common.js file
-            errorMessage();
+            toastr.error("Error occurred");
         }
     });
 }
+function ReloadGrid() {
+    listingGridOptions.api.refreshServerSideStore({ purge: true });
+}
 
+
+function deleteFilter(filterId, moduleId) {
+    $('.module-name').text('filter');
+    $('.confirmation-modal-city').modal('show');
+    $('.confirmation-modal-city').modal({
+    }).one('click', '.btn-confirmation', function (e) {
+        e.preventDefault();
+        showLoader(true);
+        $.ajax({
+            type: "Post",
+            url: "/FilteredValue/DeleteFilter/",
+            data: { filterId: filterId },
+            dataType: 'json',
+            success: function (data) {
+                showLoader(false);
+                $('.confirmation-modal').modal('hide');
+                // method in common.js file
+                displayMessage(data, 'filter');
+                getSaveFilteredColumnsDetailByUserId(moduleId);
+            },
+            error: function () {
+                showLoader(false);
+                // method in common.js file
+                errorMessage();
+            }
+        });
+
+    });
+}

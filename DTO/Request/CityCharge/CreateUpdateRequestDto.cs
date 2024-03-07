@@ -6,10 +6,7 @@ namespace DTO.Request.CityCharge
 {
     public class CreateUpdateRequestDtoList
     {
-        //public CreateUpdateRequestDtoList()
-        //{
-        //    createUpdateRequestDtos = new List<CreateUpdateRequestDto>();
-        //}
+  
         public List<CreateUpdateRequestDto> createUpdateRequestDtos { get; set; }
     }
     public class CreateUpdateRequestDto
