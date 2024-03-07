@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 using Presentation.Controllers;
 using Application.DTO.Response;
 using DTO.Request.CityCharge;
+using Common.Settings;
+using DTO.Request;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Common.Helper;
 
 namespace Presentation.Areas.AdminPanel.Controllers
 {
@@ -14,9 +19,13 @@ namespace Presentation.Areas.AdminPanel.Controllers
     {
 
         private readonly ICityChargeService _cityChargeService;
-        public CityChargeController(ICityChargeService cityChargeService)
+        private readonly AppSettings _appSettings;
+        private readonly UserRequest _user;
+        public CityChargeController(ICityChargeService cityChargeService, IOptions<AppSettings> appSettings, IHttpContextAccessor httpContextAccessor)
         {
             _cityChargeService = cityChargeService;
+            _appSettings = appSettings.Value;
+            _user = httpContextAccessor.HttpContext.Session.GetObjectFromJson<UserRequest>("LoggedInUserDetails", _appSettings.Secret);
         }
         public IActionResult Index()
         {
@@ -45,7 +54,7 @@ namespace Presentation.Areas.AdminPanel.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUpdateCity(CreateUpdateRequestDtoList CreateUpdateRequestDto)
         {
-           var dd =  await _cityChargeService.CreateUpdateCity(CreateUpdateRequestDto);
+           var dd =  await _cityChargeService.CreateUpdateCity(CreateUpdateRequestDto,_user.UserId);
             return Json(dd);
 
         }

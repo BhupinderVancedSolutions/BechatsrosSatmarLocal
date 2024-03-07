@@ -24,10 +24,10 @@ namespace Infrastructure.Implementation.Repositories
             _parameterManager = parameterManager;
         }
 
-        public async Task<string> CreateUpdateCity(string cityXml, CreateUpdateRequestDtoList createUpdateRequestDtoList)
+        public async Task<int> CreateUpdateCity(string cityXml, int userId)
         {
-            return await _dbContext.ExecuteStoredProcedure<string>("usp_CreateUpdateCity",
-             _parameterManager.Get("UserId", createUpdateRequestDtoList.createUpdateRequestDtos),
+            return await _dbContext.ExecuteStoredProcedure<int>("usp_CreateUpdateCity",
+             _parameterManager.Get("UserId", userId),
              _parameterManager.Get("cityXml", cityXml )
              );
         }
@@ -61,6 +61,13 @@ namespace Infrastructure.Implementation.Repositories
                 categorys = result.Read<CityChargeResponseDto>().ToList();
             }
             return (categorys, total);
+        }
+        public async Task<int> IsCityExist(int cityId,string cityName)
+        {
+            return await _dbContext.ExecuteStoredProcedure<int>("usp_IsCityExist",
+                _parameterManager.Get("CityId", cityId),
+                 _parameterManager.Get("CityName", cityName)
+               );
         }
     }
 }

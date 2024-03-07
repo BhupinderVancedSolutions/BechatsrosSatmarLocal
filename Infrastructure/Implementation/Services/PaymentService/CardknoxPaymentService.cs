@@ -14,8 +14,8 @@ using Infrastructure.DTO.Request.Cardknox;
 using Infrastructure.DTO.Response.Cardknox;
 using System.Net.Http.Headers;
 using DTO.Response;
-using Application.Common.Interfaces.Services;
 using Application.Common.Interfaces.Services.PaymentService;
+using Common.Helper;
 
 namespace Infrastructure.Implementation.Services.PaymentService
 {
@@ -32,23 +32,36 @@ namespace Infrastructure.Implementation.Services.PaymentService
         }
         #region Method
 
-        public CardknoxResponse PaymentByCreditCard(decimal amount, string cardNumber, string expirationMonth, string expirationYear, string cvv, string xkey, string clientSecret)
+        public CardknoxResponse PaymentByCreditCard(TransactionRequestDto transactionRequestDto)
         {
+            string expirationMonth = CommonHelper.GetStringValue(transactionRequestDto.ExpMonth);
+            string expirationYear = CommonHelper.GetStringValue(transactionRequestDto.ExpYear);
             if (expirationYear.Length > 2)
             {
                 expirationYear = expirationYear[2..];
             }
             CCSale cCSale = new CCSale
             {
-                Amount = amount,
-                CardNum = cardNumber,
+                Amount = transactionRequestDto.Amount,
+                CardNum = transactionRequestDto.CreditCardNumber,
                 Exp = $"{expirationMonth}{expirationYear}",
-                CVV = cvv,
-
-               
+                CVV = transactionRequestDto.Cvv,
+                BillFirstName= transactionRequestDto.FirstName,
+                BillLastName = transactionRequestDto.LastName,
+                BillStreet=transactionRequestDto.Address,
+                BillCountry = "USA",
+                BillState= "New York",
+                BillCity = transactionRequestDto.City,
+                BillZip=transactionRequestDto.Zip,
+                Zip = transactionRequestDto.Zip,
+                BillMobile = transactionRequestDto.PhoneNumber,               
+                Email= transactionRequestDto.Email,
+                CustReceipt=true,
+                Name= transactionRequestDto.CardTitle,
+                
             };
 
-            CardknoxRequest cardknoxRequest = new CardknoxRequest(xkey, clientSecret, "1.0.1");
+            CardknoxRequest cardknoxRequest = new CardknoxRequest(_cardknoxSetting.XKey, _cardknoxSetting.ClientSecret, "1.0.1");
             Cardknox cardknox = new Cardknox(cardknoxRequest);                   
             var response = cardknox.CCSale(cCSale);
             return response;
@@ -56,6 +69,14 @@ namespace Infrastructure.Implementation.Services.PaymentService
 
         public async Task<CardKnoxRecurringResponse> AddRecurringPayment(TransactionRequestDto transactionRequestDto)
         {
+            if (transactionRequestDto.IsDeliveryAddress)
+            {
+                transactionRequestDto.FirstName = transactionRequestDto.DeliveryName;
+                transactionRequestDto.LastName = "";
+                transactionRequestDto.Address = transactionRequestDto.DeliveryAddress;
+                transactionRequestDto.City = transactionRequestDto.DeliveryCity;
+                transactionRequestDto.Zip = transactionRequestDto.DeliveryZip;
+            }
             HttpClient client = GetClient(_cardknoxSetting.Token).GetAwaiter().GetResult();
             CreateScheduleResponseDto createScheduleResponseDto = new CreateScheduleResponseDto();
             CardKnoxRecurringResponse cardKnoxRecurringResponse = new();
@@ -68,73 +89,13 @@ namespace Infrastructure.Implementation.Services.PaymentService
                 BillLastName = transactionRequestDto.LastName,
                 BillCity= transactionRequestDto.City,
                 BillZip = transactionRequestDto.Zip,
-                Email = transactionRequestDto.Email
-            };
-
-            //var createCustomerResponse = await CreateCustomers(createCustomerRequestDto, client);
-            //if(createCustomerResponse.Error != null && createCustomerResponse.Error != "")
-            //{
-            //    cardKnoxRecurringResponse.IsError = true;
-            //    cardKnoxRecurringResponse.ErrorMessage = createCustomerResponse.Error;
-            //}
-            //if (createCustomerResponse.Error == null || createCustomerResponse.Error == "")
-            //{
-            //    var cardKnoxPaymentResponse = SaveCreditCard(transactionRequestDto.Amount, transactionRequestDto.CreditCardNumber, transactionRequestDto.ExpMonth.ToString(), transactionRequestDto.ExpYear.ToString(), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _cardknoxSetting.ClientSecret);
-            //    if (cardKnoxPaymentResponse.Error != null && cardKnoxPaymentResponse.Error != "") 
-            //    {
-            //        cardKnoxRecurringResponse.IsError = true;
-            //        cardKnoxRecurringResponse.ErrorMessage = cardKnoxPaymentResponse.Error;
-            //    }
-
-
-            //    if (createCustomerResponse != null && !string.IsNullOrEmpty(createCustomerResponse.CustomerId) && (cardKnoxPaymentResponse.Error == null || cardKnoxPaymentResponse.Error == ""))
-            //    {
-            //        CreatePaymentMethodRequestDto createPaymentMethodRequestDto = new()
-            //        {
-            //            SetAsDefault = true,
-            //            Exp = transactionRequestDto.ExpDate,
-            //            CustomerId = createCustomerResponse.CustomerId,
-            //            SoftwareName = _cardknoxSetting.xSoftwareName,
-            //            SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
-            //            Zip = transactionRequestDto.Zip,
-            //            Token = cardKnoxPaymentResponse.Token,
-            //            TokenType = "CC"
-            //        };
-
-            //        var createPaymentMethodResponse = await CreatePaymentMethod(createPaymentMethodRequestDto, client);
-            //        if (createPaymentMethodResponse.Error != null && createPaymentMethodResponse.Error != "")
-            //        {
-            //            cardKnoxRecurringResponse.IsError = true;
-            //            cardKnoxRecurringResponse.ErrorMessage = createPaymentMethodResponse.Error;
-            //        }
-            //        if (createPaymentMethodResponse != null && !string.IsNullOrEmpty(createPaymentMethodResponse.PaymentMethodId) && (createPaymentMethodResponse.Error == null || createPaymentMethodResponse.Error == ""))
-            //        {
-            //            CreateScheduleRequestDto createScheduleRequestDto = new()
-            //            {
-            //                Amount = transactionRequestDto.Amount,
-            //                SoftwareName = _cardknoxSetting.xSoftwareName,
-            //                SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
-            //                IntervalType = "Year",
-            //                IntervalCount = 1,
-            //                ScheduleName = "Samplee Schedule",
-            //                TotalPayments = 5,
-            //                SkipSaturdayAndHolidays = false,
-            //                AllowInitialTransactionToDecline = false,
-            //                CustReceipt = false,
-            //                CustomerId = createCustomerResponse.CustomerId
-
-
-            //            };
-            //            createScheduleResponseDto = await CreateSchedule(createScheduleRequestDto, client);
-            //            if (createScheduleResponseDto.Error != null && createScheduleResponseDto.Error != "")
-            //            {
-            //                cardKnoxRecurringResponse.IsError = true;
-            //                cardKnoxRecurringResponse.ErrorMessage = createScheduleResponseDto.Error;
-            //            }
-            //        }
-
-            //    }
-            //}
+                Email = transactionRequestDto.Email,                
+                BillStreet = transactionRequestDto.Address,
+                BillCountry = "USA",
+                BillState = "New York",                                
+                BillMobile = transactionRequestDto.PhoneNumber,   
+                
+            };            
 
             var createCustomerResponse = await CreateCustomers(createCustomerRequestDto, client);            
             if (createCustomerResponse != null && !string.IsNullOrEmpty(createCustomerResponse.CustomerId) && string.IsNullOrEmpty(createCustomerResponse.Error))
@@ -152,7 +113,9 @@ namespace Infrastructure.Implementation.Services.PaymentService
                         SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
                         Zip = transactionRequestDto.Zip,
                         Token = cardKnoxPaymentResponse.Token,
-                        TokenType = "CC"
+                        TokenType = "CC",
+                        Name= transactionRequestDto.FirstName+" "+ transactionRequestDto.LastName,
+                        Street= transactionRequestDto.Address                        
                     };
                    
                     var createPaymentMethodResponse = await CreatePaymentMethod(createPaymentMethodRequestDto, client);                   
@@ -163,14 +126,15 @@ namespace Infrastructure.Implementation.Services.PaymentService
                             Amount = transactionRequestDto.Amount,
                             SoftwareName = _cardknoxSetting.xSoftwareName,
                             SoftwareVersion = _cardknoxSetting.xSoftwareVersion,
-                            IntervalType = "Year",
-                            IntervalCount = 1,
-                            ScheduleName = "Samplee Schedule",
-                            TotalPayments = 5,
+                            IntervalType = _cardknoxSetting.IntervalType,
+                            IntervalCount = _cardknoxSetting.IntervalCount,
+                            ScheduleName = transactionRequestDto .CardTitle+ " Schedule",
+                            TotalPayments = _cardknoxSetting.TotalPayments,
                             SkipSaturdayAndHolidays = false,
                             AllowInitialTransactionToDecline = false,
-                            CustReceipt = false,
-                            CustomerId = createCustomerResponse.CustomerId
+                            CustReceipt = true,
+                            CustomerId = createCustomerResponse.CustomerId,
+                            PaymentMethodId= createPaymentMethodResponse.PaymentMethodId
 
 
                         };

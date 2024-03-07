@@ -23,13 +23,13 @@ namespace Presentation.Controllers
             _user = httpContextAccessor.HttpContext.Session.GetObjectFromJson<UserRequest>("LoggedInUserDetails", _appSettings.Secret);
         }
 
-        public async Task<IActionResult> ChargeCard(decimal? amount)
+        public async Task<IActionResult> ChargeCard()
         {
-            ViewData["ReturnUrl"] = amount;
+           // ViewData["ReturnUrl"] = amount;
             TransactionRequestDto transactionRequestDto = new();
-            transactionRequestDto.Amount = amount == null || amount == 0 ? 12 : (decimal)amount;
-            transactionRequestDto.AmountPerMonth = Math.Round(transactionRequestDto.Amount / 12, 2);
-            transactionRequestDto.UserId = _user?.UserId ?? 0;
+           // transactionRequestDto.Amount = amount == null || amount == 0 ? 12 : (decimal)amount;
+            //transactionRequestDto.AmountPerMonth = Math.Round(transactionRequestDto.Amount / 12, 2);
+          //  transactionRequestDto.UserId = _user?.UserId ?? 0;
             return View("~/Views/Payment/ChargeCard.cshtml", transactionRequestDto);
         }
         [HttpPost]

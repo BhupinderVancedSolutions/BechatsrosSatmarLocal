@@ -7,7 +7,7 @@ namespace Application.Common.Interfaces.Services.PaymentService
 {
     public interface ICardknoxPaymentService
     {
-        CardknoxResponse PaymentByCreditCard(decimal amount, string cardNumber, string expirationMonth, string expirationYear, string cvv, string xkey, string clientSecret);
+        CardknoxResponse PaymentByCreditCard(TransactionRequestDto transactionRequestDto);
         Task<CardKnoxRecurringResponse> AddRecurringPayment(TransactionRequestDto cardKnoxDonationRequest);
     }
 }

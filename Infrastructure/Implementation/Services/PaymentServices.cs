@@ -66,8 +66,17 @@ namespace Infrastructure.Implementation.Services
         {
             try
             {
+                if (transactionRequestDto.IsDeliveryAddress)
+                {
+                    transactionRequestDto.FirstName = transactionRequestDto.DeliveryName;
+                    transactionRequestDto.LastName = "";
+                    transactionRequestDto.Address = transactionRequestDto.DeliveryAddress;
+                    transactionRequestDto.City = transactionRequestDto.DeliveryCity;
+                    transactionRequestDto.Zip = transactionRequestDto.DeliveryZip;                
+                }
+
                 var transactions = new TransactionResponseDto();
-                var response = _cardknoxPaymentService.PaymentByCreditCard(transactionRequestDto.AmountPerMonth, transactionRequestDto.CreditCardNumber, CommonHelper.GetStringValue(transactionRequestDto.ExpMonth), CommonHelper.GetStringValue(transactionRequestDto.ExpYear), transactionRequestDto.Cvv, _cardknoxSetting.XKey, _cardknoxSetting.ClientSecret);
+                var response = _cardknoxPaymentService.PaymentByCreditCard(transactionRequestDto);
                 bool isTransactionSucceeded = string.IsNullOrEmpty(response.Error);
                 transactions.TransactionGuid = response.RefNum;
                 transactions.CCProcessorId = (int)CCProcessorTypeEnum.Cardknox;

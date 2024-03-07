@@ -2,13 +2,21 @@
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models.Request;
+using Application.DTO.Response;
 using Application.Models.Response;
+using Common.Constants;
+using Common.Helper;
+using Common.Settings;
+using DTO.Request;
 using DTO.Request.CityCharge;
 using DTO.Response.CityCharge;
 using Infrastructure.Attributes;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 
 
 namespace Infrastructure.Implementation.Services
@@ -16,16 +24,18 @@ namespace Infrastructure.Implementation.Services
     [ScopedService]
     public class CityChargeService : ICityChargeService
     {
-        private readonly ICityChargeRepository _cityChargeRepository;
+        private readonly ICityChargeRepository _cityChargeRepository;        
         public CityChargeService(ICityChargeRepository cityChargeRepository)
         {
-            _cityChargeRepository = cityChargeRepository;
-
+            _cityChargeRepository = cityChargeRepository;            
         }
 
-        public async Task<string> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList)
+        public async Task<Result> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList,int userId)
         {
-            return await _cityChargeRepository.CreateUpdateCity(CreateUpdateCityXml(createUpdateRequestDtoList), createUpdateRequestDtoList);
+           
+                var returnVal = await _cityChargeRepository.CreateUpdateCity(CreateUpdateCityXml(createUpdateRequestDtoList), userId);
+                return returnVal > 0 ? Result.Success(new string[] { ActionStatusConstant.Created }, returnVal) : Result.Failure(new string[] { ActionStatusConstant.Error });
+             
         }
 
         public async Task<bool> DeleteCity(int cityId)
@@ -51,13 +61,8 @@ namespace Infrastructure.Implementation.Services
 
             foreach (var findItems in createUpdateRequestDtoList.createUpdateRequestDtos)
             {
-                XmlNode doorSelectionNode = xmlDocument.CreateElement("CityXml");
-                XmlAttribute attribute = xmlDocument.CreateAttribute("UserId");
-                attribute.Value = findItems.UserId.ToString();
-                doorSelectionNode.Attributes.Append(attribute);
-                rootNode.AppendChild(doorSelectionNode);
-
-                attribute = xmlDocument.CreateAttribute("Price");
+                XmlNode doorSelectionNode = xmlDocument.CreateElement("CityXml");               
+                XmlAttribute attribute = xmlDocument.CreateAttribute("Price");
                 attribute.Value = findItems.Price.ToString();
                 doorSelectionNode.Attributes.Append(attribute);
                 rootNode.AppendChild(doorSelectionNode);

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Remove="wwwroot\assets\js\ThirdPartyPlugIn\Signalr\popper.js.map" />
     <Content Remove="wwwroot\assets\js\ThirdPartyPlugIn\Signalr\popper.min.js" />
     <Content Remove="wwwroot\assets\js\ThirdPartyPlugIn\Signalr\popper.min.js.map" />
@@ -50,6 +51,7 @@
 
   <ItemGroup>
     <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_LayoutAdmin.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="wwwroot\assets\js\ChargeCard\charge-card.js" />
