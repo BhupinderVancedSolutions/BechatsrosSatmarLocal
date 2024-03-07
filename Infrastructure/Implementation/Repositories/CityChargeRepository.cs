@@ -24,10 +24,10 @@ namespace Infrastructure.Implementation.Repositories
             _parameterManager = parameterManager;
         }
 
-        public async Task<string> CreateUpdateCity(string cityXml, int userId)
+        public async Task<string> CreateUpdateCity(string cityXml, CreateUpdateRequestDtoList createUpdateRequestDtoList)
         {
             return await _dbContext.ExecuteStoredProcedure<string>("usp_CreateUpdateCity",
-             _parameterManager.Get("UserId", userId),
+             _parameterManager.Get("UserId", createUpdateRequestDtoList.createUpdateRequestDtos),
              _parameterManager.Get("cityXml", cityXml )
              );
         }

@@ -10,7 +10,7 @@ namespace Application.Common.Interfaces.Services
 {
     public interface ICityChargeService
     {
-        Task<string> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList,int UserId);
+        Task<string> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList);
         Task<bool> DeleteCity(int cityId);
         Task<PaginatedList<CityChargeResponseDto>> GetCities(CommonRequest commonRequest);
 

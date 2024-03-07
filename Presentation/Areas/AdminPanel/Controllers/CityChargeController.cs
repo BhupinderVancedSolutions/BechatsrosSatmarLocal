@@ -5,6 +5,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Presentation.Controllers;
+using Application.DTO.Response;
+using DTO.Request.CityCharge;
 
 namespace Presentation.Areas.AdminPanel.Controllers
 {
@@ -24,7 +26,7 @@ namespace Presentation.Areas.AdminPanel.Controllers
         [HttpGet]
         public async Task<IActionResult> AddModel()
         {
-            return PartialView("~/Views\\CityCharge\\_CityCharge.cshtml");
+            return PartialView("~/Areas/AdminPanel/Views/CityCharge/_CityCharge.cshtml");
         }
 
         [HttpGet]
@@ -39,6 +41,13 @@ namespace Presentation.Areas.AdminPanel.Controllers
             };
             var categories = await Mediator.Send(new GetCitiesQuery { CommonRequest = commonRequest });
             return Json(categories);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateUpdateCity(CreateUpdateRequestDtoList CreateUpdateRequestDto)
+        {
+           var dd =  await _cityChargeService.CreateUpdateCity(CreateUpdateRequestDto);
+            return Json(dd);
+
         }
 
 

@@ -8,16 +8,6 @@ const categoryListingColumnDefs = [
             return renderPercentageAction(data.value)
         }
     },
- 
-    {
-        //headerName: "Action", pinned: 'right',
-        //children:
-        //    [
-        //        { headerName: '', pinned: 'right', width: 52, minWidth: 52, filter: false, sortable: false, cellRenderer: (data) => { return renderCategoryEditAction(data); } },
-        //        { headerName: '', pinned: 'right', width: 52, minWidth: 52, cellRenderer: rendererDeleteAction, colId: "delete", filter: false, sortable: false }
-        //    ],
-    }
-
 ];
 initAgGrid('.all-City', 'single', true, 20, null, null, null, null, categoryListingColumnDefs);
 getCategoryListing();
@@ -68,6 +58,68 @@ function renderCheckBoxForCategory(currentRow) {
     }
 }
 
+
+function GetAddModal() {
+    debugger
+    $.ajax({
+        type: 'GET',
+        url: '/CityCharge/AddModel',
+        dataType: 'html',
+        success: function (data) {
+            $(".all-show-City").html("");
+            $(".all-show-City").html(data);
+            $('.create-city-modal').modal('show');
+        },
+        error: function (ex) {
+            $('.create-city-modal').modal('hide');
+        }
+    });
+}
+
+//function AddNew() {
+//    $(".dv-inner-feature:last").clone(true).insertBefore($('#buttons'));
+//};
+
+function saveUpdate() {
+    debugger
+    var dataObj = new Object();
+    var formData = new Object();
+    formData.CityName = $("#CityName").val();
+    formData.Price = $("#Price").val();
+    var featuresArray = [];
+    $(".add-feature").each(function (i, o) {
+        var feature = {
+            CityName: $("#CityName").val(),
+            Price: $("#Price").val(),
+        };
+        featuresArray.push(feature);
+    });
+    dataObj = formData;
+    dataObj.createUpdateRequestDtos = featuresArray;
+    $.ajax({
+        type: "POST",
+        url: "/CityCharge/CreateUpdateCity",
+        data: dataObj,
+        dataType: "json",
+        success: function (data) {
+            if (!data.isError) {
+                toastr.success("City Added Successfully")
+            }
+            else {
+                toastr.error("Error occurred")
+            }
+            ShowLoader(false);
+        },
+        error: function () {
+            toastr.error("Error occurred");
+            ShowLoader(false);
+        },
+        complete: function () {
+            // ShowLoader(false);
+        }
+    });
+
+}
 function createCategory() {
     $.ajax({
         type: 'GET',

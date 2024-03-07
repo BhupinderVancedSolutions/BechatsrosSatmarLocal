@@ -23,9 +23,9 @@ namespace Infrastructure.Implementation.Services
 
         }
 
-        public async Task<string> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList,int userId)
+        public async Task<string> CreateUpdateCity(CreateUpdateRequestDtoList createUpdateRequestDtoList)
         {
-            return await _cityChargeRepository.CreateUpdateCity(CreateUpdateCityXml(createUpdateRequestDtoList),userId);
+            return await _cityChargeRepository.CreateUpdateCity(CreateUpdateCityXml(createUpdateRequestDtoList), createUpdateRequestDtoList);
         }
 
         public async Task<bool> DeleteCity(int cityId)
